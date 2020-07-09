@@ -84,10 +84,46 @@ Language barriers are a very common issue when it comes to traveling to getting 
 ### [BONUS] Interactive Prototype
 
 ## Schema 
-[This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+#### Message
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user message (default field) |
+   | author        | Pointer to User| message author |
+   | text       | String   | message author wrote |
+   | directedTo | Pointer to User   | unique id for who the message was for |
+   | createdAt     | DateTime | date when message is created (default field) |
+   | updatedAt     | DateTime | date when message is last updated (default field) |
 ### Networking
-- [Add list of network requests by screen ]
-- [Create basic snippets for each Parse network request]
-- [OPTIONAL: List endpoints if using existing API such as Yelp]
+#### List of network requests by screen
+   - Conversation Screen
+      - (POST) Detecting language of text
+         ```objective-c
+         ```
+      - (POST) Translate text to desired language
+          ```objective-c
+         [translationAPI translateText:@"Hello. How are you?"
+          usingSourceLanguage:nil
+          destinationLanguage:[[GTLanguage alloc] initWithLanguageCode:@"es"]
+        withCompletionHandler:^(NSArray *translations, NSError *error) {
+              if (error) {
+                 NSLog(@"error: %@", error);
+              } else {
+                 NSLog(@"translations: %@", translations);
+              }
+          }];
+         ```
+   - Create Post Screen
+      - (Create/POST) Create a new post object
+   - Profile Screen
+      - (Read/GET) Query logged in user object
+      - (Update/PUT) Update user profile image
+#### [OPTIONAL:] Existing API Endpoints
+##### An API Google Cloud Translation
+- Base URL - [https://translation.googleapis.com](https://translation.googleapis.com)
+
+   HTTP Verb | Endpoint | Description
+   ----------|----------|------------
+    `POST`    | /language/translate/v2 | translates input text, returning translated text
+    `POST`    | /language/translate/v2/detect | detects the language of text within request
