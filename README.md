@@ -28,13 +28,16 @@ Language barriers are a very common issue when it comes to traveling to getting 
 
 **Required Must-have Stories**
 
+* User sees app icon in home screen and styled launch screen
+* User us able to sign in or sign up
 * User can talk into the microphone and outputted in any other language
 * User can take a picture/scan a document and have that translated into their desired language
 * User can type something that they want a translation for in a certain language
 * Text is displayed on screen each time after every person has talked
 * There is a button mic for either person to tap when they want to talk
 * User can change between which langauges want to be translated for
-* User us able to sign in or sign up
+* User can see tab bar to navigate through views
+* User can view and edit their profile
 
 
 **Optional Nice-to-have Stories**
