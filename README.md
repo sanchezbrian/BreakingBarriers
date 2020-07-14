@@ -90,6 +90,18 @@ Language barriers are a very common issue when it comes to traveling to getting 
 
 ## Schema 
 ### Models
+#### Saved Translation
+
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | unique id for the user message (default field) |
+   | author        | Pointer to User| message author |
+   | text       | String   | the orginal saved text |
+   | translatedText | String   | the translated text |
+   | language | String | the original langauge |
+   | translatedLanguage | String | the translated language |
+   | createdAt     | DateTime | date when message is created (default field) |
+   | updatedAt     | DateTime | date when message is last updated (default field) |
 #### Message
 
    | Property      | Type     | Description |
