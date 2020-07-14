@@ -69,12 +69,14 @@ Language barriers are a very common issue when it comes to traveling to getting 
 
 **Flow Navigation** (Screen to Screen)
 
-* [list first screen here]
-   * [list screen navigation here]
-   * ...
-* [list second screen here]
-   * [list screen navigation here]
-   * ...
+* login/sign up
+   * conversation
+* Camera
+   * take picture
+   * scan and hover picture
+* Messages
+   * compose message
+   * open message
 
 ## Wireframes
 <img src="https://i.imgur.com/B4yFvN3.jpg" width=600>
