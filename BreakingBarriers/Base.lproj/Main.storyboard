@@ -15,7 +15,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="convo 1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYj-Uy-WQA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="convo 1" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYj-Uy-WQA">
                                 <rect key="frame" x="0.0" y="88" width="375" height="277"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -66,11 +66,27 @@
                         <outlet property="languageTwoButton" destination="vG5-mR-05y" id="9pT-oz-EFB"/>
                         <outlet property="micOneButton" destination="bPA-Tn-ij5" id="IJo-nV-z4L"/>
                         <outlet property="micTwoButton" destination="95U-C2-g4i" id="c4G-jd-2hA"/>
+                        <segue destination="oX1-nz-o94" kind="presentation" identifier="chooseLanguage" id="23X-uQ-hbi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2023.2" y="137.4384236453202"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="q0V-xJ-kop">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="oX1-nz-o94" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YtL-qH-2cA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="gji-oi-3Kw"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rUZ-1c-uJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2023" y="795"/>
         </scene>
         <!--Item-->
         <scene sceneID="h2v-BC-1t3">

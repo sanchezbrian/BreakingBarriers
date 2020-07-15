@@ -18,6 +18,7 @@
 		2FD1959924BF5B3700636107 /* BreakingBarriersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1959824BF5B3700636107 /* BreakingBarriersTests.m */; };
 		2FD195A424BF5B3700636107 /* BreakingBarriersUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195A324BF5B3700636107 /* BreakingBarriersUITests.m */; };
 		2FD195B624BF88E200636107 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195B524BF88E200636107 /* ConversationViewController.m */; };
+		2FD195B924BFA0E800636107 /* LanguageChooserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195B824BFA0E800636107 /* LanguageChooserViewController.m */; };
 		8C10A55FF9A333ECE3E29671 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7BF82196991C28B4651782 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework */; };
 		E6974EB0CC716333473B97EA /* Pods_BreakingBarriers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7EB72E81BC69EDB4B6CC33 /* Pods_BreakingBarriers.framework */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,8 @@
 		2FD195A524BF5B3700636107 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FD195B424BF88E100636107 /* ConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
 		2FD195B524BF88E200636107 /* ConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		2FD195B724BFA0E800636107 /* LanguageChooserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LanguageChooserViewController.h; sourceTree = "<group>"; };
+		2FD195B824BFA0E800636107 /* LanguageChooserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LanguageChooserViewController.m; sourceTree = "<group>"; };
 		5F6E4152632B60EF2A517A1E /* Pods_BreakingBarriersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreakingBarriersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		678EE712C28614520C6BA8C4 /* Pods-BreakingBarriersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreakingBarriersTests.debug.xcconfig"; path = "Target Support Files/Pods-BreakingBarriersTests/Pods-BreakingBarriersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C7BF82196991C28B4651782 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreakingBarriers_BreakingBarriersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,6 +181,8 @@
 			children = (
 				2FD195B424BF88E100636107 /* ConversationViewController.h */,
 				2FD195B524BF88E200636107 /* ConversationViewController.m */,
+				2FD195B724BFA0E800636107 /* LanguageChooserViewController.h */,
+				2FD195B824BFA0E800636107 /* LanguageChooserViewController.m */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 				2FD1957E24BF5B3500636107 /* AppDelegate.m in Sources */,
 				2FD1958F24BF5B3700636107 /* main.m in Sources */,
 				2FD1958124BF5B3500636107 /* SceneDelegate.m in Sources */,
+				2FD195B924BFA0E800636107 /* LanguageChooserViewController.m in Sources */,
 				2FD195B624BF88E200636107 /* ConversationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
