@@ -36,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en"]];
     self.speechRecognizer.delegate = self;
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         switch (status) {
@@ -65,7 +64,7 @@
     }];
 }
 
-- (void)startListen {
+- (void)startListen:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
     self.audioEngine = [[AVAudioEngine alloc] init];
     
     // checking if there is a recognition task in progress
@@ -88,8 +87,8 @@
             // Whatever you say in the microphone after pressing the button should be being logged
             // in the console.
             NSLog(@"RESULT:%@",result.bestTranscription.formattedString);
-            self.conversationOneLabel.text = result.bestTranscription.formattedString;
-            [self translate];
+            label.text = result.bestTranscription.formattedString;
+            [self translate:label to:labelTo source:source target:target];
             isFinal = !result.isFinal;
         }
         if (error) {
@@ -116,43 +115,65 @@
     if (self.audioEngine.isRunning) {
         [self.audioEngine stop];
         [self.recognitionRequest endAudio];
-        NSError *error;
-        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-        [audioSession setCategory:AVAudioSessionCategoryPlayback error:&error];
-        [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
-        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:self.conversationTwoLabel.text];
-        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"es"];
-        AVSpeechSynthesizer *syn = [[AVSpeechSynthesizer alloc] init];
-        [syn speakUtterance:utterance];
+        [self speakText:self.conversationTwoLabel.text withLanguage:self.langTwo];
     } else {
-        [self startListen];
+        [self SpeechLanguage:self.langOne];
+        [self startListen:self.conversationOneLabel to:self.conversationTwoLabel source:self.langOne target:self.langTwo];
+    }
+}
+- (IBAction)pressMicTwo:(id)sender {
+    if (self.audioEngine.isRunning) {
+        [self.audioEngine stop];
+        [self.recognitionRequest endAudio];
+        [self speakText:self.conversationOneLabel.text withLanguage:self.langOne];
+    } else {
+        [self SpeechLanguage:self.langTwo];
+        [self startListen:self.conversationTwoLabel to:self.conversationOneLabel source:self.langTwo target:self.langOne];
     }
 }
 
-- (void)translate {
-    MLKTranslatorOptions *options = [[MLKTranslatorOptions alloc] initWithSourceLanguage:MLKTranslateLanguageEnglish targetLanguage:MLKTranslateLanguageSpanish];
+- (void)speakText:(NSString *)text withLanguage:(NSString *)language {
+    NSError *error;
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    [audioSession setCategory:AVAudioSessionCategoryPlayback error:&error];
+    [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:language];
+    AVSpeechSynthesizer *syn = [[AVSpeechSynthesizer alloc] init];
+    [syn speakUtterance:utterance];
+}
+
+- (void)SpeechLanguage:(NSString *)language {
+    self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:language]];
+}
+
+- (void)translate:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
+    MLKTranslatorOptions *options = [[MLKTranslatorOptions alloc] initWithSourceLanguage:source targetLanguage:target];
     self.translator = [MLKTranslator translatorWithOptions:options];
     [self.translator downloadModelIfNeededWithCompletion:^(NSError * _Nullable error) {
         if (error != nil) {
-            self.conversationTwoLabel.text =
+            // self.conversationTwoLabel.text
+            labelTo.text =
                 [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@",
                                            error.localizedDescription];
             return;
           }
-          NSString *text = self.conversationOneLabel.text;
+                    //self.conversationOneLabel.text
+          NSString *text = label.text;
           if (text == nil) {
             text = @"";
           }
-          self.conversationTwoLabel.text = @"";
+            // self.conversationTwoLabel.text
+          labelTo.text = @"";
           [self.translator translateText:text
                               completion:^(NSString *_Nullable result, NSError *_Nullable error) {
                                 if (error != nil) {
-                                  self.conversationTwoLabel.text = [NSString
+                                  labelTo.text = [NSString
                                       stringWithFormat:@"Failed to ensure model downloaded with error %@",
                                                        error.localizedDescription];
                                   return;
                                 }
-                                self.conversationTwoLabel.text = result;
+                                labelTo.text = result;
                               }];
         }];
 }

@@ -59,6 +59,9 @@
                                 <rect key="frame" x="297" y="696" width="38" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="mic 2"/>
+                                <connections>
+                                    <action selector="pressMicTwo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zyQ-y0-ehn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
