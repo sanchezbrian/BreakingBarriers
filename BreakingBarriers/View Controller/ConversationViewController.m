@@ -7,6 +7,8 @@
 //
 
 #import "ConversationViewController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <QuartzCore/QuartzCore.h>
 @import MLKit;
 
 @interface ConversationViewController ()
@@ -114,6 +116,14 @@
     if (self.audioEngine.isRunning) {
         [self.audioEngine stop];
         [self.recognitionRequest endAudio];
+        NSError *error;
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        [audioSession setCategory:AVAudioSessionCategoryPlayback error:&error];
+        [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
+        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:self.conversationTwoLabel.text];
+        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"es"];
+        AVSpeechSynthesizer *syn = [[AVSpeechSynthesizer alloc] init];
+        [syn speakUtterance:utterance];
     } else {
         [self startListen];
     }
