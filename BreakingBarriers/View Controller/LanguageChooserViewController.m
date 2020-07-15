@@ -8,7 +8,6 @@
 
 #import "LanguageChooserViewController.h"
 #import "LanguageCell.h"
-@import MLKit;
 
 @interface LanguageChooserViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -50,13 +49,19 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     LanguageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LanguageCell" forIndexPath:indexPath];
-    NSLog(@"%@", self.allLanguages[indexPath.row]);
     cell.languageLabel.text = [NSLocale.currentLocale localizedStringForLanguageCode:self.allLanguages[indexPath.row]];
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.allLanguages.count;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *language = self.allLanguages[indexPath.row];
+    [self.delegate languageChooserViewController:self didPickLanguage:language];
+    NSLog(@"%@", language);
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

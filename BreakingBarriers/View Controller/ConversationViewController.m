@@ -12,7 +12,7 @@
 #import "LanguageChooserViewController.h"
 @import MLKit;
 
-@interface ConversationViewController ()
+@interface ConversationViewController () <LanguageChooserViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *conversationOneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *conversationTwoLabel;
 @property (weak, nonatomic) IBOutlet UIButton *languageOneButton;
@@ -26,6 +26,8 @@
 @property(nonatomic, strong) AVAudioEngine *audioEngine;
 @property(nonatomic, strong) MLKTranslator *translator;
 @property(nonatomic, strong) NSArray<MLKTranslateLanguage> *allLanguages;
+@property(nonatomic, strong) NSString *langOne;
+@property(nonatomic, strong) NSString *langTwo;
 
 @end
 
@@ -157,8 +159,21 @@
 - (IBAction)changeLangOne:(id)sender {
     [self performSegueWithIdentifier:@"chooseLanguage" sender:sender];
 }
+
 - (IBAction)changeLangTwo:(id)sender {
     [self performSegueWithIdentifier:@"chooseLanguage" sender:sender];
+}
+
+- (void)languageChooserViewController:(LanguageChooserViewController *)contoller didPickLanguage:(NSString *)language {
+    if (contoller.langOne) {
+        self.langOne = language;
+        [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+        NSLog(@"Language 1: %@", language);
+    } else {
+        self.langTwo = language;
+        [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+        NSLog(@"Language 2: %@", language);
+    }
 }
 
 #pragma mark - Navigation
@@ -169,6 +184,7 @@
     // Pass the selected object to the new view controller.
     UINavigationController *navController = segue.destinationViewController;
     LanguageChooserViewController *controller = navController.topViewController;
+    controller.delegate = self;
     if ([sender tag] == 1) {
         controller.langOne = YES;
     } else {

@@ -7,14 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+@import MLKit;
+@class LanguageChooserViewController;
 
-NS_ASSUME_NONNULL_BEGIN
+@protocol LanguageChooserViewControllerDelegate
+
+- (void)languageChooserViewController:(LanguageChooserViewController *)contoller didPickLanguage:(NSString *)language;
+
+@end
 
 @interface LanguageChooserViewController : UIViewController
 
+@property (weak, nonatomic) id<LanguageChooserViewControllerDelegate> delegate;
 @property (assign, nonatomic) BOOL langOne;
 @property (assign, nonatomic) BOOL langTwo;
 
 @end
 
-NS_ASSUME_NONNULL_END
