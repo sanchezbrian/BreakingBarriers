@@ -87,6 +87,7 @@
             // in the console.
             NSLog(@"RESULT:%@",result.bestTranscription.formattedString);
             self.conversationOneLabel.text = result.bestTranscription.formattedString;
+            [self translate];
             isFinal = !result.isFinal;
         }
         if (error) {
@@ -116,6 +117,34 @@
     } else {
         [self startListen];
     }
+}
+
+- (void)translate {
+    MLKTranslatorOptions *options = [[MLKTranslatorOptions alloc] initWithSourceLanguage:MLKTranslateLanguageEnglish targetLanguage:MLKTranslateLanguageSpanish];
+    self.translator = [MLKTranslator translatorWithOptions:options];
+    [self.translator downloadModelIfNeededWithCompletion:^(NSError * _Nullable error) {
+        if (error != nil) {
+            self.conversationTwoLabel.text =
+                [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@",
+                                           error.localizedDescription];
+            return;
+          }
+          NSString *text = self.conversationOneLabel.text;
+          if (text == nil) {
+            text = @"";
+          }
+          self.conversationTwoLabel.text = @"";
+          [self.translator translateText:text
+                              completion:^(NSString *_Nullable result, NSError *_Nullable error) {
+                                if (error != nil) {
+                                  self.conversationTwoLabel.text = [NSString
+                                      stringWithFormat:@"Failed to ensure model downloaded with error %@",
+                                                       error.localizedDescription];
+                                  return;
+                                }
+                                self.conversationTwoLabel.text = result;
+                              }];
+        }];
 }
 /*
 #pragma mark - Navigation
