@@ -9,6 +9,7 @@
 #import "ConversationViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
+#import "LanguageChooserViewController.h"
 @import MLKit;
 
 @interface ConversationViewController ()
@@ -60,9 +61,6 @@
       return [[currentLocale localizedStringForLanguageCode:lang1]
           compare:[currentLocale localizedStringForLanguageCode:lang2]];
     }];
-    for (MLKTranslateLanguage lang in self.allLanguages) {
-        NSLog(@"%@", lang);
-    }
 }
 
 - (void)startListen {
@@ -156,14 +154,21 @@
                               }];
         }];
 }
-/*
+- (IBAction)changeLangOne:(id)sender {
+    [self performSegueWithIdentifier:@"chooseLanguage" sender:sender];
+}
+- (IBAction)changeLangTwo:(id)sender {
+    [self performSegueWithIdentifier:@"chooseLanguage" sender:sender];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    
 }
-*/
+
 
 @end
