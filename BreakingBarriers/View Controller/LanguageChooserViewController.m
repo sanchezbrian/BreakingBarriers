@@ -34,6 +34,9 @@
           compare:[currentLocale localizedStringForLanguageCode:lang2]];
     }];
 }
+- (IBAction)pressX:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 /*
 #pragma mark - Navigation

@@ -118,7 +118,18 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="gji-oi-3Kw"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Language" id="yJ0-Qu-CKJ"/>
+                    <navigationItem key="navigationItem" title="Language" id="yJ0-Qu-CKJ">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Ww6-Fq-d5L">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8J1-gh-U8m">
+                                <rect key="frame" x="287" y="11" width="72" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="pressX:" destination="oX1-nz-o94" eventType="touchUpInside" id="Xjp-RM-kMs"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="OD9-Gn-kvX" id="MFe-56-3oR"/>
                     </connections>
@@ -183,4 +194,7 @@
             <point key="canvasLocation" x="2021.5999999999999" y="794.33497536945811"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+    </resources>
 </document>
