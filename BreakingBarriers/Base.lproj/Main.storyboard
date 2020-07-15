@@ -45,6 +45,9 @@
                                 <rect key="frame" x="40" y="696" width="36" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="mic 1"/>
+                                <connections>
+                                    <action selector="pressMicOne:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k0c-wC-hdA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="95U-C2-g4i">
                                 <rect key="frame" x="297" y="696" width="38" height="30"/>

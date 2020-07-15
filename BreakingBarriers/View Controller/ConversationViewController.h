@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Speech/Speech.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ConversationViewController : UIViewController
+@interface ConversationViewController : UIViewController <SFSpeechRecognizerDelegate>
 
 @end
 
