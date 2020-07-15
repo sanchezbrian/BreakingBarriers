@@ -167,7 +167,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    
+    UINavigationController *navController = segue.destinationViewController;
+    LanguageChooserViewController *controller = navController.topViewController;
+    if ([sender tag] == 1) {
+        controller.langOne = YES;
+    } else {
+        controller.langTwo = YES;
+    }
 }
 
 

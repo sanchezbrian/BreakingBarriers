@@ -20,6 +20,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"lang 1: %d", self.langOne);
+    NSLog(@"lang 2: %d", self.langTwo);
     // Do any additional setup after loading the view.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
