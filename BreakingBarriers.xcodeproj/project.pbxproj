@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0792B840E813DBDA531A4BAB /* Pods_BreakingBarriersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6E4152632B60EF2A517A1E /* Pods_BreakingBarriersTests.framework */; };
 		2FD1957E24BF5B3500636107 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1957D24BF5B3500636107 /* AppDelegate.m */; };
 		2FD1958124BF5B3500636107 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958024BF5B3500636107 /* SceneDelegate.m */; };
 		2FD1958424BF5B3500636107 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958324BF5B3500636107 /* ViewController.m */; };
@@ -16,6 +17,9 @@
 		2FD1958F24BF5B3700636107 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958E24BF5B3700636107 /* main.m */; };
 		2FD1959924BF5B3700636107 /* BreakingBarriersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1959824BF5B3700636107 /* BreakingBarriersTests.m */; };
 		2FD195A424BF5B3700636107 /* BreakingBarriersUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195A324BF5B3700636107 /* BreakingBarriersUITests.m */; };
+		2FD195B624BF88E200636107 /* ConversationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195B524BF88E200636107 /* ConversationViewController.m */; };
+		8C10A55FF9A333ECE3E29671 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7BF82196991C28B4651782 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework */; };
+		E6974EB0CC716333473B97EA /* Pods_BreakingBarriers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7EB72E81BC69EDB4B6CC33 /* Pods_BreakingBarriers.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01862698D80B2F5BF81D6726 /* Pods-BreakingBarriers-BreakingBarriersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreakingBarriers-BreakingBarriersUITests.debug.xcconfig"; path = "Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		2C7EB72E81BC69EDB4B6CC33 /* Pods_BreakingBarriers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreakingBarriers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FD1957924BF5B3500636107 /* BreakingBarriers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakingBarriers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FD1957C24BF5B3500636107 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2FD1957D24BF5B3500636107 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -54,6 +60,15 @@
 		2FD1959F24BF5B3700636107 /* BreakingBarriersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreakingBarriersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FD195A324BF5B3700636107 /* BreakingBarriersUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreakingBarriersUITests.m; sourceTree = "<group>"; };
 		2FD195A524BF5B3700636107 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FD195B424BF88E100636107 /* ConversationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationViewController.h; sourceTree = "<group>"; };
+		2FD195B524BF88E200636107 /* ConversationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationViewController.m; sourceTree = "<group>"; };
+		5F6E4152632B60EF2A517A1E /* Pods_BreakingBarriersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreakingBarriersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		678EE712C28614520C6BA8C4 /* Pods-BreakingBarriersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreakingBarriersTests.debug.xcconfig"; path = "Target Support Files/Pods-BreakingBarriersTests/Pods-BreakingBarriersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7C7BF82196991C28B4651782 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreakingBarriers_BreakingBarriersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C56CCDEEF4499BE1094A4C9 /* Pods-BreakingBarriers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreakingBarriers.release.xcconfig"; path = "Target Support Files/Pods-BreakingBarriers/Pods-BreakingBarriers.release.xcconfig"; sourceTree = "<group>"; };
+		A4D15CB0D5D548ED2FC5320A /* Pods-BreakingBarriers-BreakingBarriersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreakingBarriers-BreakingBarriersUITests.release.xcconfig"; path = "Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BABA4269DA5EAB13A10820DE /* Pods-BreakingBarriersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreakingBarriersTests.release.xcconfig"; path = "Target Support Files/Pods-BreakingBarriersTests/Pods-BreakingBarriersTests.release.xcconfig"; sourceTree = "<group>"; };
+		E380C23AA1B4C7C08D086F7E /* Pods-BreakingBarriers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreakingBarriers.debug.xcconfig"; path = "Target Support Files/Pods-BreakingBarriers/Pods-BreakingBarriers.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6974EB0CC716333473B97EA /* Pods_BreakingBarriers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0792B840E813DBDA531A4BAB /* Pods_BreakingBarriersTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,12 +92,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C10A55FF9A333ECE3E29671 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08A92D3372D31AF0A7573F8F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E380C23AA1B4C7C08D086F7E /* Pods-BreakingBarriers.debug.xcconfig */,
+				8C56CCDEEF4499BE1094A4C9 /* Pods-BreakingBarriers.release.xcconfig */,
+				01862698D80B2F5BF81D6726 /* Pods-BreakingBarriers-BreakingBarriersUITests.debug.xcconfig */,
+				A4D15CB0D5D548ED2FC5320A /* Pods-BreakingBarriers-BreakingBarriersUITests.release.xcconfig */,
+				678EE712C28614520C6BA8C4 /* Pods-BreakingBarriersTests.debug.xcconfig */,
+				BABA4269DA5EAB13A10820DE /* Pods-BreakingBarriersTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		2FD1957024BF5B3500636107 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +119,8 @@
 				2FD1959724BF5B3700636107 /* BreakingBarriersTests */,
 				2FD195A224BF5B3700636107 /* BreakingBarriersUITests */,
 				2FD1957A24BF5B3500636107 /* Products */,
+				08A92D3372D31AF0A7573F8F /* Pods */,
+				75FB660E5DDF3ED7C5FF7480 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,6 +137,9 @@
 		2FD1957B24BF5B3500636107 /* BreakingBarriers */ = {
 			isa = PBXGroup;
 			children = (
+				2FD195B324BF60D800636107 /* Models */,
+				2FD195B224BF609600636107 /* Views */,
+				2FD195B124BF608E00636107 /* View Controller */,
 				2FD1957C24BF5B3500636107 /* AppDelegate.h */,
 				2FD1957D24BF5B3500636107 /* AppDelegate.m */,
 				2FD1957F24BF5B3500636107 /* SceneDelegate.h */,
@@ -137,6 +173,39 @@
 			path = BreakingBarriersUITests;
 			sourceTree = "<group>";
 		};
+		2FD195B124BF608E00636107 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2FD195B424BF88E100636107 /* ConversationViewController.h */,
+				2FD195B524BF88E200636107 /* ConversationViewController.m */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		2FD195B224BF609600636107 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		2FD195B324BF60D800636107 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		75FB660E5DDF3ED7C5FF7480 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2C7EB72E81BC69EDB4B6CC33 /* Pods_BreakingBarriers.framework */,
+				7C7BF82196991C28B4651782 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework */,
+				5F6E4152632B60EF2A517A1E /* Pods_BreakingBarriersTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -144,9 +213,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2FD195A824BF5B3700636107 /* Build configuration list for PBXNativeTarget "BreakingBarriers" */;
 			buildPhases = (
+				3B67B0E53E25E8B3CF4DF7C2 /* [CP] Check Pods Manifest.lock */,
 				2FD1957524BF5B3500636107 /* Sources */,
 				2FD1957624BF5B3500636107 /* Frameworks */,
 				2FD1957724BF5B3500636107 /* Resources */,
+				7685953519B4737D432F0CCD /* [CP] Embed Pods Frameworks */,
+				8F871B79F347F647F61F4032 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -161,6 +233,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2FD195AB24BF5B3700636107 /* Build configuration list for PBXNativeTarget "BreakingBarriersTests" */;
 			buildPhases = (
+				68B0AAA8233F258E8757CAED /* [CP] Check Pods Manifest.lock */,
 				2FD1959024BF5B3700636107 /* Sources */,
 				2FD1959124BF5B3700636107 /* Frameworks */,
 				2FD1959224BF5B3700636107 /* Resources */,
@@ -179,9 +252,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2FD195AE24BF5B3700636107 /* Build configuration list for PBXNativeTarget "BreakingBarriersUITests" */;
 			buildPhases = (
+				5894A8195DE6E47C15805FD0 /* [CP] Check Pods Manifest.lock */,
 				2FD1959B24BF5B3700636107 /* Sources */,
 				2FD1959C24BF5B3700636107 /* Frameworks */,
 				2FD1959D24BF5B3700636107 /* Resources */,
+				5FC29196DAF008A960DB88F8 /* [CP] Embed Pods Frameworks */,
+				5894628DAE4EA7CEC233022E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -262,6 +338,143 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3B67B0E53E25E8B3CF4DF7C2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BreakingBarriers-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5894628DAE4EA7CEC233022E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5894A8195DE6E47C15805FD0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BreakingBarriers-BreakingBarriersUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5FC29196DAF008A960DB88F8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		68B0AAA8233F258E8757CAED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BreakingBarriersTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7685953519B4737D432F0CCD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers/Pods-BreakingBarriers-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers/Pods-BreakingBarriers-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers/Pods-BreakingBarriers-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F871B79F347F647F61F4032 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers/Pods-BreakingBarriers-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers/Pods-BreakingBarriers-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BreakingBarriers/Pods-BreakingBarriers-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2FD1957524BF5B3500636107 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -271,6 +484,7 @@
 				2FD1957E24BF5B3500636107 /* AppDelegate.m in Sources */,
 				2FD1958F24BF5B3700636107 /* main.m in Sources */,
 				2FD1958124BF5B3500636107 /* SceneDelegate.m in Sources */,
+				2FD195B624BF88E200636107 /* ConversationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +651,7 @@
 		};
 		2FD195A924BF5B3700636107 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E380C23AA1B4C7C08D086F7E /* Pods-BreakingBarriers.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -454,6 +669,7 @@
 		};
 		2FD195AA24BF5B3700636107 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8C56CCDEEF4499BE1094A4C9 /* Pods-BreakingBarriers.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -471,6 +687,7 @@
 		};
 		2FD195AC24BF5B3700636107 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 678EE712C28614520C6BA8C4 /* Pods-BreakingBarriersTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -491,6 +708,7 @@
 		};
 		2FD195AD24BF5B3700636107 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BABA4269DA5EAB13A10820DE /* Pods-BreakingBarriersTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -511,6 +729,7 @@
 		};
 		2FD195AF24BF5B3700636107 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01862698D80B2F5BF81D6726 /* Pods-BreakingBarriers-BreakingBarriersUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 583UGG5VM7;
@@ -529,6 +748,7 @@
 		};
 		2FD195B024BF5B3700636107 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A4D15CB0D5D548ED2FC5320A /* Pods-BreakingBarriers-BreakingBarriersUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 583UGG5VM7;
