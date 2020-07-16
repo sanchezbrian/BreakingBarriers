@@ -10,12 +10,12 @@
 #import "LanguageChooserViewController.h"
 @import MLKit;
 
-@interface TranslateViewController () <LanguageChooserViewControllerDelegate>
+@interface TranslateViewController () <LanguageChooserViewControllerDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *langOneButton;
 @property (weak, nonatomic) IBOutlet UIButton *langTwoButton;
 @property (weak, nonatomic) IBOutlet UITextField *sourceTextField;
 @property (weak, nonatomic) IBOutlet UILabel *outputLabel;
-
+@property(nonatomic, strong) MLKTranslator *translator;
 @property (strong, nonatomic) NSString *langOne;
 @property (strong, nonatomic) NSString *langTwo;
 
@@ -25,8 +25,50 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.sourceTextField.delegate = self;
+    self.sourceTextField.returnKeyType = UIReturnKeyDone;
 }
+
+- (void)textFieldDidChangeSelection:(UITextField *)textField {
+    [self translate];
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+     if ([string isEqualToString:@"\n"]) {
+        [textField resignFirstResponder];
+        return NO;
+      }
+      return YES;
+}
+
+- (void)translate {
+    MLKTranslatorOptions *options = [[MLKTranslatorOptions alloc] initWithSourceLanguage:self.langOne targetLanguage:self.langTwo];
+    self.translator = [MLKTranslator translatorWithOptions:options];
+    [self.translator downloadModelIfNeededWithCompletion:^(NSError * _Nullable error) {
+        if (error != nil) {
+            self.outputLabel.text =
+                [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@",
+                                           error.localizedDescription];
+            return;
+          }
+        NSString *text = self.sourceTextField.text;
+          if (text == nil) {
+            text = @"";
+          }
+        self.outputLabel.text = @"";
+          [self.translator translateText:text
+                              completion:^(NSString *_Nullable result, NSError *_Nullable error) {
+                                if (error != nil) {
+                                  self.outputLabel.text = [NSString
+                                      stringWithFormat:@"Failed to ensure model downloaded with error %@",
+                                                       error.localizedDescription];
+                                  return;
+                                }
+                                self.outputLabel.text = result;
+                              }];
+        }];
+}
+
 - (IBAction)changeLangOne:(id)sender {
     [self performSegueWithIdentifier:@"languagePicker" sender:sender];
 }
