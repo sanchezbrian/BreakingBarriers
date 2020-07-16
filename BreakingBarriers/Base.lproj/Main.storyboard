@@ -139,13 +139,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUZ-1c-uJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2964" y="794.33497536945811"/>
+            <point key="canvasLocation" x="3906.4000000000001" y="794.33497536945811"/>
         </scene>
-        <!--Item-->
+        <!--Conversation-->
         <scene sceneID="h2v-BC-1t3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lje-YD-yuW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="ZxR-TQ-olA"/>
+                    <tabBarItem key="tabBarItem" title="Conversation" id="ZxR-TQ-olA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NXn-dA-BVu">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -172,11 +172,73 @@
                     </tabBar>
                     <connections>
                         <segue destination="lje-YD-yuW" kind="relationship" relationship="viewControllers" id="SJj-cL-Q6j"/>
+                        <segue destination="m8U-z7-Mgd" kind="relationship" relationship="viewControllers" id="Xmn-BX-fcR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rfq-c0-hjq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="138.40000000000001" y="137.4384236453202"/>
+        </scene>
+        <!--Tranlate-->
+        <scene sceneID="DK3-Ml-2Ze">
+            <objects>
+                <viewController id="HkH-J0-bDt" customClass="TranslateViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BDX-gF-12J">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRo-0x-kdd">
+                                <rect key="frame" x="0.0" y="88" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjQ-kA-2vL">
+                                <rect key="frame" x="0.0" y="95" width="156" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Lang 1"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlD-ZG-ZmT">
+                                <rect key="frame" x="219" y="95" width="156" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Lang 2"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkf-ZH-kkX">
+                                <rect key="frame" x="164" y="95" width="47" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Switch"/>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="brc-tK-oij">
+                                <rect key="frame" x="0.0" y="133" width="375" height="91"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="webSearch" returnKeyType="go"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hola amigo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RR1-nu-Cwe">
+                                <rect key="frame" x="0.0" y="244" width="375" height="98"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="cz3-13-n3x"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Tranlate" id="kQE-9t-oUW"/>
+                    <connections>
+                        <outlet property="langOneButton" destination="XjQ-kA-2vL" id="g4U-Kv-eAF"/>
+                        <outlet property="langTwoButton" destination="YlD-ZG-ZmT" id="cgD-t4-SnC"/>
+                        <outlet property="outputLabel" destination="RR1-nu-Cwe" id="3SR-rl-XHq"/>
+                        <outlet property="sourceTextField" destination="brc-tK-oij" id="YKq-PT-dUS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ph-za-Yti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1079.2" y="815.76354679802955"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="84r-Ln-yN4">
@@ -194,7 +256,26 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pSl-L5-UHn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2021.5999999999999" y="794.33497536945811"/>
+            <point key="canvasLocation" x="2964" y="794.33497536945811"/>
+        </scene>
+        <!--Translate-->
+        <scene sceneID="dCn-LE-AOD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m8U-z7-Mgd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Translate" id="aeZ-1V-dkV"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BNY-ui-OP6">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HkH-J0-bDt" kind="relationship" relationship="rootViewController" id="b4c-Zi-Sx5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hNy-6W-j8u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="815.76354679802955"/>
         </scene>
     </scenes>
     <resources>
