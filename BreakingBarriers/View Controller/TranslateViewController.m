@@ -8,6 +8,7 @@
 
 #import "TranslateViewController.h"
 #import "LanguageChooserViewController.h"
+#import <QuartzCore/QuartzCore.h>
 @import MLKit;
 
 @interface TranslateViewController () <LanguageChooserViewControllerDelegate, UITextFieldDelegate>
@@ -25,11 +26,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.outputLabel.alpha = 0;
     self.sourceTextField.delegate = self;
     self.sourceTextField.returnKeyType = UIReturnKeyDone;
+    [self.sourceTextField setBorderStyle:UITextBorderStyleNone];
+    self.sourceTextField.layer.borderWidth = 1;
+    self.sourceTextField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
 }
 
 - (void)textFieldDidChangeSelection:(UITextField *)textField {
+    [UILabel animateWithDuration:.2 animations:^{
+        self.outputLabel.alpha = 1;
+    }];
     [self translate];
 }
 
@@ -74,6 +82,13 @@
 }
 - (IBAction)changeLangTwo:(id)sender {
     [self performSegueWithIdentifier:@"languagePicker" sender:sender];
+}
+- (IBAction)switchButton:(id)sender {
+    NSString *temp = self.langOne;
+    self.langOne = self.langTwo;
+    self.langTwo = temp;
+    [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:self.langOne] forState:UIControlStateNormal];
+    [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:self.langTwo] forState:UIControlStateNormal];
 }
 
 - (void)languageChooserViewController:(LanguageChooserViewController *)contoller didPickLanguage:(NSString *)language {
