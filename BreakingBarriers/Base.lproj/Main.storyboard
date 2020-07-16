@@ -195,15 +195,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjQ-kA-2vL">
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XjQ-kA-2vL">
                                 <rect key="frame" x="0.0" y="95" width="156" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Lang 1"/>
+                                <connections>
+                                    <action selector="changeLangOne:" destination="HkH-J0-bDt" eventType="touchUpInside" id="qeM-4E-jeZ"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlD-ZG-ZmT">
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlD-ZG-ZmT">
                                 <rect key="frame" x="219" y="95" width="156" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Lang 2"/>
+                                <connections>
+                                    <action selector="changeLangTwo:" destination="HkH-J0-bDt" eventType="touchUpInside" id="eJd-ij-Ht5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nkf-ZH-kkX">
                                 <rect key="frame" x="164" y="95" width="47" height="30"/>
@@ -234,6 +240,7 @@
                         <outlet property="langTwoButton" destination="YlD-ZG-ZmT" id="cgD-t4-SnC"/>
                         <outlet property="outputLabel" destination="RR1-nu-Cwe" id="3SR-rl-XHq"/>
                         <outlet property="sourceTextField" destination="brc-tK-oij" id="YKq-PT-dUS"/>
+                        <segue destination="oUi-Dq-O3e" kind="presentation" identifier="languagePicker" id="reU-cd-iOS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ph-za-Yti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -278,6 +285,9 @@
             <point key="canvasLocation" x="136.80000000000001" y="815.76354679802955"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="reU-cd-iOS"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
