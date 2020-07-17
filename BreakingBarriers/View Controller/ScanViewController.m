@@ -8,13 +8,16 @@
 
 #import "ScanViewController.h"
 #import <AVFoundation/AVFoundation.h>
+@import MLKit;
 
 @interface ScanViewController ()
 @property (weak, nonatomic) IBOutlet UIView *previewView;
 
-@property (nonatomic) AVCaptureSession *captureSession;
-@property (nonatomic) AVCapturePhotoOutput *stillImageOutput;
-@property (nonatomic) AVCaptureVideoPreviewLayer *videoPreviewLayer;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic, strong) AVCapturePhotoOutput *stillImageOutput;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
+@property (nonatomic, strong) UIView *overlayView;
+
 @end
 
 @implementation ScanViewController
@@ -43,6 +46,7 @@
             [self.captureSession addInput:input];
             [self.captureSession addOutput:self.stillImageOutput];
             [self setupLivePreview];
+            [self setUpPreviewOverlayView];
         }
     } else {
         NSLog(@"Error Unable to initialize back camera: %@", error.localizedDescription);
@@ -52,8 +56,11 @@
 - (void)setupLivePreview {
     self.videoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
     if(self.videoPreviewLayer) {
-        self.videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        self.videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        self.videoPreviewLayer.backgroundColor = UIColor.blackColor.CGColor;
         self.videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
+        self.previewView.layer.masksToBounds = YES;
+        self.videoPreviewLayer.frame = self.previewView.bounds;
         [self.previewView.layer addSublayer: self.videoPreviewLayer];
         dispatch_queue_t globalQueue =  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
         dispatch_async(globalQueue, ^{
@@ -63,6 +70,24 @@
             });
         });
     }
+}
+
+- (void)setUpPreviewOverlayView {
+    self.overlayView = [[UIView alloc] initWithFrame:self.videoPreviewLayer.frame];
+    self.overlayView.layer.backgroundColor = UIColor.blackColor.CGColor;
+    self.overlayView.alpha = .3;
+    [self.previewView addSubview:self.overlayView];
+    CGRect rect = CGRectMake(self.previewView.frame.size.width / 2 - 125, self.previewView.frame.size.height / 2 - 50, 250, 100);
+    [self addRectangle:rect toView:self.previewView color:UIColor.clearColor];
+}
+
+- (void)addRectangle:(CGRect)rectangle toView:(UIView *)view color:(UIColor *)color {
+    UIView *rectangleView = [[UIView alloc] initWithFrame:rectangle];
+    rectangleView.layer.cornerRadius = 10;
+    rectangleView.layer.borderColor = [UIColor whiteColor].CGColor;
+    rectangleView.layer.borderWidth = 3;
+    rectangleView.backgroundColor = color;
+    [view addSubview:rectangleView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
