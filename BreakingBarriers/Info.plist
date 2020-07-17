@@ -64,5 +64,9 @@
 	<string>This app uses your microphone to record what you say, so watch what you say!</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>This app uses Speech recognition to transform your spoken words into text and then analyze the, so watch what you say!.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Need Library access to upload images</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Need camera access to scan and translated documents</string>
 </dict>
 </plist>
