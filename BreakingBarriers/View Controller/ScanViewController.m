@@ -10,13 +10,23 @@
 #import <AVFoundation/AVFoundation.h>
 @import MLKit;
 
-@interface ScanViewController ()
+static NSString *const sessionQueueLabel = @"com.google.mlkit.visiondetector.SessionQueue";
+static NSString *const videoDataOutputQueueLabel =
+@"com.google.mlkit.visiondetector.VideoDataOutputQueue";
+
+@interface ScanViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
 @property (weak, nonatomic) IBOutlet UIView *previewView;
+@property (weak, nonatomic) IBOutlet UILabel *languageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *resultLabel;
+@property (weak, nonatomic) IBOutlet UILabel *translatedLabel;
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCapturePhotoOutput *stillImageOutput;
+@property (nonatomic, strong) AVCaptureVideoDataOutput *videoOutput;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
 @property (nonatomic, strong) UIView *overlayView;
+@property(nonatomic) CMSampleBufferRef lastFrame;
+@property(nonatomic) dispatch_queue_t sessionQueue;
 
 @end
 
@@ -24,33 +34,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.sessionQueue = dispatch_queue_create(sessionQueueLabel.UTF8String, nil);
+    self.captureSession = [[AVCaptureSession alloc] init];
+    [self setUpCaptureSessionInput];
+    [self setUpCaptureSessionOutput];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.captureSession = [AVCaptureSession new];
-    self.captureSession.sessionPreset = AVCaptureSessionPresetPhoto;
-    AVCaptureDevice *backCamera = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    if (!backCamera) {
-        NSLog(@"Unable to access back camera");
-        return;
-    }
-    NSError *error;
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:backCamera error:&error];
-    if (!error) {
-        self.stillImageOutput = [AVCapturePhotoOutput new];
-
-        if ([self.captureSession canAddInput:input] && [self.captureSession canAddOutput:self.stillImageOutput]) {
-            
-            [self.captureSession addInput:input];
-            [self.captureSession addOutput:self.stillImageOutput];
-            [self setupLivePreview];
-            [self setUpPreviewOverlayView];
-        }
-    } else {
-        NSLog(@"Error Unable to initialize back camera: %@", error.localizedDescription);
-    }
+    [self setupLivePreview];
+    [self startSession];
+    
 }
 
 - (void)setupLivePreview {
@@ -59,17 +53,78 @@
         self.videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         self.videoPreviewLayer.backgroundColor = UIColor.blackColor.CGColor;
         self.videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
-        self.previewView.layer.masksToBounds = YES;
         self.videoPreviewLayer.frame = self.previewView.bounds;
         [self.previewView.layer addSublayer: self.videoPreviewLayer];
-        dispatch_queue_t globalQueue =  dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        dispatch_async(globalQueue, ^{
-            [self.captureSession startRunning];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.videoPreviewLayer.frame = self.previewView.bounds;
-            });
-        });
+        NSLog(@"pereview height: %f", self.videoPreviewLayer.frame.size.height);
+        NSLog(@"preview width: %f", self.videoPreviewLayer.frame.size.width);
+        [self setUpPreviewOverlayView];
     }
+}
+
+- (void)setUpCaptureSessionOutput {
+  dispatch_async(_sessionQueue, ^{
+    [self->_captureSession beginConfiguration];
+    // When performing latency tests to determine ideal capture settings,
+    // run the app in 'release' mode to get accurate performance metrics
+    self->_captureSession.sessionPreset = AVCaptureSessionPresetMedium;
+
+    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
+    output.videoSettings = @{
+      (id)
+      kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA]
+    };
+    output.alwaysDiscardsLateVideoFrames = YES;
+    dispatch_queue_t outputQueue = dispatch_queue_create(videoDataOutputQueueLabel.UTF8String, nil);
+    [output setSampleBufferDelegate:self queue:outputQueue];
+    if ([self.captureSession canAddOutput:output]) {
+      [self.captureSession addOutput:output];
+      [self.captureSession commitConfiguration];
+    } else {
+      NSLog(@"%@", @"Failed to add capture session output.");
+    }
+  });
+}
+
+- (void)setUpCaptureSessionInput {
+  dispatch_async(_sessionQueue, ^{
+    AVCaptureDevicePosition cameraPosition = AVCaptureDevicePositionBack;
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if (device) {
+      [self->_captureSession beginConfiguration];
+      NSArray<AVCaptureInput *> *currentInputs = self.captureSession.inputs;
+      for (AVCaptureInput *input in currentInputs) {
+        [self.captureSession removeInput:input];
+      }
+      NSError *error;
+      AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
+                                                                          error:&error];
+      if (error) {
+        NSLog(@"Failed to create capture device input: %@", error.localizedDescription);
+        return;
+      } else {
+        if ([self.captureSession canAddInput:input]) {
+          [self.captureSession addInput:input];
+        } else {
+          NSLog(@"%@", @"Failed to add capture session input.");
+        }
+      }
+      [self.captureSession commitConfiguration];
+    } else {
+      NSLog(@"Failed to get capture device for camera position: %ld", cameraPosition);
+    }
+  });
+}
+
+- (void)startSession {
+  dispatch_async(_sessionQueue, ^{
+    [self->_captureSession startRunning];
+  });
+}
+
+- (void)stopSession {
+  dispatch_async(_sessionQueue, ^{
+    [self->_captureSession stopRunning];
+  });
 }
 
 - (void)setUpPreviewOverlayView {
@@ -90,9 +145,45 @@
     [view addSubview:rectangleView];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self.captureSession stopRunning];
+- (void)viewDidDisappear:(BOOL)animated {
+  [super viewDidDisappear:animated];
+  [self stopSession];
+}
+
+- (void)recognizeText:(MLKVisionImage *)image {
+    MLKTextRecognizer *textRecognizer = [MLKTextRecognizer textRecognizer];
+    [textRecognizer processImage:image completion:^(MLKText * _Nullable text, NSError * _Nullable error) {
+        if (error != nil || text == nil) {
+            NSLog(@"Error");
+            return;
+        }
+        NSString *resultText = text.text;
+        NSLog(@"%@", resultText);
+    }];
+}
+
+- (UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer {
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    CIImage *ciImage = [CIImage imageWithCVPixelBuffer:imageBuffer options:nil];
+    CIContext *context = CIContext.context;
+    CGImageRef cgImage = [context createCGImage:ciImage fromRect:[ciImage extent]];
+    return [UIImage imageWithCGImage:cgImage];
+}
+
+- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+       fromConnection:(AVCaptureConnection *)connection {
+    UIImage *image = [self imageFromSampleBuffer:sampleBuffer];
+    CGRect crop = CGRectMake( 112.5, image.size.height / 2 - 50, 250, 100);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], crop);
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    if (cropped) {
+        MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:cropped];
+        visionImage.orientation = UIImageOrientationRight;
+        [self recognizeText:visionImage];
+    } else {
+        NSLog(@"%@", @"Failed to get image buffer from sample buffer.");
+    }
 }
 
 /*
