@@ -55,8 +55,6 @@ static NSString *const videoDataOutputQueueLabel =
         self.videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
         self.videoPreviewLayer.frame = self.previewView.bounds;
         [self.previewView.layer addSublayer: self.videoPreviewLayer];
-        NSLog(@"pereview height: %f", self.videoPreviewLayer.frame.size.height);
-        NSLog(@"preview width: %f", self.videoPreviewLayer.frame.size.width);
         [self setUpPreviewOverlayView];
     }
 }
@@ -158,6 +156,7 @@ static NSString *const videoDataOutputQueueLabel =
             return;
         }
         NSString *resultText = text.text;
+        self.resultLabel.text = resultText;
         NSLog(@"%@", resultText);
     }];
 }
@@ -170,15 +169,37 @@ static NSString *const videoDataOutputQueueLabel =
     return [UIImage imageWithCGImage:cgImage];
 }
 
+- (UIImage*) cropImage:(UIImage*)inputImage toRect:(CGRect)cropRect viewWidth:(CGFloat)viewWidth viewHeight:(CGFloat)viewHeight
+{
+    // viewWidth, viewHeight are dimensions of imageView
+    const CGFloat imageViewScale = MAX(inputImage.size.width/ viewWidth, inputImage.size.height/ viewHeight);
+
+    // Scale cropRect to handle images larger than shown-on-screen size
+    cropRect.origin.x *= imageViewScale;
+    cropRect.origin.y *= imageViewScale;
+    cropRect.size.width *= imageViewScale;
+    cropRect.size.height *= imageViewScale;
+    
+    // Perform cropping in Core Graphics
+    CGImageRef cutImageRef = CGImageCreateWithImageInRect(inputImage.CGImage, cropRect);
+    
+    // Convert back to UIImage
+    UIImage* croppedImage = [UIImage imageWithCGImage:cutImageRef];
+    
+    // Clean up reference pointers
+    CGImageRelease(cutImageRef);
+    
+    return croppedImage;
+}
+
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
     UIImage *image = [self imageFromSampleBuffer:sampleBuffer];
-    CGRect crop = CGRectMake( 112.5, image.size.height / 2 - 50, 250, 100);
-    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], crop);
-    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    if (cropped) {
-        MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:cropped];
+    //CGRect crop = CGRectMake(112.5, image.size.height / 2 - 50, 250, 100);
+    CGRect crop = CGRectMake(image.size.width / 2 - 125, image.size.height / 2 - 50, 250, 100);
+    UIImage *new = [self cropImage:image toRect:crop viewWidth:375 viewHeight:360];
+    if (new) {
+        MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:new];
         visionImage.orientation = UIImageOrientationRight;
         [self recognizeText:visionImage];
     } else {

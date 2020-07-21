@@ -304,8 +304,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWS-Ow-U5g">
-                                <rect key="frame" x="0.0" y="88" width="375" height="366"/>
+                            <view contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bWS-Ow-U5g">
+                                <rect key="frame" x="0.0" y="88" width="375" height="360"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </view>
@@ -317,14 +317,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is my translation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pvq-nk-b58">
-                                <rect key="frame" x="16" y="484" width="337" height="20"/>
+                                <rect key="frame" x="16" y="484" width="337" height="57"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="esto es mio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvJ-ze-V8b">
-                                <rect key="frame" x="16" y="549" width="337" height="21"/>
+                                <rect key="frame" x="16" y="549" width="337" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -336,7 +336,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="arV-HG-wGg"/>
                     <connections>
+                        <outlet property="languageLabel" destination="Psf-0g-eqR" id="gt4-yX-tw6"/>
                         <outlet property="previewView" destination="bWS-Ow-U5g" id="uyv-sM-Fed"/>
+                        <outlet property="resultLabel" destination="pvq-nk-b58" id="niX-aO-TNR"/>
+                        <outlet property="translatedLabel" destination="tvJ-ze-V8b" id="tfB-xx-KgB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PvK-EE-e4g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
