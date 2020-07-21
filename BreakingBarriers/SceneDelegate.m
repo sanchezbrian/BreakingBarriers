@@ -6,6 +6,7 @@
 //  Copyright © 2020 Brian Sanchez. All rights reserved.
 //
 
+@import FBSDKCoreKit;
 #import "SceneDelegate.h"
 
 @interface SceneDelegate ()
@@ -16,9 +17,17 @@
 
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
-    // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-    // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-    // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    if ([FBSDKAccessToken currentAccessToken]) {
+        NSLog(@"Welcome Back");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *timelineTabController = [storyboard instantiateViewControllerWithIdentifier:@"TabController"];
+        self.window.rootViewController = timelineTabController;
+    }
+}
+
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:UIApplication.sharedApplication openURL:[[URLContexts allObjects] objectAtIndex:0].URL sourceApplication:nil annotation:UIApplicationOpenURLOptionsAnnotationKey];
 }
 
 

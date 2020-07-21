@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CKS-mY-nfq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aBZ-KX-IRX">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -168,10 +168,28 @@
             </objects>
             <point key="canvasLocation" x="-2071" y="878"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="F14-B1-HxC">
+            <objects>
+                <viewController id="aBZ-KX-IRX" customClass="LoginViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rWZ-cn-EDR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="qJe-e1-VEf"/>
+                    </view>
+                    <connections>
+                        <segue destination="CKS-mY-nfq" kind="presentation" identifier="loginSegue" id="u2R-bU-YRc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vbk-1Z-DvO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-836" y="137"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="dij-Xe-6Ut">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="CKS-mY-nfq" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabController" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="CKS-mY-nfq" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RqQ-BH-NBA">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
