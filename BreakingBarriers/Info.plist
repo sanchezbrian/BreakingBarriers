@@ -101,5 +101,23 @@
        <string>fbauth2</string>
        <string>fbshareextension</string>
     </array>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSAllowsArbitraryLoadsInWebContent</key>
+    <true/>
+    <key>NSExceptionDomains</key>
+    <dict>
+        <key>facebook.com</key>
+        <dict>
+            <key>NSExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+            <key>NSExceptionRequiresForwardSecrecy</key>
+            <false/>
+            <key>NSIncludesSubdomains</key>
+            <true/>
+            <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+            <true/>
+        </dict>
+    </dict>
 </dict>
 </plist>

@@ -17,12 +17,12 @@
 
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
-//    if ([FBSDKAccessToken currentAccessToken]) {
-//        NSLog(@"Welcome Back");
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        UIViewController *timelineTabController = [storyboard instantiateViewControllerWithIdentifier:@"TabController"];
-//        self.window.rootViewController = timelineTabController;
-//    }
+    if ([FBSDKAccessToken currentAccessToken]) {
+        NSLog(@"Welcome Back");
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        UIViewController *timelineTabController = [storyboard instantiateViewControllerWithIdentifier:@"TabController"];
+        self.window.rootViewController = timelineTabController;
+    }
 }
 
 - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
