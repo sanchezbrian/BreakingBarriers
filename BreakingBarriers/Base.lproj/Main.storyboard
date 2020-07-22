@@ -260,6 +260,22 @@
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uEk-AE-aNP">
+                                <rect key="frame" x="325" y="278" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressSave:" destination="HkH-J0-bDt" eventType="touchUpInside" id="5gL-NU-VTG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="cz3-13-n3x"/>
@@ -269,6 +285,7 @@
                         <outlet property="langOneButton" destination="XjQ-kA-2vL" id="g4U-Kv-eAF"/>
                         <outlet property="langTwoButton" destination="YlD-ZG-ZmT" id="cgD-t4-SnC"/>
                         <outlet property="outputLabel" destination="RR1-nu-Cwe" id="3SR-rl-XHq"/>
+                        <outlet property="saveButton" destination="uEk-AE-aNP" id="xb7-id-al3"/>
                         <outlet property="sourceTextField" destination="brc-tK-oij" id="YKq-PT-dUS"/>
                         <segue destination="oUi-Dq-O3e" kind="presentation" identifier="languagePicker" id="reU-cd-iOS"/>
                     </connections>

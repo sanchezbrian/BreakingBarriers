@@ -5,20 +5,25 @@
 //  Created by Brian Sanchez on 7/16/20.
 //  Copyright © 2020 Brian Sanchez. All rights reserved.
 //
-
-#import "TranslateViewController.h"
-#import "LanguageChooserViewController.h"
-#import <QuartzCore/QuartzCore.h>
 @import MLKit;
+#import "LanguageChooserViewController.h"
+#import <Parse/Parse.h>
+#import "SavedText.h"
+#import "TranslateViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TranslateViewController () <LanguageChooserViewControllerDelegate, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *langOneButton;
 @property (weak, nonatomic) IBOutlet UIButton *langTwoButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UITextField *sourceTextField;
 @property (weak, nonatomic) IBOutlet UILabel *outputLabel;
 @property(nonatomic, strong) MLKTranslator *translator;
 @property (strong, nonatomic) NSString *langOne;
 @property (strong, nonatomic) NSString *langTwo;
+
+@property (strong, nonatomic) NSString *sourceText;
+@property (strong, nonatomic) NSString *translatedText;
 
 @end
 
@@ -60,6 +65,7 @@
             return;
           }
         NSString *text = self.sourceTextField.text;
+        self.sourceText = self.sourceTextField.text;
           if (text == nil) {
             text = @"";
           }
@@ -73,6 +79,7 @@
                                   return;
                                 }
                                 self.outputLabel.text = result;
+                                self.translatedText = result;
                               }];
         }];
 }
@@ -101,6 +108,17 @@
         [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
         NSLog(@"Language 2: %@", language);
     }
+}
+- (IBAction)pressSave:(id)sender {
+    NSLog(@"%@",self.outputLabel.text);
+    [SavedText postSavedText:self.sourceTextField.text withOutputText:self.outputLabel.text sourceLanguage:self.langOne outputLanguage:self.langTwo withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Error posting: %@", error.localizedDescription);
+        } else {
+            NSLog(@"Post was successful");
+            [self.saveButton setSelected:YES];
+        }
+    }];
 }
 
 #pragma mark - Navigation
