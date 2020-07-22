@@ -367,16 +367,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmY-wi-Czw">
+                                <rect key="frame" x="115" y="688" width="145" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <state key="normal" title="Choose Language">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeLangOne:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EAH-Hv-X6a"/>
+                                    <action selector="chooseLanguage:" destination="H4p-kb-UhC" eventType="touchUpInside" id="81l-cE-WZC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Bxx-GK-whn"/>
                     </view>
                     <navigationItem key="navigationItem" id="arV-HG-wGg"/>
                     <connections>
+                        <outlet property="languageButton" destination="kmY-wi-Czw" id="qlJ-5l-6Ek"/>
                         <outlet property="languageLabel" destination="Psf-0g-eqR" id="gt4-yX-tw6"/>
                         <outlet property="previewView" destination="bWS-Ow-U5g" id="uyv-sM-Fed"/>
                         <outlet property="resultLabel" destination="pvq-nk-b58" id="niX-aO-TNR"/>
                         <outlet property="translatedLabel" destination="tvJ-ze-V8b" id="tfB-xx-KgB"/>
+                        <segue destination="oUi-Dq-O3e" kind="presentation" identifier="languageChooser" id="0mM-Cf-eTU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PvK-EE-e4g" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -404,7 +419,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="reU-cd-iOS"/>
+        <segue reference="0mM-Cf-eTU"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="xmark" catalog="system" width="128" height="113"/>

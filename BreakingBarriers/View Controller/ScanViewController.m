@@ -6,6 +6,7 @@
 //  Copyright © 2020 Brian Sanchez. All rights reserved.
 //
 
+#import "LanguageChooserViewController.h"
 #import "ScanViewController.h"
 #import <AVFoundation/AVFoundation.h>
 @import MLKit;
@@ -14,11 +15,12 @@ static NSString *const sessionQueueLabel = @"com.google.mlkit.visiondetector.Ses
 static NSString *const videoDataOutputQueueLabel =
 @"com.google.mlkit.visiondetector.VideoDataOutputQueue";
 
-@interface ScanViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface ScanViewController () <AVCaptureVideoDataOutputSampleBufferDelegate, LanguageChooserViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *previewView;
 @property (weak, nonatomic) IBOutlet UILabel *languageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *resultLabel;
 @property (weak, nonatomic) IBOutlet UILabel *translatedLabel;
+@property (weak, nonatomic) IBOutlet UIButton *languageButton;
 
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 @property (nonatomic, strong) AVCapturePhotoOutput *stillImageOutput;
@@ -27,6 +29,9 @@ static NSString *const videoDataOutputQueueLabel =
 @property (nonatomic, strong) UIView *overlayView;
 @property(nonatomic) CMSampleBufferRef lastFrame;
 @property(nonatomic) dispatch_queue_t sessionQueue;
+@property (strong, nonatomic) NSString *targetLanguage;
+@property (strong, nonatomic) NSString *sourceLangauge;
+@property(nonatomic, strong) MLKTranslator *translator;
 
 @end
 
@@ -44,7 +49,6 @@ static NSString *const videoDataOutputQueueLabel =
     [super viewDidAppear:animated];
     [self setupLivePreview];
     [self startSession];
-    
 }
 
 - (void)setupLivePreview {
@@ -166,16 +170,50 @@ static NSString *const videoDataOutputQueueLabel =
     MLKLanguageIdentification *languageId = [MLKLanguageIdentification languageIdentification];
     [languageId identifyLanguageForText:text completion:^(NSString * _Nullable languageTag, NSError * _Nullable error) {
         if (error != nil) {
-            NSLog(@"Failed with error: %@", error.localizedDescription);
+            NSLog(@"Failed with error in recognize language: %@", error.localizedDescription);
             return;
           }
           if (![languageTag isEqualToString:@"und"] ) {
               NSLog(@"Identified Language: %@", languageTag);
-              self.languageLabel.text = [NSLocale.currentLocale localizedStringForLanguageCode:languageTag];
+              dispatch_async(dispatch_get_main_queue(), ^(void){
+                  self.sourceLangauge = languageTag;
+                  self.languageLabel.text = [NSLocale.currentLocale localizedStringForLanguageCode:languageTag];
+              });
+              [self translate:text];
           } else {
-            NSLog(@"No language was identified");
+            NSLog(@"No source language was identified");
           }
     }];
+}
+
+- (void)translate:(NSString *)text {
+    NSLog(@"Source language: %@", self.languageLabel.text);
+    MLKTranslatorOptions *options = [[MLKTranslatorOptions alloc] initWithSourceLanguage:self.sourceLangauge targetLanguage:self.targetLanguage];
+    self.translator = [MLKTranslator translatorWithOptions:options];
+    [self.translator downloadModelIfNeededWithCompletion:^(NSError * _Nullable error) {
+        if (error != nil) {
+            self.translatedLabel.text = [NSString stringWithFormat:@"OH no! %@", error.localizedDescription];
+            return;
+          }
+        [self.translator translateText:text completion:^(NSString *_Nullable result, NSError *_Nullable error) {
+            if (error != nil) {
+                self.translatedLabel.text = [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@", error.localizedDescription];
+                        return;
+            }
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                self.translatedLabel.text = result;
+            });
+        }];
+                
+    }];
+}
+- (IBAction)chooseLanguage:(id)sender {
+    [self performSegueWithIdentifier:@"languageChooser" sender:sender];
+}
+
+- (void)languageChooserViewController:(LanguageChooserViewController *)contoller didPickLanguage:(NSString *)language {
+    self.targetLanguage = language;
+    [self.languageButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
 }
 
 - (UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer {
@@ -224,14 +262,17 @@ static NSString *const videoDataOutputQueueLabel =
     }
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    UINavigationController *navController = segue.destinationViewController;
+    LanguageChooserViewController *controller = navController.topViewController;
+    controller.delegate = self;
 }
-*/
+
 
 @end
