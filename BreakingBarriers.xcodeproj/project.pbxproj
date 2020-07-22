@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0792B840E813DBDA531A4BAB /* Pods_BreakingBarriersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6E4152632B60EF2A517A1E /* Pods_BreakingBarriersTests.framework */; };
-		2FD1957E24BF5B3500636107 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1957D24BF5B3500636107 /* AppDelegate.m */; };
 		2FD1958124BF5B3500636107 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958024BF5B3500636107 /* SceneDelegate.m */; };
 		2FD1958424BF5B3500636107 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958324BF5B3500636107 /* ViewController.m */; };
 		2FD1958724BF5B3500636107 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD1958524BF5B3500636107 /* Main.storyboard */; };
@@ -22,9 +21,8 @@
 		2FD195BC24BFA1DB00636107 /* LanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195BB24BFA1DB00636107 /* LanguageCell.m */; };
 		2FD195C224C0DD8900636107 /* TranslateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195C124C0DD8900636107 /* TranslateViewController.m */; };
 		2FD195C524C2152900636107 /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195C424C2152800636107 /* ScanViewController.m */; };
-		2FD195D224C75CCF00636107 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195D124C75CCF00636107 /* LoginViewController.m */; };
-		2FD195D924C7781700636107 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2FD195D824C7781700636107 /* FacebookCore */; };
-		2FD195DB24C7781700636107 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 2FD195DA24C7781700636107 /* FacebookLogin */; };
+		2FD195E524C79E5400636107 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD195D124C75CCF00636107 /* LoginViewController.m */; };
+		2FF2868924C7D817000FE793 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1957D24BF5B3500636107 /* AppDelegate.m */; };
 		8C10A55FF9A333ECE3E29671 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C7BF82196991C28B4651782 /* Pods_BreakingBarriers_BreakingBarriersUITests.framework */; };
 		E6974EB0CC716333473B97EA /* Pods_BreakingBarriers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7EB72E81BC69EDB4B6CC33 /* Pods_BreakingBarriers.framework */; };
 /* End PBXBuildFile section */
@@ -94,8 +92,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6974EB0CC716333473B97EA /* Pods_BreakingBarriers.framework in Frameworks */,
-				2FD195D924C7781700636107 /* FacebookCore in Frameworks */,
-				2FD195DB24C7781700636107 /* FacebookLogin in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,8 +251,6 @@
 			);
 			name = BreakingBarriers;
 			packageProductDependencies = (
-				2FD195D824C7781700636107 /* FacebookCore */,
-				2FD195DA24C7781700636107 /* FacebookLogin */,
 			);
 			productName = BreakingBarriers;
 			productReference = 2FD1957924BF5B3500636107 /* BreakingBarriers.app */;
@@ -334,7 +328,6 @@
 			);
 			mainGroup = 2FD1957024BF5B3500636107;
 			packageReferences = (
-				2FD195D724C7781700636107 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 2FD1957A24BF5B3500636107 /* Products */;
 			projectDirPath = "";
@@ -519,8 +512,8 @@
 				2FD1958424BF5B3500636107 /* ViewController.m in Sources */,
 				2FD195C524C2152900636107 /* ScanViewController.m in Sources */,
 				2FD195C224C0DD8900636107 /* TranslateViewController.m in Sources */,
-				2FD1957E24BF5B3500636107 /* AppDelegate.m in Sources */,
-				2FD195D224C75CCF00636107 /* LoginViewController.m in Sources */,
+				2FD195E524C79E5400636107 /* LoginViewController.m in Sources */,
+				2FF2868924C7D817000FE793 /* AppDelegate.m in Sources */,
 				2FD1958F24BF5B3700636107 /* main.m in Sources */,
 				2FD1958124BF5B3500636107 /* SceneDelegate.m in Sources */,
 				2FD195B924BFA0E800636107 /* LanguageChooserViewController.m in Sources */,
@@ -854,30 +847,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		2FD195D724C7781700636107 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.1.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		2FD195D824C7781700636107 /* FacebookCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FD195D724C7781700636107 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookCore;
-		};
-		2FD195DA24C7781700636107 /* FacebookLogin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2FD195D724C7781700636107 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
-			productName = FacebookLogin;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2FD1957124BF5B3500636107 /* Project object */;
 }

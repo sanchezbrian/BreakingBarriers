@@ -6,8 +6,10 @@
 //  Copyright © 2020 Brian Sanchez. All rights reserved.
 //
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "LoginViewController.h"
-
+#import <Parse/PFFacebookUtils.h>
 
 @interface LoginViewController ()
 
@@ -39,10 +41,19 @@ bool fbLogin = NO;
 
         if (result.isCancelled) {
             return NSLog(@"Login was cancelled");
-        }
-
-        NSLog(@"Success. Granted permissions: %@", result.grantedPermissions);
-
+        } else {
+            NSLog(@"Success. Granted permissions: %@", result.grantedPermissions);
+            [PFFacebookUtils logInInBackgroundWithAccessToken:[FBSDKAccessToken currentAccessToken] block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+                if (!user) {
+                    NSLog(@"Uh oh. The user cancelled the Facebook login.");
+                  } else if (user.isNew) {
+                    NSLog(@"User signed up and logged in through Facebook!");
+                  } else {
+                    NSLog(@"User logged in through Facebook!");
+                  }
+                    NSLog(@"%@", user);
+                }];
+            }
         [self performSegueWithIdentifier:@"loginSegue" sender:self];
 }
 

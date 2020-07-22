@@ -7,7 +7,9 @@
 //
 
 @import FBSDKCoreKit;
+@import Parse;
 #import "AppDelegate.h"
+#import <PFFacebookUtils.h>
 
 
 @interface AppDelegate ()
@@ -16,20 +18,35 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary<UIApplicationLaunchOptionsKey,id> *)launchOptions {
-    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-    return YES;
+    
+    ParseClientConfiguration *config = [ParseClientConfiguration   configurationWithBlock:^(id<ParseMutableClientConfiguration> configuration) {
+        
+        configuration.applicationId = @"breakingBarriers";
+        configuration.server = @"https://breakingbarriers-brian36.herokuapp.com/parse";
+    }];
+    [Parse initializeWithConfiguration:config];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    return [[FBSDKApplicationDelegate sharedInstance]application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
-- (BOOL)application:(UIApplication *)app
-            openURL:(NSURL *)url
-            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
-{
-  return [[FBSDKApplicationDelegate sharedInstance]application:app
-                                                       openURL:url
-                                                       options:options];
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString*)sourceApplication annotation:(id)annotation {
+    
+  return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                        openURL:url
+                                              sourceApplication:sourceApplication
+                                                     annotation:annotation];
 }
+
+
+
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [FBSDKAppEvents activateApp];
+}
+
 
 
 #pragma mark - UISceneSession lifecycle
