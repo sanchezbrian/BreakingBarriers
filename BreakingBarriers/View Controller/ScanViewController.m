@@ -155,9 +155,26 @@ static NSString *const videoDataOutputQueueLabel =
             NSLog(@"Error");
             return;
         }
-        NSString *resultText = text.text;
+        NSString *resultText = text.blocks.firstObject.text;
         self.resultLabel.text = resultText;
+        [self recognizeLanguage:resultText];
         NSLog(@"%@", resultText);
+    }];
+}
+
+- (void)recognizeLanguage:(NSString *)text {
+    MLKLanguageIdentification *languageId = [MLKLanguageIdentification languageIdentification];
+    [languageId identifyLanguageForText:text completion:^(NSString * _Nullable languageTag, NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Failed with error: %@", error.localizedDescription);
+            return;
+          }
+          if (![languageTag isEqualToString:@"und"] ) {
+              NSLog(@"Identified Language: %@", languageTag);
+              self.languageLabel.text = [NSLocale.currentLocale localizedStringForLanguageCode:languageTag];
+          } else {
+            NSLog(@"No language was identified");
+          }
     }];
 }
 
