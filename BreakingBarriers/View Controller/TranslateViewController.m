@@ -22,9 +22,6 @@
 @property (strong, nonatomic) NSString *langOne;
 @property (strong, nonatomic) NSString *langTwo;
 
-@property (strong, nonatomic) NSString *sourceText;
-@property (strong, nonatomic) NSString *translatedText;
-
 @end
 
 @implementation TranslateViewController
@@ -65,23 +62,33 @@
             return;
           }
         NSString *text = self.sourceTextField.text;
-        self.sourceText = self.sourceTextField.text;
           if (text == nil) {
             text = @"";
           }
         self.outputLabel.text = @"";
-          [self.translator translateText:text
-                              completion:^(NSString *_Nullable result, NSError *_Nullable error) {
-                                if (error != nil) {
-                                  self.outputLabel.text = [NSString
-                                      stringWithFormat:@"Failed to ensure model downloaded with error %@",
-                                                       error.localizedDescription];
-                                  return;
-                                }
-                                self.outputLabel.text = result;
-                                self.translatedText = result;
-                              }];
-        }];
+          [self.translator translateText:text completion:^(NSString *_Nullable result, NSError *_Nullable error) {
+              if (error != nil) {
+                  self.outputLabel.text = [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@", error.localizedDescription];
+                  return;
+              }
+              [self checkPhrase:self.sourceTextField.text];
+              self.outputLabel.text = result;
+          }];
+    }];
+}
+
+- (void)checkPhrase:(NSString *)text {
+    NSLog(@"%@", text);
+    PFQuery *query = [PFQuery queryWithClassName:@"SavedText"];
+    [query whereKey:@"sourceText" equalTo:text];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        NSLog(@"%@", objects);
+        if (objects.count == 1) {
+            [self.saveButton setSelected:YES];
+        } else {
+            [self.saveButton setSelected:NO];
+        }
+    }];
 }
 
 - (IBAction)changeLangOne:(id)sender {
@@ -110,7 +117,6 @@
     }
 }
 - (IBAction)pressSave:(id)sender {
-    NSLog(@"%@",self.outputLabel.text);
     [SavedText postSavedText:self.sourceTextField.text withOutputText:self.outputLabel.text sourceLanguage:self.langOne outputLanguage:self.langTwo withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
         if (error != nil) {
             NSLog(@"Error posting: %@", error.localizedDescription);
