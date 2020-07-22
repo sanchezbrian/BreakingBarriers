@@ -12,11 +12,11 @@
 #import "TranslateViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface TranslateViewController () <LanguageChooserViewControllerDelegate, UITextFieldDelegate>
+@interface TranslateViewController () <LanguageChooserViewControllerDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *langOneButton;
 @property (weak, nonatomic) IBOutlet UIButton *langTwoButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
-@property (weak, nonatomic) IBOutlet UITextField *sourceTextField;
+@property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *outputLabel;
 @property(nonatomic, strong) MLKTranslator *translator;
 @property (strong, nonatomic) NSString *langOne;
@@ -29,27 +29,53 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.outputLabel.alpha = 0;
-    self.sourceTextField.delegate = self;
-    self.sourceTextField.returnKeyType = UIReturnKeyDone;
-    [self.sourceTextField setBorderStyle:UITextBorderStyleNone];
-    self.sourceTextField.layer.borderWidth = 1;
-    self.sourceTextField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.textView.delegate = self;
+    self.textView.returnKeyType = UIReturnKeyDone;
+    self.textView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    self.textView.layer.borderWidth = 2;
+    self.textView.text = @"Please type here...";
+    self.textView.textColor = [UIColor lightGrayColor];
 }
 
-#pragma mark - TextField Delegate
-- (void)textFieldDidChangeSelection:(UITextField *)textField {
+#pragma mark - TextView Delegate
+- (void)textViewDidChange:(UITextView *)textView {
     [UILabel animateWithDuration:.2 animations:^{
         self.outputLabel.alpha = 1;
     }];
     [self translate];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-     if ([string isEqualToString:@"\n"]) {
-        [textField resignFirstResponder];
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
         return NO;
-      }
-      return YES;
+    }
+    return YES;
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@"Please type here..."]) {
+         textView.text = @"";
+         textView.textColor = [UIColor blackColor]; //optional
+    }
+    if (self.langOne == nil) {
+        [self checkIfLangugeChosen: 0];
+    } else if (self.langTwo == nil) {
+        [self checkIfLangugeChosen: 1];
+    }
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text isEqualToString:@""]) {
+        textView.text = @"Please type here...";
+        textView.textColor = [UIColor lightGrayColor]; //optional
+        [UILabel animateWithDuration:.2 animations:^{
+            self.outputLabel.alpha = 0;
+        }];
+    }
+    [textView resignFirstResponder];
 }
 
 #pragma mark - LanguageChooserController Delegate
@@ -76,7 +102,7 @@
                                            error.localizedDescription];
             return;
           }
-        NSString *text = self.sourceTextField.text;
+        NSString *text = self.textView.text;
           if (text == nil) {
             text = @"";
           }
@@ -86,7 +112,7 @@
                   self.outputLabel.text = [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@", error.localizedDescription];
                   return;
               }
-              [self checkPhrase:self.sourceTextField.text];
+              [self checkPhrase:self.textView.text];
               self.outputLabel.text = result;
           }];
     }];
@@ -104,6 +130,28 @@
             [self.saveButton setSelected:NO];
         }
     }];
+}
+
+- (void)checkIfLangugeChosen:(int)num {
+    if (num == 0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Source Language Required" message:@"Please choose a source language" preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self performSegueWithIdentifier:@"languagePicker" sender:self.langOneButton];
+        }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+            // optional code for what happens after the alert controller has finished presenting
+        }];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Target Language Required" message:@"Please choose a target language" preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self performSegueWithIdentifier:@"languagePicker" sender:self.langTwoButton];
+        }];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:^{
+            // optional code for what happens after the alert controller has finished presenting
+        }];
+    }
 }
 
 #pragma mark - Buttons
@@ -127,7 +175,7 @@
         PFQuery *query = [PFQuery queryWithClassName:@"SavedText"];
         [query includeKey:@"author"];
         [query whereKey:@"author" equalTo:[PFUser currentUser]];
-        [query whereKey:@"sourceText" equalTo:self.sourceTextField.text];
+        [query whereKey:@"sourceText" equalTo:self.textView.text];
         [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
             [PFObject deleteAllInBackground:objects block:^(BOOL succeeded, NSError * _Nullable error) {
                 NSLog(@"Sucessfully deleted!");
@@ -135,7 +183,7 @@
             }];
         }];
     } else {
-        [SavedText postSavedText:self.sourceTextField.text withOutputText:self.outputLabel.text sourceLanguage:self.langOne outputLanguage:self.langTwo withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+        [SavedText postSavedText:self.textView.text withOutputText:self.outputLabel.text sourceLanguage:self.langOne outputLanguage:self.langTwo withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
             if (error != nil) {
                 NSLog(@"Error posting: %@", error.localizedDescription);
             } else {

@@ -246,12 +246,6 @@
                                     <action selector="switchButton:" destination="HkH-J0-bDt" eventType="touchUpInside" id="cwR-Aj-8Zo"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="bezel" placeholder="Enter text" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="brc-tK-oij">
-                                <rect key="frame" x="0.0" y="133" width="375" height="91"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="go"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hola amigo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RR1-nu-Cwe">
                                 <rect key="frame" x="0.0" y="244" width="375" height="98"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -276,6 +270,14 @@
                                     <action selector="pressSave:" destination="HkH-J0-bDt" eventType="touchUpInside" id="5gL-NU-VTG"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" keyboardDismissMode="interactive" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="c5v-vq-A4l">
+                                <rect key="frame" x="0.0" y="133" width="375" height="90"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="go"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="cz3-13-n3x"/>
@@ -286,13 +288,13 @@
                         <outlet property="langTwoButton" destination="YlD-ZG-ZmT" id="cgD-t4-SnC"/>
                         <outlet property="outputLabel" destination="RR1-nu-Cwe" id="3SR-rl-XHq"/>
                         <outlet property="saveButton" destination="uEk-AE-aNP" id="xb7-id-al3"/>
-                        <outlet property="sourceTextField" destination="brc-tK-oij" id="YKq-PT-dUS"/>
+                        <outlet property="textView" destination="c5v-vq-A4l" id="Hrl-4y-49N"/>
                         <segue destination="oUi-Dq-O3e" kind="presentation" identifier="languagePicker" id="reU-cd-iOS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ph-za-Yti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="1617"/>
+            <point key="canvasLocation" x="136.80000000000001" y="1616.7487684729065"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="84r-Ln-yN4">
