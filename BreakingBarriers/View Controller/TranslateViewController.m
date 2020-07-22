@@ -36,6 +36,7 @@
     self.sourceTextField.layer.borderColor = [[UIColor lightGrayColor] CGColor];
 }
 
+#pragma mark - TextField Delegate
 - (void)textFieldDidChangeSelection:(UITextField *)textField {
     [UILabel animateWithDuration:.2 animations:^{
         self.outputLabel.alpha = 1;
@@ -51,6 +52,20 @@
       return YES;
 }
 
+#pragma mark - LanguageChooserController Delegate
+- (void)languageChooserViewController:(LanguageChooserViewController *)contoller didPickLanguage:(NSString *)language {
+    if (contoller.langOne) {
+        self.langOne = language;
+        [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+        NSLog(@"Language 1: %@", language);
+    } else {
+        self.langTwo = language;
+        [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+        NSLog(@"Language 2: %@", language);
+    }
+}
+
+#pragma mark - Helper Methdods
 - (void)translate {
     MLKTranslatorOptions *options = [[MLKTranslatorOptions alloc] initWithSourceLanguage:self.langOne targetLanguage:self.langTwo];
     self.translator = [MLKTranslator translatorWithOptions:options];
@@ -78,11 +93,11 @@
 }
 
 - (void)checkPhrase:(NSString *)text {
-    NSLog(@"%@", text);
     PFQuery *query = [PFQuery queryWithClassName:@"SavedText"];
+    [query includeKey:@"author"];
+    [query whereKey:@"author" equalTo:[PFUser currentUser]];
     [query whereKey:@"sourceText" equalTo:text];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
-        NSLog(@"%@", objects);
         if (objects.count == 1) {
             [self.saveButton setSelected:YES];
         } else {
@@ -90,6 +105,8 @@
         }
     }];
 }
+
+#pragma mark - Buttons
 
 - (IBAction)changeLangOne:(id)sender {
     [self performSegueWithIdentifier:@"languagePicker" sender:sender];
@@ -105,26 +122,28 @@
     [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:self.langTwo] forState:UIControlStateNormal];
 }
 
-- (void)languageChooserViewController:(LanguageChooserViewController *)contoller didPickLanguage:(NSString *)language {
-    if (contoller.langOne) {
-        self.langOne = language;
-        [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
-        NSLog(@"Language 1: %@", language);
-    } else {
-        self.langTwo = language;
-        [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
-        NSLog(@"Language 2: %@", language);
-    }
-}
 - (IBAction)pressSave:(id)sender {
-    [SavedText postSavedText:self.sourceTextField.text withOutputText:self.outputLabel.text sourceLanguage:self.langOne outputLanguage:self.langTwo withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
-        if (error != nil) {
-            NSLog(@"Error posting: %@", error.localizedDescription);
-        } else {
-            NSLog(@"Post was successful");
-            [self.saveButton setSelected:YES];
-        }
-    }];
+    if (self.saveButton.selected) {
+        PFQuery *query = [PFQuery queryWithClassName:@"SavedText"];
+        [query includeKey:@"author"];
+        [query whereKey:@"author" equalTo:[PFUser currentUser]];
+        [query whereKey:@"sourceText" equalTo:self.sourceTextField.text];
+        [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            [PFObject deleteAllInBackground:objects block:^(BOOL succeeded, NSError * _Nullable error) {
+                NSLog(@"Sucessfully deleted!");
+                [self.saveButton setSelected:NO];
+            }];
+        }];
+    } else {
+        [SavedText postSavedText:self.sourceTextField.text withOutputText:self.outputLabel.text sourceLanguage:self.langOne outputLanguage:self.langTwo withCompletion:^(BOOL succeeded, NSError * _Nullable error) {
+            if (error != nil) {
+                NSLog(@"Error posting: %@", error.localizedDescription);
+            } else {
+                NSLog(@"Post was successful");
+                [self.saveButton setSelected:YES];
+            }
+        }];
+    }
 }
 
 #pragma mark - Navigation
