@@ -437,33 +437,42 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SavedCell" rowHeight="81" id="YdY-3E-6lK" customClass="SavedCell">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="81"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SavedCell" rowHeight="80" id="YdY-3E-6lK" customClass="SavedCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YdY-3E-6lK" id="um5-lE-lF7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gw0-KX-um5">
-                                                    <rect key="frame" x="15" y="11" width="215" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gw0-KX-um5">
+                                                    <rect key="frame" x="14.999999999999996" y="10.999999999999998" width="41.666666666666657" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmP-1W-MxY">
-                                                    <rect key="frame" x="15" y="40" width="215" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MmP-1W-MxY">
+                                                    <rect key="frame" x="14.999999999999996" y="40" width="41.666666666666657" height="20.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbq-5o-b3y">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbq-5o-b3y">
                                                     <rect key="frame" x="316" y="25" width="42" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Saved"/>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MmP-1W-MxY" firstAttribute="top" secondItem="gw0-KX-um5" secondAttribute="bottom" constant="8.6699999999999999" id="1sb-1A-Kdx"/>
+                                                <constraint firstItem="MmP-1W-MxY" firstAttribute="leading" secondItem="um5-lE-lF7" secondAttribute="leading" constant="15" id="EKz-Ma-QXN"/>
+                                                <constraint firstItem="gw0-KX-um5" firstAttribute="top" secondItem="um5-lE-lF7" secondAttribute="top" constant="11" id="EuV-4e-QBe"/>
+                                                <constraint firstItem="Vbq-5o-b3y" firstAttribute="leading" relation="lessThanOrEqual" secondItem="MmP-1W-MxY" secondAttribute="trailing" constant="259.32999999999998" id="NAv-1P-ncf"/>
+                                                <constraint firstAttribute="bottom" secondItem="Vbq-5o-b3y" secondAttribute="bottom" constant="25" id="XgK-0F-N1A"/>
+                                                <constraint firstAttribute="trailing" secondItem="Vbq-5o-b3y" secondAttribute="trailing" constant="17" id="c9F-TG-rW4"/>
+                                                <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="MmP-1W-MxY" secondAttribute="bottom" constant="20.670000000000002" id="cjy-w0-uvb"/>
+                                                <constraint firstItem="gw0-KX-um5" firstAttribute="leading" secondItem="um5-lE-lF7" secondAttribute="leading" constant="15" id="eVi-p9-IF9"/>
+                                                <constraint firstItem="Vbq-5o-b3y" firstAttribute="leading" relation="lessThanOrEqual" secondItem="gw0-KX-um5" secondAttribute="trailing" constant="259.32999999999998" id="f2W-ms-fPZ"/>
+                                                <constraint firstItem="Vbq-5o-b3y" firstAttribute="top" secondItem="um5-lE-lF7" secondAttribute="top" constant="25" id="w8a-bu-8qN"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="savedButton" destination="Vbq-5o-b3y" id="dvG-da-6uc"/>
@@ -478,6 +487,9 @@
                         <viewLayoutGuide key="safeArea" id="qZt-dA-4ra"/>
                     </view>
                     <navigationItem key="navigationItem" id="xUc-ue-Rfc"/>
+                    <connections>
+                        <outlet property="tableView" destination="fZa-ic-hel" id="6le-WU-16Z"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U65-ui-1CK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
