@@ -27,6 +27,11 @@
     [self querySaved];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self querySaved];
+}
+
 - (void)querySaved {
     PFQuery *query = [PFQuery queryWithClassName:@"SavedText"];
     [query includeKey:@"author"];

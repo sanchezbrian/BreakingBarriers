@@ -29,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.outputLabel.alpha = 0;
+    self.saveButton.alpha = 0;
     self.textView.delegate = self;
     self.textView.returnKeyType = UIReturnKeyDone;
     self.textView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
@@ -41,6 +42,7 @@
 - (void)textViewDidChange:(UITextView *)textView {
     [UILabel animateWithDuration:.2 animations:^{
         self.outputLabel.alpha = 1;
+        self.saveButton.alpha = 1;
     }];
     [self translate];
 }
@@ -73,6 +75,7 @@
         textView.textColor = [UIColor lightGrayColor]; //optional
         [UILabel animateWithDuration:.2 animations:^{
             self.outputLabel.alpha = 0;
+            self.saveButton.alpha = 0;
         }];
     }
     [textView resignFirstResponder];
@@ -126,12 +129,8 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects.count == 1) {
             [self.saveButton setSelected:YES];
-            [self.saveButton setBackgroundColor:UIColor.yellowColor];
-            [self.saveButton setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
         } else {
             [self.saveButton setSelected:NO];
-            [self.saveButton setBackgroundColor:UIColor.clearColor];
-            [self.saveButton setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
         }
     }];
 }
@@ -184,8 +183,6 @@
             [PFObject deleteAllInBackground:objects block:^(BOOL succeeded, NSError * _Nullable error) {
                 NSLog(@"Sucessfully deleted!");
                 [self.saveButton setSelected:NO];
-                [self.saveButton setBackgroundColor:UIColor.clearColor];
-                [self.saveButton setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
             }];
         }];
     } else {
@@ -195,8 +192,6 @@
             } else {
                 NSLog(@"Post was successful");
                 [self.saveButton setSelected:YES];
-                [self.saveButton setBackgroundColor:UIColor.yellowColor];
-                [self.saveButton setTitleColor:UIColor.whiteColor forState:UIControlStateSelected];
             }
         }];
     }
