@@ -10,6 +10,8 @@
 		0792B840E813DBDA531A4BAB /* Pods_BreakingBarriersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6E4152632B60EF2A517A1E /* Pods_BreakingBarriersTests.framework */; };
 		2F78730224CA07D200292E0C /* SavedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730124CA07D200292E0C /* SavedCell.m */; };
 		2F78730524CA0A3000292E0C /* SavedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730424CA0A3000292E0C /* SavedViewController.m */; };
+		2F78730824CA3B7800292E0C /* LearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730724CA3B7800292E0C /* LearnViewController.m */; };
+		2F78730B24CA3BB400292E0C /* LearningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730A24CA3BB400292E0C /* LearningCell.m */; };
 		2FB1E80D24C8AD6800C487E5 /* SavedText.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB1E80C24C8AD6800C487E5 /* SavedText.m */; };
 		2FD1958124BF5B3500636107 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958024BF5B3500636107 /* SceneDelegate.m */; };
 		2FD1958424BF5B3500636107 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958324BF5B3500636107 /* ViewController.m */; };
@@ -54,6 +56,10 @@
 		2F78730124CA07D200292E0C /* SavedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SavedCell.m; sourceTree = "<group>"; };
 		2F78730324CA0A3000292E0C /* SavedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedViewController.h; sourceTree = "<group>"; };
 		2F78730424CA0A3000292E0C /* SavedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SavedViewController.m; sourceTree = "<group>"; };
+		2F78730624CA3B7800292E0C /* LearnViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LearnViewController.h; sourceTree = "<group>"; };
+		2F78730724CA3B7800292E0C /* LearnViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LearnViewController.m; sourceTree = "<group>"; };
+		2F78730924CA3BB400292E0C /* LearningCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LearningCell.h; sourceTree = "<group>"; };
+		2F78730A24CA3BB400292E0C /* LearningCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LearningCell.m; sourceTree = "<group>"; };
 		2FB1E80B24C8AD6800C487E5 /* SavedText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedText.h; sourceTree = "<group>"; };
 		2FB1E80C24C8AD6800C487E5 /* SavedText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SavedText.m; sourceTree = "<group>"; };
 		2FD1957924BF5B3500636107 /* BreakingBarriers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakingBarriers.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,6 +218,8 @@
 				2FD195D124C75CCF00636107 /* LoginViewController.m */,
 				2F78730324CA0A3000292E0C /* SavedViewController.h */,
 				2F78730424CA0A3000292E0C /* SavedViewController.m */,
+				2F78730624CA3B7800292E0C /* LearnViewController.h */,
+				2F78730724CA3B7800292E0C /* LearnViewController.m */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -223,6 +231,8 @@
 				2FD195BB24BFA1DB00636107 /* LanguageCell.m */,
 				2F78730024CA07D200292E0C /* SavedCell.h */,
 				2F78730124CA07D200292E0C /* SavedCell.m */,
+				2F78730924CA3BB400292E0C /* LearningCell.h */,
+				2F78730A24CA3BB400292E0C /* LearningCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -526,7 +536,9 @@
 			files = (
 				2FD1958424BF5B3500636107 /* ViewController.m in Sources */,
 				2FD195C524C2152900636107 /* ScanViewController.m in Sources */,
+				2F78730B24CA3BB400292E0C /* LearningCell.m in Sources */,
 				2FD195C224C0DD8900636107 /* TranslateViewController.m in Sources */,
+				2F78730824CA3B7800292E0C /* LearnViewController.m in Sources */,
 				2FD195E524C79E5400636107 /* LoginViewController.m in Sources */,
 				2F78730524CA0A3000292E0C /* SavedViewController.m in Sources */,
 				2FF2868924C7D817000FE793 /* AppDelegate.m in Sources */,
