@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *languageTwoButton;
 @property (weak, nonatomic) IBOutlet UIButton *micOneButton;
 @property (weak, nonatomic) IBOutlet UIButton *micTwoButton;
+@property (weak, nonatomic) IBOutlet UIView *viewOne;
+@property (weak, nonatomic) IBOutlet UIView *viewTwo;
 
 @property(nonatomic, strong) SFSpeechRecognizer *speechRecognizer;
 @property(nonatomic, strong) SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
@@ -55,13 +57,8 @@
                 break;
         }
     }];
-    NSLocale *currentLocale = NSLocale.currentLocale;
-    self.allLanguages = [MLKTranslateAllLanguages().allObjects
-    sortedArrayUsingComparator:^NSComparisonResult(NSString *_Nonnull lang1,
-                                                   NSString *_Nonnull lang2) {
-      return [[currentLocale localizedStringForLanguageCode:lang1]
-          compare:[currentLocale localizedStringForLanguageCode:lang2]];
-    }];
+    self.viewOne.layer.cornerRadius = 20;
+    self.viewTwo.layer.cornerRadius = 20;
 }
 
 - (void)startListen:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {

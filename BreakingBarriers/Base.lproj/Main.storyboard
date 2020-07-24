@@ -16,22 +16,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="convo 1" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYj-Uy-WQA">
-                                <rect key="frame" x="0.0" y="88" width="375" height="240"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQc-uu-IMb">
+                                <rect key="frame" x="8" y="96" width="359" height="232"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="convo 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeR-vM-Kzb">
-                                <rect key="frame" x="0.0" y="336" width="375" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="convo 1" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYj-Uy-WQA">
+                                        <rect key="frame" x="8" y="8" width="343" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.50588235294117645" green="0.83137254901960778" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vG5-mR-05y">
                                 <rect key="frame" x="216" y="584" width="145" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -72,6 +70,20 @@
                                     <action selector="changeLangOne:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aXe-Pt-ooh"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FBC-TC-Isx">
+                                <rect key="frame" x="8" y="336" width="359" height="232"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="convo 2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeR-vM-Kzb">
+                                        <rect key="frame" x="8" y="8" width="343" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.71372549019607845" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -84,12 +96,14 @@
                         <outlet property="languageTwoButton" destination="vG5-mR-05y" id="9pT-oz-EFB"/>
                         <outlet property="micOneButton" destination="bPA-Tn-ij5" id="IJo-nV-z4L"/>
                         <outlet property="micTwoButton" destination="95U-C2-g4i" id="c4G-jd-2hA"/>
+                        <outlet property="viewOne" destination="xQc-uu-IMb" id="PiZ-Ul-ubB"/>
+                        <outlet property="viewTwo" destination="FBC-TC-Isx" id="fPR-uh-sdr"/>
                         <segue destination="oUi-Dq-O3e" kind="presentation" identifier="chooseLanguage" id="23X-uQ-hbi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2276" y="1617"/>
+            <point key="canvasLocation" x="-2276" y="1616.7487684729065"/>
         </scene>
         <!--Language-->
         <scene sceneID="q0V-xJ-kop">
@@ -154,13 +168,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUZ-1c-uJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1314" y="3345"/>
+            <point key="canvasLocation" x="-1409" y="2614"/>
         </scene>
-        <!--Conversation-->
+        <!--Navigation Controller-->
         <scene sceneID="h2v-BC-1t3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lje-YD-yuW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Conversation" id="ZxR-TQ-olA"/>
+                    <tabBarItem key="tabBarItem" image="icons8-collaboration-30" id="ZxR-TQ-olA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NXn-dA-BVu">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -321,13 +335,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pSl-L5-UHn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1314" y="2617"/>
+            <point key="canvasLocation" x="-2238" y="2614"/>
         </scene>
-        <!--Translate-->
+        <!--Navigation Controller-->
         <scene sceneID="dCn-LE-AOD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m8U-z7-Mgd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Translate" id="aeZ-1V-dkV"/>
+                    <tabBarItem key="tabBarItem" title="" image="icons8-translation-30" id="aeZ-1V-dkV"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BNY-ui-OP6">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -407,11 +421,11 @@
             </objects>
             <point key="canvasLocation" x="-188" y="1617"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="rY5-xz-U69">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GvD-3e-nRM" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="wFV-SX-dfu"/>
+                    <tabBarItem key="tabBarItem" title="" image="camera.viewfinder" catalog="system" id="wFV-SX-dfu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UJO-3Y-eNP">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -511,11 +525,11 @@
             </objects>
             <point key="canvasLocation" x="953" y="1617"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="SBK-sR-v7b">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qhs-P1-LIW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Q5B-xy-5jU"/>
+                    <tabBarItem key="tabBarItem" title="" image="list.dash" catalog="system" id="Q5B-xy-5jU"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TK6-Gr-w8J">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -671,11 +685,15 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0mM-Cf-eTU"/>
+        <segue reference="23X-uQ-hbi"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="camera.viewfinder" catalog="system" width="128" height="114"/>
+        <image name="icons8-collaboration-30" width="30" height="30"/>
         <image name="icons8-star-filled-48" width="48" height="48"/>
         <image name="icons8-star-filled-48 (1)" width="48" height="48"/>
+        <image name="icons8-translation-30" width="30" height="30"/>
+        <image name="list.dash" catalog="system" width="128" height="85"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

@@ -14,6 +14,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.frontHidden = YES;
+    self.backView.layer.cornerRadius = 10;
+    self.frontView.layer.cornerRadius = 10;
 }
 
 - (void)setCard:(SavedText *)saved {
