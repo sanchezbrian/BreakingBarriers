@@ -13,7 +13,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self.savedButton setSelected:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -45,6 +44,7 @@
     _saved = saved;
     self.sourceText.text = saved[@"sourceText"];
     self.translatedText.text = saved[@"translatedText"];
+    [self.savedButton setSelected:YES];
 }
 
 @end

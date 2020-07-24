@@ -19,20 +19,18 @@
 - (void)setCard:(SavedText *)saved {
     self.sourceText.text = saved.sourceText;
     self.targetText.text = saved.translatedText;
+    self.sourceLangauge.text = [NSLocale.currentLocale localizedStringForLanguageCode:saved.sourceLanguage];
+    self.targetLanguage.text = [NSLocale.currentLocale localizedStringForLanguageCode:saved.translatedLanguage];
 }
 
 - (void)flipCard {
     if (self.frontHidden) {
-//        [self.frontView setHidden:NO];
-//        [self.backView setHidden:YES];
         UIViewAnimationOptions transitionOption = UIViewAnimationOptionTransitionFlipFromLeft;
         [UIView transitionFromView:self.backView toView:self.frontView duration:0.5 options:(transitionOption | UIViewAnimationOptionShowHideTransitionViews) completion:^(BOOL finished) {
             NSLog(@"Success! for back to front");
             self.frontHidden = NO;
         }];
     } else {
-//        [self.frontView setHidden:YES];
-//        [self.backView setHidden:NO];
         UIViewAnimationOptions transitionOption = UIViewAnimationOptionTransitionFlipFromRight;
         [UIView transitionFromView:self.frontView toView:self.backView duration:0.5 options:(transitionOption | UIViewAnimationOptionShowHideTransitionViews) completion:^(BOOL finished) {
             NSLog(@"Success! for front to back");

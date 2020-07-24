@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *backView;
 @property (weak, nonatomic) IBOutlet UILabel *sourceText;
 @property (weak, nonatomic) IBOutlet UILabel *targetText;
-@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UILabel *targetLanguage;
+@property (weak, nonatomic) IBOutlet UILabel *sourceLangauge;
 @property (assign, nonatomic) BOOL frontHidden;
 
 - (void)setCard:(SavedText *)saved;
