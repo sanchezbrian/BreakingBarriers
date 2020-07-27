@@ -7,6 +7,7 @@
 //
 
 #import <Parse/Parse.h>
+#import "MBProgressHUD.h"
 #import "SavedCell.h"
 #import "SavedText.h"
 #import "SavedViewController.h"
@@ -15,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *saved;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
@@ -24,6 +26,9 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    self.hud.label.text = @"Loading";
     [self querySaved];
 }
 
@@ -40,6 +45,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects != nil) {
             self.saved = objects;
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);

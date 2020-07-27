@@ -9,11 +9,13 @@
 #import <Parse/Parse.h>
 #import "LearningCell.h"
 #import "LearnViewController.h"
+#import "MBProgressHUD.h"
 #import "SavedText.h"
 
 @interface LearnViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSArray *saved;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
@@ -23,6 +25,9 @@
     [super viewDidLoad];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    self.hud.label.text = @"Loading";
     [self querySaved];
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     layout.minimumInteritemSpacing = 3;
@@ -46,6 +51,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects != nil) {
             self.saved = objects;
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.collectionView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
