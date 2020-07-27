@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "LanguageChooserViewController.h"
+#import "PulsingHaloLayer.h"
 @import MLKit;
 
 @interface ConversationViewController () <LanguageChooserViewControllerDelegate>
@@ -22,14 +23,17 @@
 @property (weak, nonatomic) IBOutlet UIView *viewOne;
 @property (weak, nonatomic) IBOutlet UIView *viewTwo;
 
-@property(nonatomic, strong) SFSpeechRecognizer *speechRecognizer;
-@property(nonatomic, strong) SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
-@property(nonatomic, strong) SFSpeechRecognitionTask *recognitionTask;
-@property(nonatomic, strong) AVAudioEngine *audioEngine;
-@property(nonatomic, strong) MLKTranslator *translator;
-@property(nonatomic, strong) NSArray<MLKTranslateLanguage> *allLanguages;
-@property(nonatomic, strong) NSString *langOne;
-@property(nonatomic, strong) NSString *langTwo;
+@property (nonatomic, strong) SFSpeechRecognizer *speechRecognizer;
+@property (nonatomic, strong) SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
+@property (nonatomic, strong) SFSpeechRecognitionTask *recognitionTask;
+@property (nonatomic, strong) AVAudioEngine *audioEngine;
+@property (nonatomic, strong) MLKTranslator *translator;
+@property (nonatomic, strong) NSArray<MLKTranslateLanguage> *allLanguages;
+@property (nonatomic, strong) NSString *langOne;
+@property (nonatomic, strong) NSString *langTwo;
+@property (nonatomic, strong) PulsingHaloLayer *haloOne;
+@property (nonatomic, strong) PulsingHaloLayer *haloTwo;
+
 
 @end
 
@@ -117,11 +121,13 @@
         [self.audioEngine stop];
         [self.recognitionRequest endAudio];
         [self speakText:self.conversationTwoLabel.text withLanguage:self.langTwo];
+        [self.haloOne removeFromSuperlayer];
         [self.micOneButton setSelected:NO];
     } else {
         [self SpeechLanguage:self.langOne];
         [self startListen:self.conversationOneLabel to:self.conversationTwoLabel source:self.langOne target:self.langTwo];
         [self.micOneButton setSelected:YES];
+        [self startHaloOne];
     }
 }
 - (IBAction)pressMicTwo:(id)sender {
@@ -129,12 +135,36 @@
         [self.audioEngine stop];
         [self.recognitionRequest endAudio];
         [self speakText:self.conversationOneLabel.text withLanguage:self.langOne];
+        [self.haloTwo removeFromSuperlayer];
         [self.micTwoButton setSelected:NO];
     } else {
         [self SpeechLanguage:self.langTwo];
         [self startListen:self.conversationTwoLabel to:self.conversationOneLabel source:self.langTwo target:self.langOne];
         [self.micTwoButton setSelected:YES];
+        [self startHaloTwo];
     }
+}
+
+- (void)startHaloOne {
+    self.haloOne = [PulsingHaloLayer layer];
+    self.haloOne.radius = 55;
+    self.haloOne.haloLayerNumber = 3;
+    self.haloOne.position = CGPointMake(self.micOneButton.layer.bounds.size.width / 2, self.micOneButton.layer.bounds.size.height / 2);
+    [self.micOneButton.layer addSublayer:self.haloOne];
+    UIColor *colorOne = [UIColor colorWithRed:110.0 / 255 green:198.0 / 255 blue:1 alpha:1.0];
+    self.haloOne.backgroundColor = colorOne.CGColor;
+    [self.haloOne start];
+}
+
+- (void)startHaloTwo {
+    self.haloTwo = [PulsingHaloLayer layer];
+    self.haloTwo.radius = 55;
+    self.haloTwo.haloLayerNumber = 3;
+    self.haloTwo.position = CGPointMake(self.micTwoButton.layer.bounds.size.width / 2, self.micTwoButton.layer.bounds.size.height / 2);
+    [self.micTwoButton.layer addSublayer:self.haloTwo];
+    UIColor *colorTwo = [UIColor colorWithRed:1 green:221.0 / 255 blue: 113.0 / 255 alpha:1.0];
+    self.haloTwo.backgroundColor = colorTwo.CGColor;
+    [self.haloTwo start];
 }
 
 - (void)speakText:(NSString *)text withLanguage:(NSString *)language {
