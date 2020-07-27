@@ -57,8 +57,12 @@
                 break;
         }
     }];
-    self.viewOne.layer.cornerRadius = 20;
-    self.viewTwo.layer.cornerRadius = 20;
+    self.viewOne.layer.cornerRadius = 10;
+    self.viewTwo.layer.cornerRadius = 10;
+    self.viewOne.layer.borderWidth = 2;
+    self.viewOne.layer.borderColor = CGColorCreateSRGB(110.0 / 255, 198.0 / 255, 1, 1);
+    self.viewTwo.layer.borderWidth = 2;
+    self.viewTwo.layer.borderColor = CGColorCreateSRGB(1, 221.0 / 255, 113.0 / 255, 1);
 }
 
 - (void)startListen:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
@@ -113,9 +117,11 @@
         [self.audioEngine stop];
         [self.recognitionRequest endAudio];
         [self speakText:self.conversationTwoLabel.text withLanguage:self.langTwo];
+        [self.micOneButton setSelected:NO];
     } else {
         [self SpeechLanguage:self.langOne];
         [self startListen:self.conversationOneLabel to:self.conversationTwoLabel source:self.langOne target:self.langTwo];
+        [self.micOneButton setSelected:YES];
     }
 }
 - (IBAction)pressMicTwo:(id)sender {
@@ -123,9 +129,11 @@
         [self.audioEngine stop];
         [self.recognitionRequest endAudio];
         [self speakText:self.conversationOneLabel.text withLanguage:self.langOne];
+        [self.micTwoButton setSelected:NO];
     } else {
         [self SpeechLanguage:self.langTwo];
         [self startListen:self.conversationTwoLabel to:self.conversationOneLabel source:self.langTwo target:self.langOne];
+        [self.micTwoButton setSelected:YES];
     }
 }
 
