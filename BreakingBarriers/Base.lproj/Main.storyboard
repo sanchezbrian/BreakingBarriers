@@ -141,6 +141,9 @@
                                                     <rect key="frame" x="314" y="11" width="46" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
+                                                    <state key="selected">
+                                                        <color key="titleColor" red="1" green="0.86666666670000003" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="pressDownload:" destination="NKS-Xd-bS2" eventType="touchUpInside" id="tVL-OZ-cAd"/>
                                                     </connections>

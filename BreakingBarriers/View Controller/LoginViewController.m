@@ -17,12 +17,12 @@
 
 @implementation LoginViewController
 
-bool fbLogin = NO;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self addLoginButton];
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self addLoginButton];
+    });
 }
 
 - (void)addLoginButton {

@@ -6,12 +6,18 @@
 //  Copyright © 2020 Brian Sanchez. All rights reserved.
 //
 
+@import MLKit;
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LanguageCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *languageLabel;
+@property (weak, nonatomic) IBOutlet UIButton *downloadButton;
+@property (strong, nonatomic) NSString *langCode;
+@property (weak, nonatomic) NSProgress *progress;
+
+- (void)setLangauge:(NSString *)langauge;
 
 @end
 

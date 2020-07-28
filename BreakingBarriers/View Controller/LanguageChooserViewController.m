@@ -56,8 +56,10 @@
     LanguageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LanguageCell" forIndexPath:indexPath];
     if (self.isFiltered) {
         cell.languageLabel.text = [NSLocale.currentLocale localizedStringForLanguageCode:self.filteredLanguages[indexPath.row]];
+        [cell setLangauge:self.filteredLanguages[indexPath.row]];
     } else {
         cell.languageLabel.text = [NSLocale.currentLocale localizedStringForLanguageCode:self.allLanguages[indexPath.row]];
+        [cell setLangauge:self.allLanguages[indexPath.row]];
     }
     return cell;
 }

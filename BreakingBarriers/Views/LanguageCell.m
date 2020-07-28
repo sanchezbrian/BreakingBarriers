@@ -7,18 +7,51 @@
 //
 
 #import "LanguageCell.h"
+#import "MBProgressHUD.h"
 
 @implementation LanguageCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    NSSet<MLKTranslateRemoteModel *> *localModels = [MLKModelManager modelManager].downloadedTranslateModels;
+    NSLog(@"%@", localModels);
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (BOOL)isLanguageDownloaded:(MLKTranslateLanguage)language {
+    MLKTranslateRemoteModel *model = [self modelForLanguage:language];
+    MLKModelManager *modelManager = [MLKModelManager modelManager];
+    return [modelManager isModelDownloaded:model];
+}
 
-    // Configure the view for the selected state
+- (MLKTranslateRemoteModel *)modelForLanguage:(MLKTranslateLanguage)language {
+  return [MLKTranslateRemoteModel translateRemoteModelWithLanguage:language];
+}
+
+- (void)setLangauge:(NSString *)langauge {
+    self.langCode = langauge;
+    if ([self isLanguageDownloaded:langauge]) {
+        [self.downloadButton setSelected:YES];
+    } else {
+        [self.downloadButton setSelected:NO];
+    }
+}
+
+- (IBAction)pressDownload:(id)sender {
+    if ([self.downloadButton isSelected]) {
+        MLKTranslateRemoteModel *model = [self modelForLanguage:self.langCode];
+        [[MLKModelManager modelManager] deleteDownloadedModel:model completion:^(NSError * _Nullable error) {
+             if (error != nil) {
+                 return;
+             }
+            NSLog(@"Succesful Deletion");
+            [self.downloadButton setSelected:NO];
+        }];
+    } else {
+        MLKModelDownloadConditions *conditions = [[MLKModelDownloadConditions alloc] initWithAllowsCellularAccess:NO allowsBackgroundDownloading:YES];
+        MLKTranslateRemoteModel *model = [self modelForLanguage:self.langCode];
+        [[MLKModelManager modelManager] downloadModel:model conditions:conditions];
+        [self.downloadButton setSelected:YES];
+    }
 }
 
 @end
