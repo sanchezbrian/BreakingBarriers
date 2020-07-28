@@ -271,12 +271,12 @@
     if (CGPointEqualToPoint(self.viewTwo.frame.origin, self.viewTwoStartPoint)) {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 150);
-            [self.tabBarController.tabBar setHidden:YES];
+            self.tabBarController.tabBar.alpha = 0;
         }];
     } else {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 0);
-            [self.tabBarController.tabBar setHidden:NO];
+            self.tabBarController.tabBar.alpha = 1;
         }];
     }
 }
@@ -284,12 +284,12 @@
     if (CGPointEqualToPoint(self.viewTwo.frame.origin, self.viewTwoStartPoint)) {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, -150);
-            [self.tabBarController.tabBar setHidden:YES];
+            self.tabBarController.tabBar.alpha = 0;
         }];
     } else {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 0);
-            [self.tabBarController.tabBar setHidden:NO];
+            self.tabBarController.tabBar.alpha = 1;
         }];
     }
 }
