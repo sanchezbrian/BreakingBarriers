@@ -15,6 +15,12 @@
     [super awakeFromNib];
     NSSet<MLKTranslateRemoteModel *> *localModels = [MLKModelManager modelManager].downloadedTranslateModels;
     NSLog(@"%@", localModels);
+    self.progressView.alpha = 0;
+    [NSNotificationCenter.defaultCenter
+    addObserver:self
+       selector:@selector(modelDownloadDidCompleteWithNotification:)
+           name:MLKModelDownloadDidSucceedNotification
+         object:nil];
 }
 
 - (BOOL)isLanguageDownloaded:(MLKTranslateLanguage)language {
@@ -44,14 +50,35 @@
                  return;
              }
             NSLog(@"Succesful Deletion");
+            [UIView animateWithDuration:.2 animations:^{
+                self.progressView.alpha = 0;
+            }];
             [self.downloadButton setSelected:NO];
         }];
     } else {
         MLKModelDownloadConditions *conditions = [[MLKModelDownloadConditions alloc] initWithAllowsCellularAccess:NO allowsBackgroundDownloading:YES];
         MLKTranslateRemoteModel *model = [self modelForLanguage:self.langCode];
-        [[MLKModelManager modelManager] downloadModel:model conditions:conditions];
-        [self.downloadButton setSelected:YES];
+        [UIView animateWithDuration:.2 animations:^{
+            self.progressView.alpha = 1;
+        }];
+        self.progressView.observedProgress = [[MLKModelManager modelManager] downloadModel:model conditions:conditions];
     }
+}
+
+- (void)modelDownloadDidCompleteWithNotification:(NSNotification *)notification {
+  MLKTranslateRemoteModel *model = notification.userInfo[MLKModelDownloadUserInfoKeyRemoteModel];
+  if (![model isKindOfClass:MLKTranslateRemoteModel.class]) {
+    return;
+  }
+
+  dispatch_async(dispatch_get_main_queue(), ^{
+    if (notification.name == MLKModelDownloadDidSucceedNotification) {
+      [UIView transitionWithView:self.downloadButton duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+          [self.downloadButton setSelected:YES];
+          self.progressView.alpha = 0;
+      } completion:nil];
+    }
+  });
 }
 
 @end
