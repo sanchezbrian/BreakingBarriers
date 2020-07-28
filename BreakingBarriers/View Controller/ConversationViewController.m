@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSString *langTwo;
 @property (nonatomic, strong) PulsingHaloLayer *haloOne;
 @property (nonatomic, strong) PulsingHaloLayer *haloTwo;
+@property CGPoint viewTwoStartPoint;
 
 
 @end
@@ -61,12 +62,15 @@
                 break;
         }
     }];
-    self.viewOne.layer.cornerRadius = 10;
-    self.viewTwo.layer.cornerRadius = 10;
-    self.viewOne.layer.borderWidth = 2;
-    self.viewOne.layer.borderColor = CGColorCreateSRGB(110.0 / 255, 198.0 / 255, 1, 1);
-    self.viewTwo.layer.borderWidth = 2;
-    self.viewTwo.layer.borderColor = CGColorCreateSRGB(1, 221.0 / 255, 113.0 / 255, 1);
+    self.viewOne.layer.cornerRadius = 20;
+    self.viewTwo.layer.cornerRadius = 20;
+    self.languageOneButton.layer.cornerRadius = 10;
+    self.languageTwoButton.layer.cornerRadius = 10;
+    self.viewTwoStartPoint = self.viewTwo.frame.origin;
+//    self.viewOne.layer.borderWidth = 2;
+//    self.viewOne.layer.borderColor = CGColorCreateSRGB(110.0 / 255, 198.0 / 255, 1, 1);
+//    self.viewTwo.layer.borderWidth = 2;
+//    self.viewTwo.layer.borderColor = CGColorCreateSRGB(1, 221.0 / 255, 113.0 / 255, 1);
 }
 
 - (void)startListen:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
@@ -261,6 +265,32 @@
         controller.langOne = YES;
     } else {
         controller.langTwo = YES;
+    }
+}
+- (IBAction)tapViewOne:(UITapGestureRecognizer *)sender {
+    if (CGPointEqualToPoint(self.viewTwo.frame.origin, self.viewTwoStartPoint)) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 150);
+            [self.tabBarController.tabBar setHidden:YES];
+        }];
+    } else {
+        [UIView animateWithDuration:.3 animations:^{
+            self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 0);
+            [self.tabBarController.tabBar setHidden:NO];
+        }];
+    }
+}
+- (IBAction)tapViewtwo:(UITapGestureRecognizer *)sender {
+    if (CGPointEqualToPoint(self.viewTwo.frame.origin, self.viewTwoStartPoint)) {
+        [UIView animateWithDuration:.3 animations:^{
+            self.viewTwo.transform = CGAffineTransformMakeTranslation(0, -150);
+            [self.tabBarController.tabBar setHidden:YES];
+        }];
+    } else {
+        [UIView animateWithDuration:.3 animations:^{
+            self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 0);
+            [self.tabBarController.tabBar setHidden:NO];
+        }];
     }
 }
 
