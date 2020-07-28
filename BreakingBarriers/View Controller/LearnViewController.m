@@ -5,12 +5,13 @@
 //  Created by Brian Sanchez on 7/23/20.
 //  Copyright © 2020 Brian Sanchez. All rights reserved.
 //
-
 #import <Parse/Parse.h>
 #import "LearningCell.h"
 #import "LearnViewController.h"
+#import "LoginViewController.h"
 #import "MBProgressHUD.h"
 #import "SavedText.h"
+#import "SceneDelegate.h"
 
 @interface LearnViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -51,8 +52,10 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects != nil) {
             self.saved = objects;
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
-            [self.collectionView reloadData];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                [self.collectionView reloadData];
+            });
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -83,5 +86,13 @@
     // Pass the selected object to the new view controller.
 }
 */
+- (IBAction)logout:(id)sender {
+    SceneDelegate *sceneDelegate = (SceneDelegate *) self.view.window.windowScene.delegate;
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    sceneDelegate.window.rootViewController = loginViewController;
+    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
+    }];
+}
 
 @end
