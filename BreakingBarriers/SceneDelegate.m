@@ -20,7 +20,7 @@
     if ([FBSDKAccessToken currentAccessToken]) {
         NSLog(@"Welcome Back");
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UIViewController *timelineTabController = [storyboard instantiateViewControllerWithIdentifier:@"TabController"];
+        UIViewController *timelineTabController = [storyboard instantiateViewControllerWithIdentifier:@"initialView"];
         self.window.rootViewController = timelineTabController;
     }
 }
