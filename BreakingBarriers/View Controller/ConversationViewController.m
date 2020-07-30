@@ -62,15 +62,23 @@
                 break;
         }
     }];
+    [self.view layoutIfNeeded];
+//    self.viewOne.layer.borderWidth = 2;
+//    self.viewOne.layer.borderColor = CGColorCreateSRGB(110.0 / 255, 198.0 / 255, 1, 1);
+//    self.viewTwo.layer.borderWidth = 2;
+//    self.viewTwo.layer.borderColor = CGColorCreateSRGB(1, 221.0 / 255, 113.0 / 255, 1);
+}
+
+- (void)viewWillAppear:(BOOL)animated {
     self.viewOne.layer.cornerRadius = 20;
     self.viewTwo.layer.cornerRadius = 20;
     self.languageOneButton.layer.cornerRadius = 10;
     self.languageTwoButton.layer.cornerRadius = 10;
     self.viewTwoStartPoint = self.viewTwo.frame.origin;
-//    self.viewOne.layer.borderWidth = 2;
-//    self.viewOne.layer.borderColor = CGColorCreateSRGB(110.0 / 255, 198.0 / 255, 1, 1);
-//    self.viewTwo.layer.borderWidth = 2;
-//    self.viewTwo.layer.borderColor = CGColorCreateSRGB(1, 221.0 / 255, 113.0 / 255, 1);
+    self.viewOne.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    self.viewTwo.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [self.viewTwo setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [self.viewOne setTranslatesAutoresizingMaskIntoConstraints:NO];
 }
 
 - (void)startListen:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
@@ -271,24 +279,29 @@
     if (CGPointEqualToPoint(self.viewTwo.frame.origin, self.viewTwoStartPoint)) {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 150);
+            [self.viewTwo layoutIfNeeded];
             self.tabBarController.tabBar.alpha = 0;
         }];
     } else {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 0);
+            [self.viewTwo layoutIfNeeded];
             self.tabBarController.tabBar.alpha = 1;
         }];
     }
 }
 - (IBAction)tapViewtwo:(UITapGestureRecognizer *)sender {
     if (CGPointEqualToPoint(self.viewTwo.frame.origin, self.viewTwoStartPoint)) {
+        NSLog(@"Working for gesture");
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, -150);
+            [self.viewTwo layoutIfNeeded];
             self.tabBarController.tabBar.alpha = 0;
         }];
     } else {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 0);
+            [self.viewTwo layoutIfNeeded];
             self.tabBarController.tabBar.alpha = 1;
         }];
     }
