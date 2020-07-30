@@ -13,6 +13,9 @@
 
 @interface LoginViewController ()
 
+@property (strong, nonatomic) FBSDKLoginButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *guestButton;
+
 @end
 
 @implementation LoginViewController
@@ -22,15 +25,26 @@
     // Do any additional setup after loading the view.
     dispatch_async(dispatch_get_main_queue(), ^(void){
         [self addLoginButton];
+        //[self addGuestLogin];
     });
 }
 
+- (void)addGuestLogin {
+    CGRect frame = self.guestButton.frame;
+    frame.size = self.loginButton.frame.size;
+    self.guestButton.frame = frame;
+    
+}
+
 - (void)addLoginButton {
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    loginButton.delegate = self;
-    loginButton.permissions = @[@"public_profile", @"email"];
-    loginButton.center = self.view.center;
-    [self.view addSubview:loginButton];
+    self.loginButton = [[FBSDKLoginButton alloc] init];
+    self.loginButton.delegate = self;
+    self.loginButton.permissions = @[@"public_profile", @"email"];
+    self.loginButton.center = self.view.center;
+    CGRect frame = self.loginButton.frame;
+    frame.origin.y = self.guestButton.frame.origin.y - 50;
+    self.loginButton.frame = frame;
+    [self.view addSubview:self.loginButton];
 }
 
 - (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
@@ -51,14 +65,17 @@
                   } else {
                     NSLog(@"User logged in through Facebook!");
                   }
-                    NSLog(@"%@", user);
+                    NSLog(@"%@", user );
                 }];
             }
-        [self performSegueWithIdentifier:@"loginSegue" sender:self];
+        [self performSegueWithIdentifier:@"newSegue" sender:self];
 }
 
 - (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {
     NSLog(@"Logged out");
+}
+- (IBAction)continueAsGuest:(id)sender {
+    [self performSegueWithIdentifier:@"newSegue" sender:self];
 }
 
 
