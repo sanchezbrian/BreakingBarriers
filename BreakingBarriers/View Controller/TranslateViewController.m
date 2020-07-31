@@ -40,6 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.outputLabel.text = @"";
     self.sourceLang.alpha = 0;
     self.targetLang.alpha = 0;
     self.targetView.alpha = 0;
@@ -97,10 +98,12 @@
 
 #pragma mark - TextView Delegate
 - (void)textViewDidChange:(UITextView *)textView {
-    [UILabel animateWithDuration:.2 animations:^{
-        self.targetView.alpha = 1;
-    }];
-    [self translate];
+    if (textView.text.length > 0) {
+        [UILabel animateWithDuration:.2 animations:^{
+            self.targetView.alpha = 1;
+        }];
+        [self translate];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -130,7 +133,7 @@
         textView.text = @"Tap to enter text";
         textView.textColor = [UIColor lightGrayColor]; //optional
         [UILabel animateWithDuration:.2 animations:^{
-            self.targetView.alpha = 1;
+            self.targetView.alpha = 0;
         }];
     }
     [textView resignFirstResponder];

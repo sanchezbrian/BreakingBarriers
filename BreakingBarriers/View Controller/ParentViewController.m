@@ -30,6 +30,10 @@
     } else {
         self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan", @"Saved", @"Learn"]];
     }
+    
+    self.vcArray = [NSMutableArray new];
+    self.title = @"Breaking Barriers";
+    //self.navigationController.navigationBar.prefersLargeTitles = YES;
 
     self.view.backgroundColor = [UIColor whiteColor];
        
@@ -70,7 +74,7 @@
 }
 
 - (void)displayCurrentTab:(NSInteger )index {
-    UIViewController * vc = [self viewControllerForSelectedSegementIndex: index];
+    UIViewController * vc = [self viewControllerForSelectedSegementIndex:index];
     [self addChildViewController:vc];
     [vc didMoveToParentViewController:self];
     vc.view.frame = self.controllerView.bounds;
