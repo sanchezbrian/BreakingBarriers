@@ -12,9 +12,11 @@
 		2F78730524CA0A3000292E0C /* SavedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730424CA0A3000292E0C /* SavedViewController.m */; };
 		2F78730824CA3B7800292E0C /* LearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730724CA3B7800292E0C /* LearnViewController.m */; };
 		2F78730B24CA3BB400292E0C /* LearningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730A24CA3BB400292E0C /* LearningCell.m */; };
-		2FA1920124D1CE4D0095CF06 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1920024D1CE4D0095CF06 /* TabBarController.m */; };
 		2FA1920424D1DAEE0095CF06 /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1920324D1DAEE0095CF06 /* ParentViewController.m */; };
 		2FB1E80D24C8AD6800C487E5 /* SavedText.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB1E80C24C8AD6800C487E5 /* SavedText.m */; };
+		2FCED3CB24D498FD00B8B46E /* DraggableViewBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCED3CA24D498FD00B8B46E /* DraggableViewBackground.m */; };
+		2FCED3D024D4992000B8B46E /* DraggableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCED3CC24D4991E00B8B46E /* DraggableView.m */; };
+		2FCED3D124D4992000B8B46E /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCED3CF24D4991F00B8B46E /* OverlayView.m */; };
 		2FD1958124BF5B3500636107 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958024BF5B3500636107 /* SceneDelegate.m */; };
 		2FD1958424BF5B3500636107 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FD1958324BF5B3500636107 /* ViewController.m */; };
 		2FD1958724BF5B3500636107 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FD1958524BF5B3500636107 /* Main.storyboard */; };
@@ -62,12 +64,16 @@
 		2F78730724CA3B7800292E0C /* LearnViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LearnViewController.m; sourceTree = "<group>"; };
 		2F78730924CA3BB400292E0C /* LearningCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LearningCell.h; sourceTree = "<group>"; };
 		2F78730A24CA3BB400292E0C /* LearningCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LearningCell.m; sourceTree = "<group>"; };
-		2FA191FF24D1CE4D0095CF06 /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
-		2FA1920024D1CE4D0095CF06 /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		2FA1920224D1DAEE0095CF06 /* ParentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParentViewController.h; sourceTree = "<group>"; };
 		2FA1920324D1DAEE0095CF06 /* ParentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParentViewController.m; sourceTree = "<group>"; };
 		2FB1E80B24C8AD6800C487E5 /* SavedText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedText.h; sourceTree = "<group>"; };
 		2FB1E80C24C8AD6800C487E5 /* SavedText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SavedText.m; sourceTree = "<group>"; };
+		2FCED3C924D498FC00B8B46E /* DraggableViewBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableViewBackground.h; sourceTree = "<group>"; };
+		2FCED3CA24D498FD00B8B46E /* DraggableViewBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableViewBackground.m; sourceTree = "<group>"; };
+		2FCED3CC24D4991E00B8B46E /* DraggableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableView.m; sourceTree = "<group>"; };
+		2FCED3CD24D4991E00B8B46E /* DraggableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableView.h; sourceTree = "<group>"; };
+		2FCED3CE24D4991F00B8B46E /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
+		2FCED3CF24D4991F00B8B46E /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
 		2FD1957924BF5B3500636107 /* BreakingBarriers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakingBarriers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FD1957C24BF5B3500636107 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2FD1957D24BF5B3500636107 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -228,8 +234,6 @@
 				2F78730424CA0A3000292E0C /* SavedViewController.m */,
 				2F78730624CA3B7800292E0C /* LearnViewController.h */,
 				2F78730724CA3B7800292E0C /* LearnViewController.m */,
-				2FA191FF24D1CE4D0095CF06 /* TabBarController.h */,
-				2FA1920024D1CE4D0095CF06 /* TabBarController.m */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -243,6 +247,12 @@
 				2F78730124CA07D200292E0C /* SavedCell.m */,
 				2F78730924CA3BB400292E0C /* LearningCell.h */,
 				2F78730A24CA3BB400292E0C /* LearningCell.m */,
+				2FCED3C924D498FC00B8B46E /* DraggableViewBackground.h */,
+				2FCED3CA24D498FD00B8B46E /* DraggableViewBackground.m */,
+				2FCED3CD24D4991E00B8B46E /* DraggableView.h */,
+				2FCED3CC24D4991E00B8B46E /* DraggableView.m */,
+				2FCED3CE24D4991F00B8B46E /* OverlayView.h */,
+				2FCED3CF24D4991F00B8B46E /* OverlayView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -544,6 +554,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FCED3CB24D498FD00B8B46E /* DraggableViewBackground.m in Sources */,
+				2FCED3D124D4992000B8B46E /* OverlayView.m in Sources */,
 				2FD1958424BF5B3500636107 /* ViewController.m in Sources */,
 				2FD195C524C2152900636107 /* ScanViewController.m in Sources */,
 				2F78730B24CA3BB400292E0C /* LearningCell.m in Sources */,
@@ -558,7 +570,7 @@
 				2FD195B924BFA0E800636107 /* LanguageChooserViewController.m in Sources */,
 				2FD195B624BF88E200636107 /* ConversationViewController.m in Sources */,
 				2F78730224CA07D200292E0C /* SavedCell.m in Sources */,
-				2FA1920124D1CE4D0095CF06 /* TabBarController.m in Sources */,
+				2FCED3D024D4992000B8B46E /* DraggableView.m in Sources */,
 				2FD195BC24BFA1DB00636107 /* LanguageCell.m in Sources */,
 				2FB1E80D24C8AD6800C487E5 /* SavedText.m in Sources */,
 			);

@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *languageLabel;
 @property (weak, nonatomic) IBOutlet UIButton *downloadButton;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UIView *cellView;
 @property (strong, nonatomic) NSString *langCode;
 @property (weak, nonatomic) NSProgress *progress;
 

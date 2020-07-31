@@ -16,11 +16,23 @@
 @property (weak, nonatomic) IBOutlet UIButton *langOneButton;
 @property (weak, nonatomic) IBOutlet UIButton *langTwoButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIButton *switchButton;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *outputLabel;
 @property(nonatomic, strong) MLKTranslator *translator;
 @property (strong, nonatomic) NSString *langOne;
 @property (strong, nonatomic) NSString *langTwo;
+@property (weak, nonatomic) IBOutlet UIView *buttonView;
+@property (weak, nonatomic) IBOutlet UILabel *targetLang;
+@property (weak, nonatomic) IBOutlet UILabel *sourceLang;
+@property (weak, nonatomic) IBOutlet UIView *sourceView;
+@property (weak, nonatomic) IBOutlet UIView *targetView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
+@property CGRect buttonViewStart;
+@property CGRect sourceViewStart;
+@property CGRect targetViewStart;
 
 @end
 
@@ -28,21 +40,65 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.outputLabel.alpha = 0;
-    self.saveButton.alpha = 0;
+    self.sourceLang.alpha = 0;
+    self.targetLang.alpha = 0;
+    self.targetView.alpha = 0;
     self.textView.delegate = self;
     self.textView.returnKeyType = UIReturnKeyDone;
-    self.textView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
-    self.textView.layer.borderWidth = 2;
-    self.textView.text = @"Please type here...";
+    self.textView.text = @"Tap to enter text";
     self.textView.textColor = [UIColor lightGrayColor];
+    
+    self.sourceView.layer.cornerRadius = 12;
+    self.targetView.layer.cornerRadius = 12;
+    [self.sourceView.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [self.sourceView.layer setShadowOffset:CGSizeMake(0, 1)];
+    [self.sourceView.layer setShadowRadius:1.0];
+    [self.sourceView.layer setShadowOpacity:0.5];
+    self.sourceView.clipsToBounds = false;
+    self.sourceView.layer.masksToBounds = false;
+    
+    [self.targetView.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [self.targetView.layer setShadowOffset:CGSizeMake(0, 1)];
+    [self.targetView.layer setShadowRadius:1.0];
+    [self.targetView.layer setShadowOpacity:0.5];
+    self.targetView.clipsToBounds = false;
+    self.targetView.layer.masksToBounds = false;
+
+    
+    UIView *border = [UIView new];
+    border.backgroundColor = UIColor.systemGray5Color;
+    [border setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
+    border.frame = CGRectMake(0, 0, self.buttonView.frame.size.width, 1);
+    [self.buttonView addSubview:border];
+    self.langOneButton.layer.cornerRadius = 15;
+    self.langTwoButton.layer.cornerRadius = 15;
+    self.switchButton.layer.cornerRadius = 15;
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardDidHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidLayoutSubviews {
+    self.buttonViewStart = self.buttonView.frame;
+    self.targetViewStart = self.targetView.frame;
+    self.sourceViewStart = self.sourceView.frame;
+    NSLog(@"I changed");
 }
 
 #pragma mark - TextView Delegate
 - (void)textViewDidChange:(UITextView *)textView {
     [UILabel animateWithDuration:.2 animations:^{
-        self.outputLabel.alpha = 1;
-        self.saveButton.alpha = 1;
+        self.targetView.alpha = 1;
     }];
     [self translate];
 }
@@ -57,7 +113,7 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([textView.text isEqualToString:@"Please type here..."]) {
+    if ([textView.text isEqualToString:@"Tap to enter text"]) {
          textView.text = @"";
          textView.textColor = [UIColor blackColor]; //optional
     }
@@ -71,11 +127,10 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     if ([textView.text isEqualToString:@""]) {
-        textView.text = @"Please type here...";
+        textView.text = @"Tap to enter text";
         textView.textColor = [UIColor lightGrayColor]; //optional
         [UILabel animateWithDuration:.2 animations:^{
-            self.outputLabel.alpha = 0;
-            self.saveButton.alpha = 0;
+            self.targetView.alpha = 1;
         }];
     }
     [textView resignFirstResponder];
@@ -86,10 +141,14 @@
     if (contoller.langOne) {
         self.langOne = language;
         [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+        self.targetLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:language];
+        self.sourceLang.alpha = 1;
         NSLog(@"Language 1: %@", language);
     } else {
         self.langTwo = language;
         [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+        self.sourceLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:language];
+        self.targetLang.alpha = 1;
         NSLog(@"Language 2: %@", language);
     }
 }
@@ -156,6 +215,39 @@
         }];
     }
 }
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    [UIView animateWithDuration:.03 animations:^{
+        CGRect one = self.buttonViewStart;
+        CGRect two = self.sourceViewStart;
+        CGRect three = self.targetViewStart;
+        two.origin.y = two.origin.y - keyboardSize.height + 30;
+        three.origin.y = three.origin.y - keyboardSize.height + 30;
+        one.origin.y = one.origin.y - keyboardSize.height + 30;
+        self.buttonView.frame = one;
+        self.sourceView.frame = two;
+        self.targetView.frame = three;
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    [UIView animateWithDuration:.03 animations:^{
+        CGRect one = self.buttonView.frame;
+        CGRect two = self.sourceViewStart;
+        CGRect three = self.targetViewStart;
+        one.origin = self.buttonViewStart.origin;
+        two.origin = self.sourceViewStart.origin;
+        three.origin = self.targetViewStart.origin;
+        self.buttonView.frame = one;
+        self.sourceView.frame = two;
+        self.targetView.frame = three;
+        [self.view layoutIfNeeded];
+    }];
+}
+
+
 
 #pragma mark - Buttons
 

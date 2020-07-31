@@ -8,6 +8,7 @@
 
 #import "LanguageCell.h"
 #import "MBProgressHUD.h"
+#import "TONavigationBar.h"
 
 @implementation LanguageCell
 
@@ -21,6 +22,15 @@
        selector:@selector(modelDownloadDidCompleteWithNotification:)
            name:MLKModelDownloadDidSucceedNotification
          object:nil];
+//    self.contentView.backgroundColor = UIColor.darkGrayColor;
+    self.cellView.layer.cornerRadius = 12;
+    [self.cellView.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [self.cellView.layer setShadowOffset:CGSizeMake(0, 1)];
+    [self.cellView.layer setShadowRadius:1.5];
+    [self.cellView.layer setShadowOpacity:0.5];
+    self.cellView.clipsToBounds = false;
+    self.cellView.layer.masksToBounds = false;
+    
 }
 
 - (BOOL)isLanguageDownloaded:(MLKTranslateLanguage)language {

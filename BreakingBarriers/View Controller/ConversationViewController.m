@@ -63,15 +63,11 @@
         }
     }];
     [self.view layoutIfNeeded];
-//    self.viewOne.layer.borderWidth = 2;
-//    self.viewOne.layer.borderColor = CGColorCreateSRGB(110.0 / 255, 198.0 / 255, 1, 1);
-//    self.viewTwo.layer.borderWidth = 2;
-//    self.viewTwo.layer.borderColor = CGColorCreateSRGB(1, 221.0 / 255, 113.0 / 255, 1);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.viewOne.layer.cornerRadius = 20;
-    self.viewTwo.layer.cornerRadius = 20;
+    self.viewOne.layer.cornerRadius = 30;
+    self.viewTwo.layer.cornerRadius = 30;
     self.languageOneButton.layer.cornerRadius = 10;
     self.languageTwoButton.layer.cornerRadius = 10;
     self.viewTwoStartPoint = self.viewTwo.frame.origin;
@@ -285,6 +281,10 @@
     } else {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 0);
+            CGRect frame = self.viewTwo.frame;
+            frame.origin = self.viewTwoStartPoint;
+            frame.size.height = self.view.frame.size.height - self.viewTwoStartPoint.y - 20;
+            self.viewTwo.frame = frame;
             [self.viewTwo layoutIfNeeded];
             self.tabBarController.tabBar.alpha = 1;
         }];
@@ -295,12 +295,19 @@
         NSLog(@"Working for gesture");
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, -150);
+            CGRect frame = self.viewTwo.frame;
+            frame.size.height = self.view.frame.size.height - self.viewTwo.frame.origin.y - 20;
+            self.viewTwo.frame = frame;
             [self.viewTwo layoutIfNeeded];
             self.tabBarController.tabBar.alpha = 0;
         }];
     } else {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 0);
+            CGRect frame = self.viewTwo.frame;
+            frame.origin = self.viewTwoStartPoint;
+            frame.size.height = self.view.frame.size.height - self.viewTwoStartPoint.y - 20;
+            self.viewTwo.frame = frame;
             [self.viewTwo layoutIfNeeded];
             self.tabBarController.tabBar.alpha = 1;
         }];
