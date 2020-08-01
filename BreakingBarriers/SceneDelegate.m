@@ -8,6 +8,8 @@
 
 @import FBSDKCoreKit;
 #import "SceneDelegate.h"
+#import "ParentViewController.h"
+#import "TONavigationBar.h"
 
 @interface SceneDelegate ()
 
@@ -22,6 +24,12 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         UIViewController *timelineTabController = [storyboard instantiateViewControllerWithIdentifier:@"initialView"];
         self.window.rootViewController = timelineTabController;
+//        UINavigationController *navController = [[UINavigationController alloc] initWithNavigationBarClass:[TONavigationBar class] toolbarClass:nil];
+//        [navController pushViewController:timelineTabController animated:NO];
+//        
+//        self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//        self.window.rootViewController = navController;
+//        [self.window makeKeyAndVisible];
     }
 }
 
