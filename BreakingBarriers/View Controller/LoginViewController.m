@@ -15,6 +15,7 @@
 
 @property (strong, nonatomic) FBSDKLoginButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *guestButton;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
 
@@ -22,16 +23,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    dispatch_async(dispatch_get_main_queue(), ^(void){
-        [self addLoginButton];
-        //[self addGuestLogin];
-    });
+    [self addLoginButton];
+    [self addGuestLogin];
+    self.imageView.layer.cornerRadius = (self.imageView.frame.size.width) / 2;
 }
 
 - (void)addGuestLogin {
+    self.guestButton.center = self.view.center;
     CGRect frame = self.guestButton.frame;
     frame.size = self.loginButton.frame.size;
+    frame.origin.x = frame.origin.x - 7;
+    frame.origin.y = frame.origin.y + 100;
+    self.guestButton.layer.cornerRadius = 3;
     self.guestButton.frame = frame;
     
 }
@@ -42,7 +45,7 @@
     self.loginButton.permissions = @[@"public_profile", @"email"];
     self.loginButton.center = self.view.center;
     CGRect frame = self.loginButton.frame;
-    frame.origin.y = self.guestButton.frame.origin.y - 50;
+    frame.origin.y = frame.origin.y + 50;
     self.loginButton.frame = frame;
     [self.view addSubview:self.loginButton];
 }
