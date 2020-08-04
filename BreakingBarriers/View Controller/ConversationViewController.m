@@ -35,7 +35,6 @@
 @property (nonatomic, strong) PulsingHaloLayer *haloTwo;
 @property CGPoint viewTwoStartPoint;
 
-
 @end
 
 @implementation ConversationViewController
@@ -62,10 +61,10 @@
                 break;
         }
     }];
-    [self.view layoutIfNeeded];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
     self.viewOne.layer.cornerRadius = 30;
     self.viewTwo.layer.cornerRadius = 30;
     self.languageOneButton.layer.cornerRadius = 10;
@@ -201,6 +200,7 @@
     [audioSession setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&error];
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:language];
+    utterance.rate = 0.45f;
     AVSpeechSynthesizer *syn = [[AVSpeechSynthesizer alloc] init];
     [syn speakUtterance:utterance];
 }
@@ -292,7 +292,6 @@
 }
 - (IBAction)tapViewtwo:(UITapGestureRecognizer *)sender {
     if (CGPointEqualToPoint(self.viewTwo.frame.origin, self.viewTwoStartPoint)) {
-        NSLog(@"Working for gesture");
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, -150);
             CGRect frame = self.viewTwo.frame;
