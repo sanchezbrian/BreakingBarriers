@@ -17,11 +17,6 @@
     NSSet<MLKTranslateRemoteModel *> *localModels = [MLKModelManager modelManager].downloadedTranslateModels;
     NSLog(@"%@", localModels);
     self.progressView.alpha = 0;
-    [NSNotificationCenter.defaultCenter
-    addObserver:self
-       selector:@selector(modelDownloadDidCompleteWithNotification:)
-           name:MLKModelDownloadDidSucceedNotification
-         object:nil];
 //    self.contentView.backgroundColor = UIColor.darkGrayColor;
     self.cellView.layer.cornerRadius = 12;
     [self.cellView.layer setShadowColor:[[UIColor blackColor] CGColor]];
@@ -72,23 +67,19 @@
             self.progressView.alpha = 1;
         }];
         self.progressView.observedProgress = [[MLKModelManager modelManager] downloadModel:model conditions:conditions];
+        [self updateProgress];
     }
 }
 
-- (void)modelDownloadDidCompleteWithNotification:(NSNotification *)notification {
-  MLKTranslateRemoteModel *model = notification.userInfo[MLKModelDownloadUserInfoKeyRemoteModel];
-  if (![model isKindOfClass:MLKTranslateRemoteModel.class]) {
-    return;
-  }
-
-  dispatch_async(dispatch_get_main_queue(), ^{
-    if (notification.name == MLKModelDownloadDidSucceedNotification) {
-      [UIView transitionWithView:self.downloadButton duration:0.3 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-          [self.downloadButton setSelected:YES];
-          self.progressView.alpha = 0;
-      } completion:nil];
+- (void)updateProgress {
+    if (self.progressView.progress < 1.0) {
+        [self performSelector:@selector(updateProgress) withObject:nil afterDelay:0.2];
+        [self setUserInteractionEnabled:NO];
+    } else {
+        [self.downloadButton setSelected:YES];
+        [self setUserInteractionEnabled:YES];
+        self.progressView.alpha = 0;
     }
-  });
 }
 
 @end
