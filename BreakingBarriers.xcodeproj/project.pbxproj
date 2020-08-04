@@ -186,8 +186,6 @@
 				2FD1957D24BF5B3500636107 /* AppDelegate.m */,
 				2FD1957F24BF5B3500636107 /* SceneDelegate.h */,
 				2FD1958024BF5B3500636107 /* SceneDelegate.m */,
-				2FD1958224BF5B3500636107 /* ViewController.h */,
-				2FD1958324BF5B3500636107 /* ViewController.m */,
 				2FD1958524BF5B3500636107 /* Main.storyboard */,
 				2FD1958824BF5B3700636107 /* Assets.xcassets */,
 				2FD1958A24BF5B3700636107 /* LaunchScreen.storyboard */,
@@ -234,6 +232,8 @@
 				2F78730424CA0A3000292E0C /* SavedViewController.m */,
 				2F78730624CA3B7800292E0C /* LearnViewController.h */,
 				2F78730724CA3B7800292E0C /* LearnViewController.m */,
+				2FD1958224BF5B3500636107 /* ViewController.h */,
+				2FD1958324BF5B3500636107 /* ViewController.m */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";

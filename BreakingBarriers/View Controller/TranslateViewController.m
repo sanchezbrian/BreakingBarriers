@@ -27,12 +27,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *sourceLang;
 @property (weak, nonatomic) IBOutlet UIView *sourceView;
 @property (weak, nonatomic) IBOutlet UIView *targetView;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topConstraint;
-@property CGRect buttonViewStart;
-@property CGRect sourceViewStart;
-@property CGRect targetViewStart;
+@property CGRect ViewStart;
 
 @end
 
@@ -65,7 +60,6 @@
     self.targetView.clipsToBounds = false;
     self.targetView.layer.masksToBounds = false;
 
-    
     UIView *border = [UIView new];
     border.backgroundColor = UIColor.systemGray5Color;
     [border setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin];
@@ -74,7 +68,6 @@
     self.langOneButton.layer.cornerRadius = 15;
     self.langTwoButton.layer.cornerRadius = 15;
     self.switchButton.layer.cornerRadius = 15;
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,16 +82,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewDidLayoutSubviews {
-    self.buttonViewStart = self.buttonView.frame;
-    self.targetViewStart = self.targetView.frame;
-    self.sourceViewStart = self.sourceView.frame;
-    NSLog(@"I changed");
-}
-
 #pragma mark - TextView Delegate
 - (void)textViewDidChange:(UITextView *)textView {
-    if (textView.text.length > 0) {
+    if (textView.text.length >= 0) {
         [UILabel animateWithDuration:.2 animations:^{
             self.targetView.alpha = 1;
         }];
@@ -120,9 +106,12 @@
          textView.text = @"";
          textView.textColor = [UIColor blackColor]; //optional
     }
+    self.ViewStart = self.view.frame;
     if (self.langOne == nil) {
+        [textView resignFirstResponder];
         [self checkIfLangugeChosen: 0];
     } else if (self.langTwo == nil) {
+        [textView resignFirstResponder];
         [self checkIfLangugeChosen: 1];
     }
 }
@@ -177,8 +166,8 @@
                   self.outputLabel.text = [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@", error.localizedDescription];
                   return;
               }
-              [self checkPhrase:self.textView.text];
               self.outputLabel.text = result;
+              [self checkPhrase:self.textView.text];
           }];
     }];
 }
@@ -188,6 +177,7 @@
     [query includeKey:@"author"];
     [query whereKey:@"author" equalTo:[PFUser currentUser]];
     [query whereKey:@"sourceText" equalTo:text];
+    [query whereKey:@"translatedText" equalTo:self.outputLabel.text];
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects.count == 1) {
             [self.saveButton setSelected:YES];
@@ -205,7 +195,6 @@
         }];
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:^{
-            // optional code for what happens after the alert controller has finished presenting
         }];
     } else {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Target Language Required" message:@"Please choose a target language" preferredStyle:(UIAlertControllerStyleAlert)];
@@ -214,7 +203,6 @@
         }];
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:^{
-            // optional code for what happens after the alert controller has finished presenting
         }];
     }
 }
@@ -222,30 +210,18 @@
 - (void)keyboardWillShow:(NSNotification *)notification {
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     [UIView animateWithDuration:.03 animations:^{
-        CGRect one = self.buttonViewStart;
-        CGRect two = self.sourceViewStart;
-        CGRect three = self.targetViewStart;
-        two.origin.y = two.origin.y - keyboardSize.height + 30;
-        three.origin.y = three.origin.y - keyboardSize.height + 30;
-        one.origin.y = one.origin.y - keyboardSize.height + 30;
-        self.buttonView.frame = one;
-        self.sourceView.frame = two;
-        self.targetView.frame = three;
+        CGRect rect = self.ViewStart;
+        rect.origin.y = rect.origin.y - keyboardSize.height + 30;
+        self.view.frame = rect;
         [self.view layoutIfNeeded];
     }];
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification {
     [UIView animateWithDuration:.03 animations:^{
-        CGRect one = self.buttonView.frame;
-        CGRect two = self.sourceViewStart;
-        CGRect three = self.targetViewStart;
-        one.origin = self.buttonViewStart.origin;
-        two.origin = self.sourceViewStart.origin;
-        three.origin = self.targetViewStart.origin;
-        self.buttonView.frame = one;
-        self.sourceView.frame = two;
-        self.targetView.frame = three;
+        CGRect rect = self.view.frame;
+        rect.origin = self.ViewStart.origin;
+        self.view.frame = rect;
         [self.view layoutIfNeeded];
     }];
 }
@@ -255,9 +231,11 @@
 #pragma mark - Buttons
 
 - (IBAction)changeLangOne:(id)sender {
+    self.ViewStart = self.view.frame;
     [self performSegueWithIdentifier:@"languagePicker" sender:sender];
 }
 - (IBAction)changeLangTwo:(id)sender {
+    self.ViewStart = self.view.frame;
     [self performSegueWithIdentifier:@"languagePicker" sender:sender];
 }
 - (IBAction)switchButton:(id)sender {
