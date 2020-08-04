@@ -11,12 +11,15 @@
 #import "LoginViewController.h"
 #import "ParentViewController.h"
 #import "SceneDelegate.h"
+#import "TONavigationBar.h"
 
 @interface ParentViewController ()
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property UIViewController *currentViewController;
 @property (weak, nonatomic) IBOutlet UIView *controllerView;
 @property (strong, nonatomic) HMSegmentedControl* segmentedControl;
+@property (strong, nonatomic) NSMutableArray* vcArray;
+@property (weak, nonatomic) IBOutlet UIButton *userButton;
 
 @end
 
@@ -27,11 +30,14 @@
     
     if ([FBSDKAccessToken currentAccessToken] == nil) {
         self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan"]];
+        [self.userButton setTitle:@"Sign in" forState:UIControlStateNormal];
     } else {
         self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan", @"Saved", @"Learn"]];
     }
-    
-    self.vcArray = [NSMutableArray new];
+    self.vcArray = [[NSMutableArray alloc]init];
+    for (int i = 0; i < 5; i++) {
+        [self.vcArray addObject:[NSNull null]];
+    }
     self.title = @"Breaking Barriers";
     //self.navigationController.navigationBar.prefersLargeTitles = YES;
 
@@ -46,19 +52,18 @@
     self.segmentedControl.segmentEdgeInset = UIEdgeInsetsMake(0, 5, 0, 5);
     self.segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     self.segmentedControl.selectionIndicatorHeight = 3;
-    self.segmentedControl.verticalDividerEnabled = YES;
-    self.segmentedControl.verticalDividerColor = [UIColor clearColor];
-    self.segmentedControl.verticalDividerWidth = 1.0f;
-    [self.segmentedControl setTitleFormatter:^NSAttributedString *(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected) {
-           NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{
-               NSForegroundColorAttributeName : [UIColor lightGrayColor],
-               NSFontAttributeName : [UIFont systemFontOfSize:14]
-           }];
-           return attString;
-       }];
+    self.segmentedControl.titleTextAttributes = @{
+    NSForegroundColorAttributeName : [UIColor lightGrayColor],
+    NSFontAttributeName : [UIFont systemFontOfSize:16]};
+    self.segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName : [UIColor colorWithRed:33.0 / 255 green:150.0 / 255 blue:243.0 / 255 alpha:1]};
     [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.segmentedControl];
     [self displayCurrentTab:0];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //[self.navigationController.to_navigationBar setBackgroundHidden:NO animated:animated forViewController:self];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -75,7 +80,7 @@
 
 - (void)displayCurrentTab:(NSInteger )index {
     UIViewController * vc = [self viewControllerForSelectedSegementIndex:index];
-    [self addChildViewController:vc];
+    [self addChildViewController:self.vcArray[index]];
     [vc didMoveToParentViewController:self];
     vc.view.frame = self.controllerView.bounds;
     [self.controllerView addSubview:vc.view];
@@ -87,19 +92,44 @@
     UIViewController *vc;
     switch (index) {
         case 0:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversationController"];
+            if (self.vcArray[index] == [NSNull null]) {
+                vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ConversationController"];
+                [self.vcArray insertObject:vc atIndex:index];
+            } else {
+                vc = self.vcArray[index];
+            }
             break;
         case 1:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TranslateController"];
+            if (self.vcArray[index] == [NSNull null]) {
+                vc = [self.storyboard instantiateViewControllerWithIdentifier:@"TranslateController"];
+                [self.vcArray insertObject:vc atIndex:index];
+            } else {
+                vc = self.vcArray[index];
+            }
             break;
         case 2:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScanController"];
+            if (self.vcArray[index] == [NSNull null]) {
+                vc = [self.storyboard instantiateViewControllerWithIdentifier:@"ScanController"];
+                [self.vcArray insertObject:vc atIndex:index];
+            } else {
+                vc = self.vcArray[index];
+            }
             break;
         case 3:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SavedController"];
+            if (self.vcArray[index] == [NSNull null]) {
+                vc = [self.storyboard instantiateViewControllerWithIdentifier:@"SavedController"];
+                [self.vcArray insertObject:vc atIndex:index];
+            } else {
+                vc = self.vcArray[index];
+            }
             break;
         case 4:
-            vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LearnController"];
+            if (self.vcArray[index] == [NSNull null]) {
+                vc = [self.storyboard instantiateViewControllerWithIdentifier:@"LearnController"];
+                [self.vcArray insertObject:vc atIndex:index];
+            } else {
+                vc = self.vcArray[index];
+            }
             break;
     }
     return vc;
