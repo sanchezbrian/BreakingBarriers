@@ -134,13 +134,13 @@
         self.langOne = language;
         [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
         self.targetLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:language];
-        self.sourceLang.alpha = 1;
+        self.targetLang.alpha = 1;
         NSLog(@"Language 1: %@", language);
     } else {
         self.langTwo = language;
         [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
         self.sourceLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:language];
-        self.targetLang.alpha = 1;
+        self.sourceLang.alpha = 1;
         NSLog(@"Language 2: %@", language);
     }
 }
@@ -242,6 +242,8 @@
     NSString *temp = self.langOne;
     self.langOne = self.langTwo;
     self.langTwo = temp;
+    self.targetLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:self.langOne];
+    self.sourceLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:self.langTwo];
     [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:self.langOne] forState:UIControlStateNormal];
     [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:self.langTwo] forState:UIControlStateNormal];
 }
