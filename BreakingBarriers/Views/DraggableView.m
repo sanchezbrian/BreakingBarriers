@@ -216,6 +216,9 @@
                      animations:^{
                          self.center = finishPoint;
                      }completion:^(BOOL complete){
+                         self.center = self.originalPoint;
+                         self.transform = CGAffineTransformMakeRotation(0);
+                         overlayView.alpha = 0;
                          [self removeFromSuperview];
                      }];
     
@@ -227,11 +230,15 @@
 //%%% called when a swip exceeds the ACTION_MARGIN to the left
 -(void)leftAction
 {
+    CGPoint center = self.center;
     CGPoint finishPoint = CGPointMake(-500, 2*yFromCenter +self.originalPoint.y);
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.center = finishPoint;
                      }completion:^(BOOL complete){
+                         self.center = self.originalPoint;
+                         self.transform = CGAffineTransformMakeRotation(0);
+                         overlayView.alpha = 0;
                          [self removeFromSuperview];
                      }];
     
@@ -242,12 +249,16 @@
 
 -(void)rightClickAction
 {
+    CGPoint center = self.center;
     CGPoint finishPoint = CGPointMake(600, self.center.y);
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.center = finishPoint;
                          self.transform = CGAffineTransformMakeRotation(1);
                      }completion:^(BOOL complete){
+                         self.center = center;
+                         self.transform = CGAffineTransformMakeRotation(0);
+                         overlayView.alpha = 0;
                          [self removeFromSuperview];
                      }];
     
@@ -258,12 +269,16 @@
 
 -(void)leftClickAction
 {
+    CGPoint center = self.center;
     CGPoint finishPoint = CGPointMake(-600, self.center.y);
     [UIView animateWithDuration:0.3
                      animations:^{
                          self.center = finishPoint;
                          self.transform = CGAffineTransformMakeRotation(-1);
                      }completion:^(BOOL complete){
+                         self.center = center;
+                         self.transform = CGAffineTransformMakeRotation(0);
+                         overlayView.alpha = 0;
                          [self removeFromSuperview];
                      }];
     

@@ -85,12 +85,22 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects != nil) {
             self.learnCards = [objects mutableCopy];
+            [self shuffleCards];
             [self loadCards];
             NSLog(@"Success");
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
     }];
+}
+
+- (void)shuffleCards {
+    NSUInteger count = [self.learnCards count];
+    for (NSUInteger i = 0; i < count; i++) {
+        int nElements = count - i;
+        int n = (arc4random() % nElements) + i;
+        [self.learnCards exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
 }
 
 #warning include own card customization here!
@@ -116,11 +126,10 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
         //%%% if the buffer size is greater than the data size, there will be an array error, so this makes sure that doesn't happen
         
         //%%% loops through the exampleCardsLabels array to create a card for each label.  This should be customized by removing "exampleCardLabels" with your own array of data
-        NSLog(@"%lu", (unsigned long)[learnCards count]);
         for (int i = 0; i<[learnCards count]; i++) {
             DraggableView* newCard = [self createDraggableViewWithDataAtIndex:i];
             [allCards addObject:newCard];
-            
+            NSLog(@"%ld", (long)numLoadedCardsCap);
             if (i<numLoadedCardsCap) {
                 //%%% adds a small number of cards to be loaded
                 [loadedCards addObject:newCard];
@@ -147,17 +156,23 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
 {
     //do whatever you want with the card that was swiped
     DraggableView *c = (DraggableView *)card;
+    if (!c.cardSeen) {
+        wrongCount += 1;
+        wrongLabel.text = [NSString stringWithFormat:@"%d", wrongCount];
+    }
     c.cardSeen = YES;
-    [learnCards addObject:c];
-    [learnCards removeObjectAtIndex:0];
+    [allCards addObject:c];
+    [allCards removeObjectAtIndex:0];
     [loadedCards removeObjectAtIndex:0]; //card was swiped, so it's no longer a "loaded card"
-    wrongCount = wrongCount + 1;
-    wrongLabel.text = [NSString stringWithFormat:@"%d", wrongCount];
+    cardsLoadedIndex--;
     
     if (cardsLoadedIndex < [allCards count]) { //%%% if we haven't reached the end of all cards, put another into the loaded cards
+        NSLog(@"%lu", (unsigned long)[allCards count]);
+        NSLog(@"%ld", (long)cardsLoadedIndex);
         [loadedCards addObject:[allCards objectAtIndex:cardsLoadedIndex]];
         cardsLoadedIndex++;//%%% loaded a card, so have to increment count
         [self insertSubview:[loadedCards objectAtIndex:(MAX_BUFFER_SIZE-1)] belowSubview:[loadedCards objectAtIndex:(MAX_BUFFER_SIZE-2)]];
+        
     }
 }
 
@@ -168,10 +183,10 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
     //do whatever you want with the card that was swiped
     DraggableView *c = (DraggableView *)card;
     if (c.cardSeen) {
-        wrongCount = wrongCount - 1;
+        wrongCount -= 1;
         wrongLabel.text = [NSString stringWithFormat:@"%d", wrongCount];
     }
-    rightCount = rightCount + 1;
+    rightCount += 1;
     correctLabel.text = [NSString stringWithFormat:@"%d", rightCount];
     
     [loadedCards removeObjectAtIndex:0]; //%%% card was swiped, so it's no longer a "loaded card"
