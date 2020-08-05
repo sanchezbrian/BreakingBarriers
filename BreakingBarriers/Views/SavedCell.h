@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *translatedText;
 @property (weak, nonatomic) IBOutlet UIButton *savedButton;
 @property (strong, nonatomic) SavedText *saved;
+@property (weak, nonatomic) IBOutlet UIView *mainView;
 
 - (void)setSaved:(SavedText *)saved;
 

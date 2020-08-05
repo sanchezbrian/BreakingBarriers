@@ -13,12 +13,12 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.mainView.layer.cornerRadius = 15;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    self.backgroundColor = [UIColor clearColor];
 }
 - (IBAction)tapSave:(id)sender {
     if (self.savedButton.isSelected) {
