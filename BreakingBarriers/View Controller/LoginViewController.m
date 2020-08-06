@@ -9,10 +9,12 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "LoginViewController.h"
+#import "SKSplashIcon.h"
 #import <Parse/PFFacebookUtils.h>
 
 @interface LoginViewController ()
 
+@property (strong, nonatomic) SKSplashView *splashView;
 @property (strong, nonatomic) FBSDKLoginButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *guestButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -25,15 +27,15 @@
     [super viewDidLoad];
     [self addLoginButton];
     [self addGuestLogin];
+}
+
+- (void)viewDidLayoutSubviews {
     self.imageView.layer.cornerRadius = (self.imageView.frame.size.width) / 2;
 }
 
 - (void)addGuestLogin {
-    self.guestButton.center = self.view.center;
-    CGRect frame = self.guestButton.frame;
-    frame.size = self.loginButton.frame.size;
-    frame.origin.x = frame.origin.x - 7;
-    frame.origin.y = frame.origin.y + 100;
+    CGRect frame = self.loginButton.frame;
+    frame.origin.y = frame.origin.y + 65;
     self.guestButton.layer.cornerRadius = 3;
     self.guestButton.frame = frame;
     
@@ -44,8 +46,11 @@
     self.loginButton.delegate = self;
     self.loginButton.permissions = @[@"public_profile", @"email"];
     self.loginButton.center = self.view.center;
-    CGRect frame = self.loginButton.frame;
-    frame.origin.y = frame.origin.y + 50;
+    CGRect frame = CGRectMake(50, self.view.frame.size.height - 200, self.view.frame.size.width - 100, 40);
+//    CGRect frame = self.loginButton.frame;
+//    frame.size.width = self.view.frame.size.width - 100;
+//    frame.origin.x = frame.origin.x - (self.view.frame.size.width / 2);
+//    frame.origin.y = frame.origin.y + 100;
     self.loginButton.frame = frame;
     [self.view addSubview:self.loginButton];
 }
@@ -79,6 +84,19 @@
 }
 - (IBAction)continueAsGuest:(id)sender {
     [self performSegueWithIdentifier:@"newSegue" sender:self];
+}
+
+-(void)splash {
+    //Twitter style splash
+    SKSplashIcon *twitterSplashIcon = [[SKSplashIcon alloc] initWithImage:[UIImage imageNamed:@"Icon-App-60x60"] animationType:SKIconAnimationTypeBounce];
+    UIColor *twitterColor = [UIColor colorWithRed:0 green:150.0 / 255 blue:1 alpha:1];
+    self.splashView = [[SKSplashView alloc] initWithSplashIcon:twitterSplashIcon animationType:SKSplashAnimationTypeNone];
+    self.splashView.delegate = self; //Optional -> if you want to receive updates on animation beginning/end
+    self.splashView.backgroundColor = twitterColor;
+    self.splashView.animationDuration = 2.5; //Optional -> set animation duration. Default: 1s
+    [self.view addSubview:self.splashView];
+    self.navigationController.navigationBar.hidden = YES;
+    [self.splashView startAnimation];
 }
 
 

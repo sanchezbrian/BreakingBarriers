@@ -11,9 +11,11 @@
 #import "LoginViewController.h"
 #import "ParentViewController.h"
 #import "SceneDelegate.h"
+#import "SKSplashIcon.h"
 #import "TONavigationBar.h"
 
 @interface ParentViewController ()
+@property (strong, nonatomic) SKSplashView *splashView;
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property UIViewController *currentViewController;
 @property (weak, nonatomic) IBOutlet UIView *controllerView;
@@ -27,7 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     if ([FBSDKAccessToken currentAccessToken] == nil) {
         self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan"]];
         [self.userButton setTitle:@"Sign in" forState:UIControlStateNormal];
@@ -59,11 +60,27 @@
     [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.segmentedControl];
     [self displayCurrentTab:0];
+    [self splash];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    //[self.navigationController.to_navigationBar setBackgroundHidden:NO animated:animated forViewController:self];
+-(void)splash {
+    //Twitter style splash
+    SKSplashIcon *twitterSplashIcon = [[SKSplashIcon alloc] initWithImage:[UIImage imageNamed:@"Icon-App-60x60"] animationType:SKIconAnimationTypeBounce];
+    UIColor *twitterColor = [UIColor colorWithRed:0 green:150.0 / 255 blue:1 alpha:1];
+    self.splashView = [[SKSplashView alloc] initWithSplashIcon:twitterSplashIcon animationType:SKSplashAnimationTypeNone];
+    self.splashView.delegate = self; //Optional -> if you want to receive updates on animation beginning/end
+    self.splashView.backgroundColor = twitterColor;
+    self.splashView.animationDuration = 2.5; //Optional -> set animation duration. Default: 1s
+    [self.view addSubview:self.splashView];
+    self.navigationController.navigationBar.hidden = YES;
+    [self.splashView startAnimation];
+}
+
+- (void) splashViewDidEndAnimating:(SKSplashView *)splashView
+{
+    NSLog(@"Stopped animating from delegate");
+    self.navigationController.navigationBar.hidden = NO;
+    //To stop activity animation when splash animation ends
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

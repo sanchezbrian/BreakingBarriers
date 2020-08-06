@@ -99,6 +99,14 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
     return header;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.textLabel.font = [UIFont boldSystemFontOfSize:18];
+    CGRect headerFrame = header.frame;
+    header.textLabel.frame = headerFrame;
+    header.textLabel.textAlignment = NSTextAlignmentLeft;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 30;
 }

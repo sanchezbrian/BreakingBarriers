@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *micTwoButton;
 @property (weak, nonatomic) IBOutlet UIView *viewOne;
 @property (weak, nonatomic) IBOutlet UIView *viewTwo;
+@property (weak, nonatomic) IBOutlet UIView *buttonTwoView;
 
 @property (nonatomic, strong) SFSpeechRecognizer *speechRecognizer;
 @property (nonatomic, strong) SFSpeechAudioBufferRecognitionRequest *recognitionRequest;
@@ -34,6 +35,7 @@
 @property (nonatomic, strong) PulsingHaloLayer *haloOne;
 @property (nonatomic, strong) PulsingHaloLayer *haloTwo;
 @property CGPoint viewTwoStartPoint;
+@property (assign, nonatomic) BOOL startPoint;
 
 @end
 
@@ -61,19 +63,40 @@
                 break;
         }
     }];
+    self.startPoint = YES;
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
+    if (self.startPoint) {
+        self.viewTwoStartPoint = self.viewTwo.frame.origin;
+        self.startPoint = NO;
+    }
     self.viewOne.layer.cornerRadius = 30;
     self.viewTwo.layer.cornerRadius = 30;
     self.languageOneButton.layer.cornerRadius = 10;
     self.languageTwoButton.layer.cornerRadius = 10;
-    self.viewTwoStartPoint = self.viewTwo.frame.origin;
+    self.buttonTwoView.layer.cornerRadius = 20;
+    [self.languageOneButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [self.languageOneButton.layer setShadowOffset:CGSizeMake(-1, -1)];
+    [self.languageOneButton.layer setShadowRadius:1.0];
+    [self.languageOneButton.layer setShadowOpacity:0.5];
+    self.languageOneButton.clipsToBounds = false;
+    self.languageOneButton.layer.masksToBounds = false;
+    [self.languageTwoButton.layer setShadowColor:[[UIColor blackColor] CGColor]];
+    [self.languageTwoButton.layer setShadowOffset:CGSizeMake(-1, -1)];
+    [self.languageTwoButton.layer setShadowRadius:1.0];
+    [self.languageTwoButton.layer setShadowOpacity:0.5];
+    self.languageTwoButton.clipsToBounds = false;
+    self.languageTwoButton.layer.masksToBounds = false;
     self.viewOne.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     self.viewTwo.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     [self.viewTwo setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.viewOne setTranslatesAutoresizingMaskIntoConstraints:NO];
+    CGRect frame = self.viewTwo.frame;
+    frame.origin = self.viewTwoStartPoint;
+    frame.size.height = self.view.frame.size.height - self.viewTwoStartPoint.y - 20;
+    self.viewTwo.frame = frame;
 }
 
 - (void)startListen:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
@@ -135,6 +158,8 @@
             [self.haloOne removeFromSuperlayer];
         } completion:nil];
     } else {
+        self.conversationOneLabel.text = @"Listening...";
+        self.conversationTwoLabel.text = @"";
         [self SpeechLanguage:self.langOne];
         [self startListen:self.conversationOneLabel to:self.conversationTwoLabel source:self.langOne target:self.langTwo];
         [UIView transitionWithView:self.micOneButton
@@ -159,6 +184,8 @@
             [self.haloTwo removeFromSuperlayer];
         } completion:nil];
     } else {
+        self.conversationTwoLabel.text = @"Listening...";
+        self.conversationOneLabel.text = @"";
         [self SpeechLanguage:self.langTwo];
         [self startListen:self.conversationTwoLabel to:self.conversationOneLabel source:self.langTwo target:self.langOne];
         [UIView transitionWithView:self.micTwoButton
@@ -248,10 +275,14 @@
     if (contoller.langOne) {
         self.langOne = language;
         [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+        self.conversationOneLabel.text = @"Tap mic to speak";
+        self.conversationTwoLabel.text = @"Tap mic to speak";
         NSLog(@"Language 1: %@", language);
     } else {
         self.langTwo = language;
         [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+        self.conversationTwoLabel.text = @"Tap mic to speak";
+        self.conversationOneLabel.text = @"Tap mic to speak";
         NSLog(@"Language 2: %@", language);
     }
 }
@@ -275,8 +306,10 @@
     if (CGPointEqualToPoint(self.viewTwo.frame.origin, self.viewTwoStartPoint)) {
         [UIView animateWithDuration:.3 animations:^{
             self.viewTwo.transform = CGAffineTransformMakeTranslation(0, 150);
+            CGRect frame = self.viewTwo.frame;
+            frame.size.height = self.view.frame.size.height - self.viewTwoStartPoint.y - 170;
+            self.viewTwo.frame = frame;
             [self.viewTwo layoutIfNeeded];
-            self.tabBarController.tabBar.alpha = 0;
         }];
     } else {
         [UIView animateWithDuration:.3 animations:^{
@@ -286,7 +319,6 @@
             frame.size.height = self.view.frame.size.height - self.viewTwoStartPoint.y - 20;
             self.viewTwo.frame = frame;
             [self.viewTwo layoutIfNeeded];
-            self.tabBarController.tabBar.alpha = 1;
         }];
     }
 }
@@ -298,7 +330,6 @@
             frame.size.height = self.view.frame.size.height - self.viewTwo.frame.origin.y - 20;
             self.viewTwo.frame = frame;
             [self.viewTwo layoutIfNeeded];
-            self.tabBarController.tabBar.alpha = 0;
         }];
     } else {
         [UIView animateWithDuration:.3 animations:^{
@@ -308,7 +339,6 @@
             frame.size.height = self.view.frame.size.height - self.viewTwoStartPoint.y - 20;
             self.viewTwo.frame = frame;
             [self.viewTwo layoutIfNeeded];
-            self.tabBarController.tabBar.alpha = 1;
         }];
     }
 }
