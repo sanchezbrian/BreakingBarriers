@@ -16,11 +16,14 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *saved;
+@property (strong, nonatomic) NSMutableDictionary *savedDict;
+@property (strong, nonatomic) NSArray *allKeys;
 @property (strong, nonatomic) MBProgressHUD *hud;
-
 @end
 
 @implementation SavedViewController
+
+NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +32,8 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.mode = MBProgressHUDModeIndeterminate;
     self.hud.label.text = @"Loading";
-    [self querySaved];
+    self.savedDict = [[NSMutableDictionary alloc]init];
+    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:HeaderViewIdentifier];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -38,6 +42,7 @@
 }
 
 - (void)querySaved {
+    NSLog(@"query");
     PFQuery *query = [PFQuery queryWithClassName:@"SavedText"];
     [query includeKey:@"author"];
     [query whereKey:@"author" equalTo:[PFUser currentUser]];
@@ -45,6 +50,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects != nil) {
             self.saved = objects;
+            [self arrayToDictionary];
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [self.tableView reloadData];
         } else {
@@ -53,15 +59,48 @@
     }];
 }
 
+-(void)arrayToDictionary {
+    [self.savedDict removeAllObjects];
+    for (SavedText *saved in self.saved) {
+        NSString *language = [NSLocale.currentLocale localizedStringForLanguageCode:saved.sourceLanguage];
+        if ([self.savedDict objectForKey:language]) {
+            [self.savedDict[language] addObject:saved];
+        } else {
+            NSMutableArray *savedArray = [[NSMutableArray alloc]init];
+            [savedArray addObject:saved];
+            [self.savedDict setObject:savedArray forKey:language];
+        }
+    }
+    self.allKeys = [self.savedDict allKeys];
+    NSLog(@"%@", self.savedDict);
+    NSLog(@"%lu", (unsigned long)[self.savedDict[self.allKeys[0]] count]);
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.savedDict count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.saved.count;
+    return [self.savedDict[self.allKeys[section]] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SavedCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SavedCell" forIndexPath:indexPath];
-    SavedText *saved = self.saved[indexPath.row];
+    NSArray *savedLang = self.savedDict[self.allKeys[indexPath.section]];
+    SavedText *saved = savedLang[indexPath.row];
     [cell setSaved:saved];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderViewIdentifier];
+    header.textLabel.text = self.allKeys[section];
+    return header;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
 }
 /*
 #pragma mark - Navigation
