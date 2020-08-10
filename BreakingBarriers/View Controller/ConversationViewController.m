@@ -6,9 +6,10 @@
 //  Copyright © 2020 Brian Sanchez. All rights reserved.
 //
 
-#import "ConversationViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <Parse/Parse.h>
 #import <QuartzCore/QuartzCore.h>
+#import "ConversationViewController.h"
 #import "LanguageChooserViewController.h"
 #import "PulsingHaloLayer.h"
 @import MLKit;
@@ -64,6 +65,20 @@
         }
     }];
     self.startPoint = YES;
+
+    if ([PFUser currentUser] != nil) {
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *language = [defaults stringForKey:@"default_language_one"];
+        NSString *languageTwo = [defaults stringForKey:@"default_language_two"];
+        self.langOne = language;
+        self.langTwo = languageTwo;
+        if (self.langOne != nil) {
+            [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+            [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:languageTwo] forState:UIControlStateNormal];
+            }
+    }
+    
 }
 
 - (void)viewDidLayoutSubviews {
@@ -272,19 +287,27 @@
 }
 
 - (void)languageChooserViewController:(LanguageChooserViewController *)contoller didPickLanguage:(NSString *)language {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (contoller.langOne) {
         self.langOne = language;
         [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
         self.conversationOneLabel.text = @"Tap mic to speak";
         self.conversationTwoLabel.text = @"Tap mic to speak";
+        if ([PFUser currentUser] != nil) {
+           [defaults setObject:language forKey:@"default_language_one"];
+        }
         NSLog(@"Language 1: %@", language);
     } else {
         self.langTwo = language;
         [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
         self.conversationTwoLabel.text = @"Tap mic to speak";
         self.conversationOneLabel.text = @"Tap mic to speak";
+        if ([PFUser currentUser] != nil) {
+           [defaults setObject:language forKey:@"default_language_two"];
+        }
         NSLog(@"Language 2: %@", language);
     }
+    [defaults synchronize];
 }
 
 #pragma mark - Navigation

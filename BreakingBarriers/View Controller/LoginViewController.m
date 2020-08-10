@@ -83,6 +83,9 @@
     NSLog(@"Logged out");
 }
 - (IBAction)continueAsGuest:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"default_language_one"];
+    [defaults removeObjectForKey:@"default_language_two"];
     [self performSegueWithIdentifier:@"newSegue" sender:self];
 }
 

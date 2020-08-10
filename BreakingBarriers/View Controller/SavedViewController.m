@@ -38,7 +38,9 @@ NSString *HeaderViewIdentifier = @"TableViewHeaderView";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self querySaved];
+    if ([PFUser currentUser] != nil) {
+        [self querySaved];
+    }
 }
 
 - (void)querySaved {
