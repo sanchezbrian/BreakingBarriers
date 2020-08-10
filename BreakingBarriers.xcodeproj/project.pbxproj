@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0792B840E813DBDA531A4BAB /* Pods_BreakingBarriersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6E4152632B60EF2A517A1E /* Pods_BreakingBarriersTests.framework */; };
+		2F3B518E24DDC9AB00A7D96C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B518D24DDC9AB00A7D96C /* SettingsViewController.m */; };
 		2F78730224CA07D200292E0C /* SavedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730124CA07D200292E0C /* SavedCell.m */; };
 		2F78730524CA0A3000292E0C /* SavedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730424CA0A3000292E0C /* SavedViewController.m */; };
 		2F78730824CA3B7800292E0C /* LearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730724CA3B7800292E0C /* LearnViewController.m */; };
@@ -56,6 +57,14 @@
 /* Begin PBXFileReference section */
 		01862698D80B2F5BF81D6726 /* Pods-BreakingBarriers-BreakingBarriersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreakingBarriers-BreakingBarriersUITests.debug.xcconfig"; path = "Target Support Files/Pods-BreakingBarriers-BreakingBarriersUITests/Pods-BreakingBarriers-BreakingBarriersUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2C7EB72E81BC69EDB4B6CC33 /* Pods_BreakingBarriers.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreakingBarriers.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F3B518C24DDC9AB00A7D96C /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		2F3B518D24DDC9AB00A7D96C /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		2F3B518F24E1AE1600A7D96C /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Main.strings"; sourceTree = "<group>"; };
+		2F3B519024E1AE1700A7D96C /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		2F3B519124E1AE2C00A7D96C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		2F3B519224E1AE2D00A7D96C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		2F3B519324E1AE3800A7D96C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		2F3B519424E1AE3800A7D96C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		2F78730024CA07D200292E0C /* SavedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedCell.h; sourceTree = "<group>"; };
 		2F78730124CA07D200292E0C /* SavedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SavedCell.m; sourceTree = "<group>"; };
 		2F78730324CA0A3000292E0C /* SavedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedViewController.h; sourceTree = "<group>"; };
@@ -234,6 +243,8 @@
 				2F78730724CA3B7800292E0C /* LearnViewController.m */,
 				2FD1958224BF5B3500636107 /* ViewController.h */,
 				2FD1958324BF5B3500636107 /* ViewController.m */,
+				2F3B518C24DDC9AB00A7D96C /* SettingsViewController.h */,
+				2F3B518D24DDC9AB00A7D96C /* SettingsViewController.m */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -370,6 +381,9 @@
 			knownRegions = (
 				en,
 				Base,
+				"es-419",
+				"zh-Hans",
+				ru,
 			);
 			mainGroup = 2FD1957024BF5B3500636107;
 			packageReferences = (
@@ -561,6 +575,7 @@
 				2F78730B24CA3BB400292E0C /* LearningCell.m in Sources */,
 				2FD195C224C0DD8900636107 /* TranslateViewController.m in Sources */,
 				2F78730824CA3B7800292E0C /* LearnViewController.m in Sources */,
+				2F3B518E24DDC9AB00A7D96C /* SettingsViewController.m in Sources */,
 				2FD195E524C79E5400636107 /* LoginViewController.m in Sources */,
 				2F78730524CA0A3000292E0C /* SavedViewController.m in Sources */,
 				2FF2868924C7D817000FE793 /* AppDelegate.m in Sources */,
@@ -612,6 +627,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				2FD1958624BF5B3500636107 /* Base */,
+				2F3B518F24E1AE1600A7D96C /* es-419 */,
+				2F3B519124E1AE2C00A7D96C /* zh-Hans */,
+				2F3B519324E1AE3800A7D96C /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -620,6 +638,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				2FD1958B24BF5B3700636107 /* Base */,
+				2F3B519024E1AE1700A7D96C /* es-419 */,
+				2F3B519224E1AE2D00A7D96C /* zh-Hans */,
+				2F3B519424E1AE3800A7D96C /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -631,6 +652,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -689,6 +711,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

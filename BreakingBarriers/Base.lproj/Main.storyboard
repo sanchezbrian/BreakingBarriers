@@ -345,14 +345,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="oDY-05-MLe">
                         <nil key="title"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="0CS-XN-cH4">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hoU-4T-OZJ">
-                                <rect key="frame" x="276" y="7" width="83" height="30"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="NIG-hA-BdP">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fDP-Vl-lLm">
+                                <rect key="frame" x="338" y="11" width="21" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Logout"/>
+                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="line.horizontal.3" catalog="system"/>
                                 <connections>
-                                    <action selector="pressLogout:" destination="m5d-Ub-wzc" eventType="touchUpInside" id="rf4-x1-jEv"/>
+                                    <segue destination="JeX-xk-AcU" kind="show" id="zeC-XJ-xFN"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -360,12 +360,61 @@
                     <connections>
                         <outlet property="contentView" destination="bKV-pl-4UP" id="Udu-0Z-htY"/>
                         <outlet property="controllerView" destination="qTk-JW-7RZ" id="9Nb-Nz-PUt"/>
-                        <outlet property="userButton" destination="hoU-4T-OZJ" id="l6Z-Cc-nkf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HJw-AQ-yig" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="118" y="157"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="s26-6N-6cN">
+            <objects>
+                <viewController id="JeX-xk-AcU" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jm4-ew-hPi">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="afg-WQ-bmY">
+                                <rect key="frame" x="31" y="142" width="313" height="31"/>
+                                <connections>
+                                    <action selector="slide:" destination="JeX-xk-AcU" eventType="valueChanged" id="fCT-jg-2d2"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of flashcards:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zd7-MV-2uo">
+                                <rect key="frame" x="33" y="113" width="170" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iez-b7-EWv">
+                                <rect key="frame" x="211" y="113" width="18" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Iez-b7-EWv" firstAttribute="top" secondItem="hWN-Ie-SX6" secondAttribute="top" constant="25" id="2kt-NH-qTb"/>
+                            <constraint firstItem="afg-WQ-bmY" firstAttribute="leading" secondItem="hWN-Ie-SX6" secondAttribute="leading" constant="33" id="Ceb-f5-pQS"/>
+                            <constraint firstItem="Zd7-MV-2uo" firstAttribute="leading" secondItem="hWN-Ie-SX6" secondAttribute="leading" constant="33" id="Fy2-C8-FgR"/>
+                            <constraint firstItem="afg-WQ-bmY" firstAttribute="top" secondItem="Zd7-MV-2uo" secondAttribute="bottom" constant="8" id="Pu1-YP-JdS"/>
+                            <constraint firstItem="hWN-Ie-SX6" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Iez-b7-EWv" secondAttribute="trailing" constant="10" id="mXT-3q-s8G"/>
+                            <constraint firstItem="Iez-b7-EWv" firstAttribute="leading" secondItem="Zd7-MV-2uo" secondAttribute="trailing" constant="8" id="nbi-dP-X9E"/>
+                            <constraint firstItem="hWN-Ie-SX6" firstAttribute="trailing" secondItem="afg-WQ-bmY" secondAttribute="trailing" constant="33" id="oaH-5E-ogn"/>
+                            <constraint firstItem="Zd7-MV-2uo" firstAttribute="top" secondItem="hWN-Ie-SX6" secondAttribute="top" constant="25" id="zr3-2T-3ms"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hWN-Ie-SX6"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="M3H-0u-kfq"/>
+                    <connections>
+                        <outlet property="cardSlider" destination="afg-WQ-bmY" id="CGT-oO-DeW"/>
+                        <outlet property="numCards" destination="Iez-b7-EWv" id="kyY-We-ZVq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1VG-Fn-0Ae" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="928.79999999999995" y="156.65024630541873"/>
         </scene>
         <!--Tranlate-->
         <scene sceneID="DK3-Ml-2Ze">
@@ -810,6 +859,7 @@
         <image name="icon_76pt" width="76" height="76"/>
         <image name="icons8-star-filled-48" width="48" height="48"/>
         <image name="icons8-star-filled-48 (1)" width="48" height="48"/>
+        <image name="line.horizontal.3" catalog="system" width="128" height="64"/>
         <image name="orangenontappedbig" width="100" height="100"/>
         <image name="orangetappedbig" width="100" height="100"/>
         <image name="repeat" catalog="system" width="128" height="99"/>

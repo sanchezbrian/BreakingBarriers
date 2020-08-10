@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UIView *sourceView;
 @property (weak, nonatomic) IBOutlet UIView *targetView;
 @property CGRect ViewStart;
+@property (strong, nonatomic) UIView *dictView;
 
 @end
 
@@ -68,6 +69,42 @@
     self.langOneButton.layer.cornerRadius = 15;
     self.langTwoButton.layer.cornerRadius = 15;
     self.switchButton.layer.cornerRadius = 15;
+    if ([PFUser currentUser] == nil) {
+        [self.saveButton setHidden:YES];
+    } else {
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        NSString *language = [defaults stringForKey:@"default_language_one"];
+//        NSString *languageTwo = [defaults stringForKey:@"default_language_two"];
+//        self.langOne = language;
+//        self.langTwo = languageTwo;
+//        if (self.langOne != nil) {
+//            [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+//            [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:languageTwo] forState:UIControlStateNormal];
+//            self.targetLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:language];
+//            self.sourceLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:languageTwo];
+//            self.targetLang.alpha = 1;
+//            self.sourceLang.alpha = 1;
+//            }
+    }
+   
+}
+
+- (void)viewDidLayoutSubviews {
+    self.dictView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.targetView.frame.origin.y - 25)];
+    self.dictView.backgroundColor = UIColor.redColor;
+    if ([PFUser currentUser] != nil) {
+    PFUser *user = [PFUser currentUser];
+        if (user[@"sourceLang"] != nil && user[@"targetLang"]) {
+            [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:user[@"sourceLang"]] forState:UIControlStateNormal];
+            [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:user[@"targetLang"]] forState:UIControlStateNormal];
+            self.targetLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:user[@"sourceLang"]];
+            self.sourceLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:user[@"targetLang"]];
+            self.targetLang.alpha = 1;
+            self.sourceLang.alpha = 1;
+            self.langOne = user[@"sourceLang"];
+            self.langTwo = user[@"targetLang"];
+        }
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -95,6 +132,15 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
+        // dictionary of a word
+//        if ([UIReferenceLibraryViewController dictionaryHasDefinitionForTerm:self.textView.text]) {
+//            UIReferenceLibraryViewController* ref = [[UIReferenceLibraryViewController alloc] initWithTerm:self.textView.text];
+//            [self.view addSubview:self.dictView];
+//            [self addChildViewController:ref];
+//            [ref didMoveToParentViewController:self];
+//            ref.view.frame = self.dictView.bounds;
+//            [self.dictView addSubview:ref.view];
+//        }
         return NO;
     }
     return YES;
@@ -130,19 +176,45 @@
 
 #pragma mark - LanguageChooserController Delegate
 - (void)languageChooserViewController:(LanguageChooserViewController *)contoller didPickLanguage:(NSString *)language {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (contoller.langOne) {
         self.langOne = language;
         [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
         self.targetLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:language];
         self.targetLang.alpha = 1;
+        if ([PFUser currentUser] != nil) {
+            PFUser *currUser = [PFUser currentUser];
+            currUser[@"sourceLang"] = language;
+            [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error) {
+                    NSLog(@"Error: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"Edit was successful");
+                }
+            }];
+           //[defaults setObject:language forKey:@"default_language_one"];
+        }
         NSLog(@"Language 1: %@", language);
     } else {
         self.langTwo = language;
         [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
         self.sourceLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:language];
         self.sourceLang.alpha = 1;
+        if ([PFUser currentUser] != nil) {
+            PFUser *currUser = [PFUser currentUser];
+            currUser[@"targetLang"] = language;
+            [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error) {
+                    NSLog(@"Error: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"Edit was successful");
+                }
+            }];
+           //[defaults setObject:language forKey:@"default_language_one"];
+        }
         NSLog(@"Language 2: %@", language);
     }
+    [defaults synchronize];
 }
 
 #pragma mark - Helper Methdods
@@ -167,7 +239,9 @@
                   return;
               }
               self.outputLabel.text = result;
-              [self checkPhrase:self.textView.text];
+              if ([PFUser currentUser] != nil) {
+                  [self checkPhrase:self.textView.text];
+              }
           }];
     }];
 }
@@ -246,6 +320,18 @@
     self.sourceLang.text = [NSLocale.currentLocale localizedStringForLanguageCode:self.langTwo];
     [self.langOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:self.langOne] forState:UIControlStateNormal];
     [self.langTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:self.langTwo] forState:UIControlStateNormal];
+    if ([PFUser currentUser] != nil) {
+        PFUser *currUser = [PFUser currentUser];
+        currUser[@"sourceLang"] = self.langOne;
+        currUser[@"targetLang"] = self.langTwo;
+        [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+            if(error) {
+                NSLog(@"Error: %@", error.localizedDescription);
+            } else {
+                NSLog(@"Edit was successful");
+            }
+        }];
+    }
 }
 
 - (IBAction)pressSave:(id)sender {

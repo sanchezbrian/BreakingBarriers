@@ -67,16 +67,16 @@
     self.startPoint = YES;
 
     if ([PFUser currentUser] != nil) {
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *language = [defaults stringForKey:@"default_language_one"];
-        NSString *languageTwo = [defaults stringForKey:@"default_language_two"];
-        self.langOne = language;
-        self.langTwo = languageTwo;
-        if (self.langOne != nil) {
-            [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
-            [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:languageTwo] forState:UIControlStateNormal];
-            }
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        NSString *language = [defaults stringForKey:@"default_language_one"];
+//        NSString *languageTwo = [defaults stringForKey:@"default_language_two"];
+//        self.langOne = language;
+//        self.langTwo = languageTwo;
+//        if (self.langOne != nil) {
+//            [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
+//            [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:languageTwo] forState:UIControlStateNormal];
+//             //self.conversationOneLabel.text = @"Tap mic to speak";
+//            }
     }
     
 }
@@ -112,6 +112,15 @@
     frame.origin = self.viewTwoStartPoint;
     frame.size.height = self.view.frame.size.height - self.viewTwoStartPoint.y - 20;
     self.viewTwo.frame = frame;
+    if ([PFUser currentUser] != nil) {
+    PFUser *user = [PFUser currentUser];
+        if (user[@"sourceLang"] != nil && user[@"targetLang"]) {
+            [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:user[@"sourceLang"]] forState:UIControlStateNormal];
+            [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:user[@"targetLang"]] forState:UIControlStateNormal];
+            self.langOne = user[@"sourceLang"];
+            self.langTwo = user[@"targetLang"];
+        }
+    }
 }
 
 - (void)startListen:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
@@ -294,7 +303,16 @@
         self.conversationOneLabel.text = @"Tap mic to speak";
         self.conversationTwoLabel.text = @"Tap mic to speak";
         if ([PFUser currentUser] != nil) {
-           [defaults setObject:language forKey:@"default_language_one"];
+            PFUser *currUser = [PFUser currentUser];
+            currUser[@"sourceLang"] = language;
+            [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error) {
+                    NSLog(@"Error: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"Edit was successful");
+                }
+            }];
+           //[defaults setObject:language forKey:@"default_language_one"];
         }
         NSLog(@"Language 1: %@", language);
     } else {
@@ -303,7 +321,16 @@
         self.conversationTwoLabel.text = @"Tap mic to speak";
         self.conversationOneLabel.text = @"Tap mic to speak";
         if ([PFUser currentUser] != nil) {
-           [defaults setObject:language forKey:@"default_language_two"];
+            PFUser *currUser = [PFUser currentUser];
+            currUser[@"targetLang"] = language;
+            [currUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+                if(error) {
+                    NSLog(@"Error: %@", error.localizedDescription);
+                } else {
+                    NSLog(@"Edit was successful");
+                }
+            }];
+           //[defaults setObject:language forKey:@"default_language_two"];
         }
         NSLog(@"Language 2: %@", language);
     }
