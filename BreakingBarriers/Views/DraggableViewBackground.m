@@ -29,6 +29,7 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
 
 @synthesize learnCards; //%%% all the labels I'm using as example data at the moment
 @synthesize allCards;//%%% all the cards
+@synthesize numberOfCards;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -96,11 +97,20 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
 }
 
 - (void)shuffleCards:(NSMutableArray *)array {
-    NSUInteger count = [array count];
-    for (NSUInteger i = 0; i < count; i++) {
-        NSUInteger nElements = count - i;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUInteger *numOfCards = [defaults integerForKey:@"number_of_cards"];
+    if (numOfCards != nil) {
+        self.numberOfCards = numOfCards;
+    }
+    NSUInteger countCards = self.numberOfCards;
+    for (NSUInteger i = 0; i < countCards; i++) {
+        NSUInteger nElements = [array count] - i;
         NSUInteger n = (arc4random() % nElements) + i;
         [array exchangeObjectAtIndex:i withObjectAtIndex:n];
+    }
+    NSUInteger count = [array count];
+    for (NSUInteger i = count - 1; i >= self.numberOfCards; i--) {
+        [array removeObjectAtIndex:i];
     }
 }
 

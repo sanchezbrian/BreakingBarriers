@@ -41,6 +41,7 @@
 
 @property (retain,nonatomic)NSMutableArray* learnCards; //%%% the labels the cards
 @property (retain,nonatomic)NSMutableArray* allCards; //%%% the labels the cards
+@property NSUInteger numberOfCards;
 
 
 @end
