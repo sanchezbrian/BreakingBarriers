@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIView *controllerView;
 @property (strong, nonatomic) HMSegmentedControl* segmentedControl;
 @property (strong, nonatomic) NSMutableArray* vcArray;
-@property (weak, nonatomic) IBOutlet UIButton *userButton;
+@property (assign, nonatomic) BOOL splashShow;
 
 @end
 
@@ -29,12 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ([FBSDKAccessToken currentAccessToken] == nil) {
-        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan"]];
-        [self.userButton setTitle:@"Sign in" forState:UIControlStateNormal];
-    } else {
-        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan", @"Saved", @"Learn"]];
-    }
     self.vcArray = [[NSMutableArray alloc]init];
     for (int i = 0; i < 5; i++) {
         [self.vcArray addObject:[NSNull null]];
@@ -43,7 +37,11 @@
     //self.navigationController.navigationBar.prefersLargeTitles = YES;
 
     self.view.backgroundColor = [UIColor whiteColor];
-       
+    if ([FBSDKAccessToken currentAccessToken] == nil) {
+        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan"]];
+    } else {
+        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan", @"Saved", @"Learn"]];
+    }
     CGFloat viewWidth = CGRectGetWidth(self.view.frame);
     
     self.segmentedControl.frame = CGRectMake(0, 95, viewWidth, 40);
@@ -60,6 +58,7 @@
     [self.segmentedControl addTarget:self action:@selector(segmentedControlChangedValue:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.segmentedControl];
     [self displayCurrentTab:0];
+    self.segmentedControl.hidden = YES;
     [self splash];
 }
 
@@ -80,6 +79,7 @@
 {
     NSLog(@"Stopped animating from delegate");
     self.navigationController.navigationBar.hidden = NO;
+    self.segmentedControl.hidden = NO;
     //To stop activity animation when splash animation ends
 }
 
@@ -151,22 +151,14 @@
     }
     return vc;
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-}
-*/
-- (IBAction)pressLogout:(id)sender {
-    SceneDelegate *sceneDelegate = (SceneDelegate *) self.view.window.windowScene.delegate;
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    sceneDelegate.window.rootViewController = loginViewController;
-    [PFUser logOutInBackgroundWithBlock:^(NSError * _Nullable error) {
-    }];
+    
 }
 
 @end
