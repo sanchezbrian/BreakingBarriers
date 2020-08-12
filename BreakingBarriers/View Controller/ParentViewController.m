@@ -40,7 +40,8 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
     if ([FBSDKAccessToken currentAccessToken] == nil) {
-        NSMutableArray *array = self.translatedDict[NSLocale.currentLocale.languageCode];
+        NSMutableArray *array = [NSMutableArray arrayWithArray:self.translatedDict[NSLocale.currentLocale.languageCode]];
+        NSLog(@"%@", array);
         [array removeLastObject];
         [array removeLastObject];
         self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:array];

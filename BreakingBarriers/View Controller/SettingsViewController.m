@@ -30,9 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addLoginButton];
+    self.numCards.text = @"";
     if ([PFUser currentUser] != nil) {
         [self querySaved];
     }
+    
     
     // Do any additional setup after loading the view.
 }
