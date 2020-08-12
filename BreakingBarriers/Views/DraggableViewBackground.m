@@ -87,6 +87,7 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects != nil) {
             self.learnCards = [objects mutableCopy];
+            self.numberOfCards = [self.learnCards count];
             [self shuffleCards:self.learnCards];
             [self loadCards];
             NSLog(@"Success");

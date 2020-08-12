@@ -33,13 +33,6 @@
     if ([PFUser currentUser] != nil) {
         [self querySaved];
     }
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSUInteger *numOfCards = [defaults integerForKey:@"number_of_cards"];
-    if (numOfCards != nil) {
-        self.numberOfCards = numOfCards;
-    }
-    self.cardSlider.value = self.numberOfCards;
-    self.numCards.text = [NSString stringWithFormat:@"%ld", lroundf(self.cardSlider.value)];
     
     // Do any additional setup after loading the view.
 }
@@ -105,6 +98,14 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         if (objects != nil) {
             self.maxCards = [objects count];
+            self.numberOfCards = [objects count];
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            NSUInteger *numOfCards = [defaults integerForKey:@"number_of_cards"];
+                if (numOfCards != nil) {
+                    self.numberOfCards = numOfCards;
+                }
+                self.cardSlider.value = self.numberOfCards;
+                self.numCards.text = [NSString stringWithFormat:@"%ld", lroundf(self.cardSlider.value)];
             self.cardSlider.maximumValue = self.maxCards;
         } else {
             NSLog(@"%@", error.localizedDescription);

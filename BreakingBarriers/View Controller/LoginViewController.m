@@ -72,11 +72,11 @@
                     NSLog(@"User signed up and logged in through Facebook!");
                   } else {
                     NSLog(@"User logged in through Facebook!");
+                    [self performSegueWithIdentifier:@"newSegue" sender:self];
                   }
                     NSLog(@"%@", user );
                 }];
             }
-        [self performSegueWithIdentifier:@"newSegue" sender:self];
 }
 
 - (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {

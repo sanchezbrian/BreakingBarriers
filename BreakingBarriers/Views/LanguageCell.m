@@ -73,7 +73,7 @@
 
 - (void)updateProgress {
     if (self.progressView.progress < 1.0) {
-        [self performSelector:@selector(updateProgress) withObject:nil afterDelay:0.2];
+        [self performSelector:@selector(updateProgress) withObject:nil afterDelay:0.1];
         [self setUserInteractionEnabled:NO];
     } else {
         [self.downloadButton setSelected:YES];
