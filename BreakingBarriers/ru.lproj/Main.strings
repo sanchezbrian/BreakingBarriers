@@ -1,0 +1,81 @@
+
+/* Class = "UILabel"; text = "hell"; ObjectID = "0mf-80-mjr"; */
+"0mf-80-mjr.text" = "hell";
+
+/* Class = "UINavigationItem"; title = "Learn"; ObjectID = "5Zy-eb-Fas"; */
+"5Zy-eb-Fas.title" = "Learn";
+
+/* Class = "UINavigationItem"; title = "Conversation"; ObjectID = "9sR-al-Iao"; */
+"9sR-al-Iao.title" = "Conversation";
+
+/* Class = "UILabel"; text = "10"; ObjectID = "Iez-b7-EWv"; */
+"Iez-b7-EWv.text" = "10";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "M3H-0u-kfq"; */
+"M3H-0u-kfq.title" = "Settings";
+
+/* Class = "UILabel"; text = "this is my target text: having fun"; ObjectID = "MmP-1W-MxY"; */
+"MmP-1W-MxY.text" = "this is my target text: having fun";
+
+/* Class = "UILabel"; text = "Detecting Language..."; ObjectID = "Psf-0g-eqR"; */
+"Psf-0g-eqR.text" = "Detecting Language...";
+
+/* Class = "UILabel"; text = "Hola amigo"; ObjectID = "RR1-nu-Cwe"; */
+"RR1-nu-Cwe.text" = "Hola amigo";
+
+/* Class = "UIButton"; normalTitle = "Choose Language"; ObjectID = "Trg-pc-8Gf"; */
+"Trg-pc-8Gf.normalTitle" = "Choose Language";
+
+/* Class = "UIButton"; normalTitle = "Lang 1"; ObjectID = "XjQ-kA-2vL"; */
+"XjQ-kA-2vL.normalTitle" = "Lang 1";
+
+/* Class = "UIButton"; normalTitle = "Lang 2"; ObjectID = "YlD-ZG-ZmT"; */
+"YlD-ZG-ZmT.normalTitle" = "Lang 2";
+
+/* Class = "UILabel"; text = "Number of flashcards:"; ObjectID = "Zd7-MV-2uo"; */
+"Zd7-MV-2uo.text" = "Number of flashcards:";
+
+/* Class = "UINavigationItem"; title = "Scan"; ObjectID = "arV-HG-wGg"; */
+"arV-HG-wGg.title" = "Scan";
+
+/* Class = "UILabel"; text = "Tap mic to speak"; ObjectID = "cYj-Uy-WQA"; */
+"cYj-Uy-WQA.text" = "Tap mic to speak";
+
+/* Class = "UILabel"; text = "English"; ObjectID = "f8c-nS-GNP"; */
+"f8c-nS-GNP.text" = "English";
+
+/* Class = "UILabel"; text = "this is my source text"; ObjectID = "gw0-KX-um5"; */
+"gw0-KX-um5.text" = "this is my source text";
+
+/* Class = "UILabel"; text = "hello"; ObjectID = "hwM-Zd-QZp"; */
+"hwM-Zd-QZp.text" = "hello";
+
+/* Class = "UINavigationItem"; title = "Tranlate"; ObjectID = "kQE-9t-oUW"; */
+"kQE-9t-oUW.title" = "Tranlate";
+
+/* Class = "UIButton"; normalTitle = "Choose Language"; ObjectID = "kmY-wi-Czw"; */
+"kmY-wi-Czw.normalTitle" = "Choose Language";
+
+/* Class = "UIButton"; normalTitle = "Continue as Guest"; ObjectID = "pqv-c0-X6M"; */
+"pqv-c0-X6M.normalTitle" = "Continue as Guest";
+
+/* Class = "UILabel"; text = "Detecting Text..."; ObjectID = "pvq-nk-b58"; */
+"pvq-nk-b58.text" = "Detecting Text...";
+
+/* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "r17-at-jaD"; */
+"r17-at-jaD.normalTitle" = "Logout";
+
+/* Class = "UILabel"; text = "Translated Text"; ObjectID = "tvJ-ze-V8b"; */
+"tvJ-ze-V8b.text" = "Translated Text";
+
+/* Class = "UIButton"; normalTitle = "Choose Language"; ObjectID = "vG5-mR-05y"; */
+"vG5-mR-05y.normalTitle" = "Choose Language";
+
+/* Class = "UINavigationItem"; title = "Saved"; ObjectID = "xUc-ue-Rfc"; */
+"xUc-ue-Rfc.title" = "Saved";
+
+/* Class = "UILabel"; text = "Tap mic to speak"; ObjectID = "xeR-vM-Kzb"; */
+"xeR-vM-Kzb.text" = "Tap mic to speak";
+
+/* Class = "UINavigationItem"; title = "Language"; ObjectID = "yJ0-Qu-CKJ"; */
+"yJ0-Qu-CKJ.title" = "Language";

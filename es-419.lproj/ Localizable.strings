@@ -1,0 +1,11 @@
+/* 
+   Localizable.strings
+  BreakingBarriers
+
+  Created by Brian Sanchez on 8/10/20.
+  Copyright © 2020 Brian Sanchez. All rights reserved.
+*/
+
+"Tap mic to speak" = "Tap mic to speak";
+"Listening..." = "Listening...";
+"Tap to enter text" = "Toca para ingresar texto";

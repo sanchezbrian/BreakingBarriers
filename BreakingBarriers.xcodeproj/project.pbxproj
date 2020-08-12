@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0792B840E813DBDA531A4BAB /* Pods_BreakingBarriersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F6E4152632B60EF2A517A1E /* Pods_BreakingBarriersTests.framework */; };
 		2F3B518E24DDC9AB00A7D96C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3B518D24DDC9AB00A7D96C /* SettingsViewController.m */; };
+		2F3B519824E32D4400A7D96C /* BreakingBarriers-Localizations in Resources */ = {isa = PBXBuildFile; fileRef = 2F3B519724E32D4400A7D96C /* BreakingBarriers-Localizations */; };
+		2F3B519924E467F700A7D96C /*  Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F3B519B24E467F700A7D96C /*  Localizable.strings */; };
 		2F78730224CA07D200292E0C /* SavedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730124CA07D200292E0C /* SavedCell.m */; };
 		2F78730524CA0A3000292E0C /* SavedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730424CA0A3000292E0C /* SavedViewController.m */; };
 		2F78730824CA3B7800292E0C /* LearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F78730724CA3B7800292E0C /* LearnViewController.m */; };
@@ -65,6 +67,9 @@
 		2F3B519224E1AE2D00A7D96C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2F3B519324E1AE3800A7D96C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		2F3B519424E1AE3800A7D96C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		2F3B519724E32D4400A7D96C /* BreakingBarriers-Localizations */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "BreakingBarriers-Localizations"; sourceTree = SOURCE_ROOT; };
+		2F3B519A24E467F700A7D96C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/ Localizable.strings"; sourceTree = "<group>"; };
+		2F3B519C24E4680800A7D96C /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/ Localizable.strings"; sourceTree = "<group>"; };
 		2F78730024CA07D200292E0C /* SavedCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedCell.h; sourceTree = "<group>"; };
 		2F78730124CA07D200292E0C /* SavedCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SavedCell.m; sourceTree = "<group>"; };
 		2F78730324CA0A3000292E0C /* SavedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SavedViewController.h; sourceTree = "<group>"; };
@@ -188,6 +193,7 @@
 		2FD1957B24BF5B3500636107 /* BreakingBarriers */ = {
 			isa = PBXGroup;
 			children = (
+				2F3B519B24E467F700A7D96C /*  Localizable.strings */,
 				2FD195B324BF60D800636107 /* Models */,
 				2FD195B224BF609600636107 /* Views */,
 				2FD195B124BF608E00636107 /* View Controller */,
@@ -200,6 +206,7 @@
 				2FD1958A24BF5B3700636107 /* LaunchScreen.storyboard */,
 				2FD1958D24BF5B3700636107 /* Info.plist */,
 				2FD1958E24BF5B3700636107 /* main.m */,
+				2F3B519724E32D4400A7D96C /* BreakingBarriers-Localizations */,
 			);
 			path = BreakingBarriers;
 			sourceTree = "<group>";
@@ -404,8 +411,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F3B519824E32D4400A7D96C /* BreakingBarriers-Localizations in Resources */,
 				2FD1958C24BF5B3700636107 /* LaunchScreen.storyboard in Resources */,
 				2FD1958924BF5B3700636107 /* Assets.xcassets in Resources */,
+				2F3B519924E467F700A7D96C /*  Localizable.strings in Resources */,
 				2FD1958724BF5B3500636107 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,6 +632,16 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2F3B519B24E467F700A7D96C /*  Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2F3B519A24E467F700A7D96C /* en */,
+				2F3B519C24E4680800A7D96C /* es-419 */,
+			);
+			name = " Localizable.strings";
+			path = ..;
+			sourceTree = "<group>";
+		};
 		2FD1958524BF5B3500636107 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -30,6 +30,7 @@
 @property (nonatomic, strong) SFSpeechRecognitionTask *recognitionTask;
 @property (nonatomic, strong) AVAudioEngine *audioEngine;
 @property (nonatomic, strong) MLKTranslator *translator;
+@property (nonatomic, strong) MLKTranslator *translatorTwo;
 @property (nonatomic, strong) NSArray<MLKTranslateLanguage> *allLanguages;
 @property (nonatomic, strong) NSString *langOne;
 @property (nonatomic, strong) NSString *langTwo;
@@ -44,6 +45,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if ([PFUser currentUser] != nil) {
+    PFUser *user = [PFUser currentUser];
+        if (user[@"sourceLang"] != nil) {
+            [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:user[@"sourceLang"]] forState:UIControlStateNormal];
+            self.langOne = user[@"sourceLang"];
+            //NSLog(@"%@", NSLocale.currentLocale.languageCode);
+            [self translate:@"Tap mic to speak" language:self.langOne label:self.conversationOneLabel translator:self.translator];
+            NSLog(@"Load");
+        } else {
+            self.conversationOneLabel.alpha = 0;
+        }
+        if (user[@"targetLang"] != nil) {
+            [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:user[@"targetLang"]] forState:UIControlStateNormal];
+            self.langTwo = user[@"targetLang"];
+            [self translate:@"Tap mic to speak" language:self.langTwo label:self.conversationTwoLabel translator:self.translatorTwo];
+            NSLog(@"Load");
+        } else {
+            self.conversationTwoLabel.alpha = 0;
+        }
+    }
     // Do any additional setup after loading the view.
     self.speechRecognizer.delegate = self;
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
@@ -64,9 +85,9 @@
                 break;
         }
     }];
-    self.startPoint = YES;
 
-    if ([PFUser currentUser] != nil) {
+    self.startPoint = YES;
+    if ([PFUser currentUser] == nil) {
 //        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 //        NSString *language = [defaults stringForKey:@"default_language_one"];
 //        NSString *languageTwo = [defaults stringForKey:@"default_language_two"];
@@ -79,6 +100,9 @@
 //            }
     }
     
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -112,15 +136,6 @@
     frame.origin = self.viewTwoStartPoint;
     frame.size.height = self.view.frame.size.height - self.viewTwoStartPoint.y - 20;
     self.viewTwo.frame = frame;
-    if ([PFUser currentUser] != nil) {
-    PFUser *user = [PFUser currentUser];
-        if (user[@"sourceLang"] != nil && user[@"targetLang"]) {
-            [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:user[@"sourceLang"]] forState:UIControlStateNormal];
-            [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:user[@"targetLang"]] forState:UIControlStateNormal];
-            self.langOne = user[@"sourceLang"];
-            self.langTwo = user[@"targetLang"];
-        }
-    }
 }
 
 - (void)startListen:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
@@ -183,7 +198,7 @@
         } completion:nil];
     } else {
         self.conversationOneLabel.text = @"Listening...";
-        self.conversationTwoLabel.text = @"";
+//        [self translate:@"Tap mic to speak" language:self.langTwo label:self.conversationTwoLabel translator:self.translatorTwo];
         [self SpeechLanguage:self.langOne];
         [self startListen:self.conversationOneLabel to:self.conversationTwoLabel source:self.langOne target:self.langTwo];
         [UIView transitionWithView:self.micOneButton
@@ -209,7 +224,7 @@
         } completion:nil];
     } else {
         self.conversationTwoLabel.text = @"Listening...";
-        self.conversationOneLabel.text = @"";
+//        [self translate:@"Tap mic to speak" language:self.langOne label:self.conversationOneLabel translator:self.translator];
         [self SpeechLanguage:self.langTwo];
         [self startListen:self.conversationTwoLabel to:self.conversationOneLabel source:self.langTwo target:self.langOne];
         [UIView transitionWithView:self.micTwoButton
@@ -262,30 +277,33 @@
 
 - (void)translate:(UILabel *)label to:(UILabel *)labelTo source:(NSString *)source target:(NSString *) target {
     MLKTranslatorOptions *options = [[MLKTranslatorOptions alloc] initWithSourceLanguage:source targetLanguage:target];
+    MLKModelDownloadConditions *conditions =
+    [[MLKModelDownloadConditions alloc] initWithAllowsCellularAccess:NO
+                                         allowsBackgroundDownloading:YES];
     self.translator = [MLKTranslator translatorWithOptions:options];
-    [self.translator downloadModelIfNeededWithCompletion:^(NSError * _Nullable error) {
+    [self.translator downloadModelIfNeededWithConditions:conditions completion:^(NSError * _Nullable error) {
         if (error != nil) {
-            labelTo.text =
-                [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@",
-                                           error.localizedDescription];
-            return;
-          }
-          NSString *text = label.text;
-          if (text == nil) {
-            text = @"";
-          }
-          labelTo.text = @"";
-          [self.translator translateText:text
-                              completion:^(NSString *_Nullable result, NSError *_Nullable error) {
-                                if (error != nil) {
-                                  labelTo.text = [NSString
-                                      stringWithFormat:@"Failed to ensure model downloaded with error %@",
-                                                       error.localizedDescription];
-                                  return;
-                                }
-                                labelTo.text = result;
-          }];
-        }];
+                   labelTo.text =
+                       [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@",
+                                                  error.localizedDescription];
+                   return;
+                 }
+                 NSString *text = label.text;
+                 if (text == nil) {
+                   text = @"";
+                 }
+                 labelTo.text = @"";
+                 [self.translator translateText:text
+                                     completion:^(NSString *_Nullable result, NSError *_Nullable error) {
+                                       if (error != nil) {
+                                         labelTo.text = [NSString
+                                             stringWithFormat:@"Failed to ensure model downloaded with error %@",
+                                                              error.localizedDescription];
+                                         return;
+                                       }
+                                       labelTo.text = result;
+                 }];
+    }];
 }
 - (IBAction)changeLangOne:(id)sender {
     [self performSegueWithIdentifier:@"chooseLanguage" sender:sender];
@@ -300,8 +318,8 @@
     if (contoller.langOne) {
         self.langOne = language;
         [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
-        self.conversationOneLabel.text = @"Tap mic to speak";
-        self.conversationTwoLabel.text = @"Tap mic to speak";
+        [self translate:@"Tap mic to speak" language:language label:self.conversationOneLabel translator:self.translator];
+        self.conversationOneLabel.alpha = 1;
         if ([PFUser currentUser] != nil) {
             PFUser *currUser = [PFUser currentUser];
             currUser[@"sourceLang"] = language;
@@ -318,8 +336,8 @@
     } else {
         self.langTwo = language;
         [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
-        self.conversationTwoLabel.text = @"Tap mic to speak";
-        self.conversationOneLabel.text = @"Tap mic to speak";
+        [self translate:@"Tap mic to speak" language:language label:self.conversationTwoLabel translator:self.translatorTwo];
+        self.conversationTwoLabel.alpha = 1;
         if ([PFUser currentUser] != nil) {
             PFUser *currUser = [PFUser currentUser];
             currUser[@"targetLang"] = language;
@@ -335,6 +353,20 @@
         NSLog(@"Language 2: %@", language);
     }
     [defaults synchronize];
+}
+
+- (void)translate:(NSString *)text language:(NSString *)lang label:(UILabel *)label translator:(MLKTranslator *)trans {
+    MLKTranslatorOptions *options = [[MLKTranslatorOptions alloc] initWithSourceLanguage:@"en" targetLanguage:lang];
+    MLKModelDownloadConditions *conditions =
+    [[MLKModelDownloadConditions alloc] initWithAllowsCellularAccess:NO
+                                         allowsBackgroundDownloading:YES];
+    trans = [MLKTranslator translatorWithOptions:options];
+    [trans downloadModelIfNeededWithConditions:conditions completion:^(NSError * _Nullable error) {
+          [trans translateText:text completion:^(NSString *_Nullable result, NSError *_Nullable error) {
+              NSLog(@"bruh result: %@", result);
+              label.text = result;
+          }];
+    }];
 }
 
 #pragma mark - Navigation

@@ -32,6 +32,8 @@ static NSString *const videoDataOutputQueueLabel =
 @property (strong, nonatomic) NSString *targetLanguage;
 @property (strong, nonatomic) NSString *sourceLangauge;
 @property(nonatomic, strong) MLKTranslator *translator;
+@property CGFloat viewHeight;
+@property CGFloat viewWidth;
 
 @end
 
@@ -59,6 +61,8 @@ static NSString *const videoDataOutputQueueLabel =
         self.videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
         self.videoPreviewLayer.frame = self.previewView.bounds;
         [self.previewView.layer addSublayer: self.videoPreviewLayer];
+        self.viewHeight = self.previewView.frame.size.height;
+        self.viewWidth = self.previewView.frame.size.width;
         [self setUpPreviewOverlayView];
     }
 }
@@ -192,13 +196,10 @@ static NSString *const videoDataOutputQueueLabel =
     self.translator = [MLKTranslator translatorWithOptions:options];
     [self.translator downloadModelIfNeededWithCompletion:^(NSError * _Nullable error) {
         if (error != nil) {
-            self.translatedLabel.text = [NSString stringWithFormat:@"OH no! %@", error.localizedDescription];
             return;
           }
         [self.translator translateText:text completion:^(NSString *_Nullable result, NSError *_Nullable error) {
             if (error != nil) {
-                self.translatedLabel.text = [NSString stringWithFormat:@"Failed to ensure model downloaded with error %@", error.localizedDescription];
-                        return;
             }
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 self.translatedLabel.text = result;
@@ -230,10 +231,10 @@ static NSString *const videoDataOutputQueueLabel =
     const CGFloat imageViewScale = MAX(inputImage.size.width/ viewWidth, inputImage.size.height/ viewHeight);
 
     // Scale cropRect to handle images larger than shown-on-screen size
-    cropRect.origin.x *= imageViewScale;
-    cropRect.origin.y *= imageViewScale;
-    cropRect.size.width *= imageViewScale;
-    cropRect.size.height *= imageViewScale;
+    cropRect.origin.x = cropRect.origin.x * imageViewScale;
+    cropRect.origin.y = cropRect.origin.y * imageViewScale;
+    cropRect.size.width = cropRect.size.width * imageViewScale;
+    cropRect.size.height = cropRect.size.height * imageViewScale;
     
     // Perform cropping in Core Graphics
     CGImageRef cutImageRef = CGImageCreateWithImageInRect(inputImage.CGImage, cropRect);
@@ -250,9 +251,11 @@ static NSString *const videoDataOutputQueueLabel =
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
     UIImage *image = [self imageFromSampleBuffer:sampleBuffer];
+    NSLog(@"%f", image.size.height);
+    NSLog(@"%f", image.size.width);
     //CGRect crop = CGRectMake(112.5, image.size.height / 2 - 50, 250, 100);
-    CGRect crop = CGRectMake(image.size.width / 2 - 125, image.size.height / 2 - 50, 250, 100);
-    UIImage *new = [self cropImage:image toRect:crop viewWidth:375 viewHeight:360];
+    CGRect crop = CGRectMake(image.size.width / 2 - 500, image.size.height / 2 - 50, 1000, 100);
+    UIImage *new = [self cropImage:image toRect:crop viewWidth:self.viewWidth viewHeight:self.viewHeight];
     if (new) {
         MLKVisionImage *visionImage = [[MLKVisionImage alloc] initWithImage:new];
         visionImage.orientation = UIImageOrientationRight;
