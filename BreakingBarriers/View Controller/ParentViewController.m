@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIView *controllerView;
 @property (strong, nonatomic) HMSegmentedControl* segmentedControl;
 @property (strong, nonatomic) NSMutableArray* vcArray;
+@property (strong, nonatomic) NSDictionary* translatedDict;
 @property (assign, nonatomic) BOOL splashShow;
 
 @end
@@ -29,6 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.translatedDict = @{@"en": @[@"Conversation", @"Translate", @"Scan", @"Saved", @"Learn"], @"es": @[@"Conversacion", @"Traducir", @"Escanear", @"Salvado", @"Aprender"], @"zh": @[@"学习", @"翻译", @"扫瞄", @"已保存", @"学习"]};
     self.vcArray = [[NSMutableArray alloc]init];
     for (int i = 0; i < 5; i++) {
         [self.vcArray addObject:[NSNull null]];
@@ -38,9 +40,12 @@
 
     self.view.backgroundColor = [UIColor whiteColor];
     if ([FBSDKAccessToken currentAccessToken] == nil) {
-        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan"]];
+        NSMutableArray *array = self.translatedDict[NSLocale.currentLocale.languageCode];
+        [array removeLastObject];
+        [array removeLastObject];
+        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:array];
     } else {
-        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"Conversation", @"Translate", @"Scan", @"Saved", @"Learn"]];
+        self.segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:self.translatedDict[NSLocale.currentLocale.languageCode]];
     }
     CGFloat viewWidth = CGRectGetWidth(self.view.frame);
     

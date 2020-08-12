@@ -17,23 +17,23 @@
 /* Class = "UILabel"; text = "this is my target text: having fun"; ObjectID = "MmP-1W-MxY"; */
 "MmP-1W-MxY.text" = "this is my target text: having fun";
 
-/* Class = "UILabel"; text = "Detecting Language..."; ObjectID = "Psf-0g-eqR"; */
-"Psf-0g-eqR.text" = "Detecting Language...";
+/* Class = "UILabel"; text = "正在检测语言..."; ObjectID = "Psf-0g-eqR"; */
+"Psf-0g-eqR.text" = "正在检测语言...";
 
 /* Class = "UILabel"; text = "Hola amigo"; ObjectID = "RR1-nu-Cwe"; */
 "RR1-nu-Cwe.text" = "Hola amigo";
 
-/* Class = "UIButton"; normalTitle = "Choose Language"; ObjectID = "Trg-pc-8Gf"; */
-"Trg-pc-8Gf.normalTitle" = "Choose Language";
+/* Class = "UIButton"; normalTitle = "选择语言"; ObjectID = "Trg-pc-8Gf"; */
+"Trg-pc-8Gf.normalTitle" = "选择语言";
 
-/* Class = "UIButton"; normalTitle = "Lang 1"; ObjectID = "XjQ-kA-2vL"; */
-"XjQ-kA-2vL.normalTitle" = "Lang 1";
+/* Class = "UIButton"; normalTitle = "语言1"; ObjectID = "XjQ-kA-2vL"; */
+"XjQ-kA-2vL.normalTitle" = "语言1";
 
-/* Class = "UIButton"; normalTitle = "Lang 2"; ObjectID = "YlD-ZG-ZmT"; */
-"YlD-ZG-ZmT.normalTitle" = "Lang 2";
+/* Class = "UIButton"; normalTitle = "语言2"; ObjectID = "YlD-ZG-ZmT"; */
+"YlD-ZG-ZmT.normalTitle" = "语言2";
 
-/* Class = "UILabel"; text = "Number of flashcards:"; ObjectID = "Zd7-MV-2uo"; */
-"Zd7-MV-2uo.text" = "Number of flashcards:";
+/* Class = "UILabel"; text = "抽认卡数量:"; ObjectID = "Zd7-MV-2uo"; */
+"Zd7-MV-2uo.text" = "抽认卡数量:";
 
 /* Class = "UINavigationItem"; title = "Scan"; ObjectID = "arV-HG-wGg"; */
 "arV-HG-wGg.title" = "Scan";
@@ -53,23 +53,23 @@
 /* Class = "UINavigationItem"; title = "Tranlate"; ObjectID = "kQE-9t-oUW"; */
 "kQE-9t-oUW.title" = "Tranlate";
 
-/* Class = "UIButton"; normalTitle = "Choose Language"; ObjectID = "kmY-wi-Czw"; */
-"kmY-wi-Czw.normalTitle" = "Choose Language";
+/* Class = "UIButton"; normalTitle = "选择语言"; ObjectID = "kmY-wi-Czw"; */
+"kmY-wi-Czw.normalTitle" = "选择语言";
 
-/* Class = "UIButton"; normalTitle = "Continue as Guest"; ObjectID = "pqv-c0-X6M"; */
-"pqv-c0-X6M.normalTitle" = "Continue as Guest";
+/* Class = "UIButton"; normalTitle = "以访客继续"; ObjectID = "pqv-c0-X6M"; */
+"pqv-c0-X6M.normalTitle" = "以访客继续";
 
-/* Class = "UILabel"; text = "Detecting Text..."; ObjectID = "pvq-nk-b58"; */
-"pvq-nk-b58.text" = "Detecting Text...";
+/* Class = "UILabel"; text = "正在检测文字..."; ObjectID = "pvq-nk-b58"; */
+"pvq-nk-b58.text" = "正在检测文字...";
 
 /* Class = "UIButton"; normalTitle = "Logout"; ObjectID = "r17-at-jaD"; */
 "r17-at-jaD.normalTitle" = "Logout";
 
-/* Class = "UILabel"; text = "Translated Text"; ObjectID = "tvJ-ze-V8b"; */
-"tvJ-ze-V8b.text" = "Translated Text";
+/* Class = "UILabel"; text = "翻译文字"; ObjectID = "tvJ-ze-V8b"; */
+"tvJ-ze-V8b.text" = "翻译文字";
 
-/* Class = "UIButton"; normalTitle = "Choose Language"; ObjectID = "vG5-mR-05y"; */
-"vG5-mR-05y.normalTitle" = "Choose Language";
+/* Class = "UIButton"; normalTitle = "选择语言"; ObjectID = "vG5-mR-05y"; */
+"vG5-mR-05y.normalTitle" = "选择语言";
 
 /* Class = "UINavigationItem"; title = "Saved"; ObjectID = "xUc-ue-Rfc"; */
 "xUc-ue-Rfc.title" = "Saved";
