@@ -409,7 +409,9 @@
                     <navigationItem key="navigationItem" title="Settings" id="M3H-0u-kfq"/>
                     <connections>
                         <outlet property="cardSlider" destination="afg-WQ-bmY" id="CGT-oO-DeW"/>
+                        <outlet property="flashLabel" destination="Zd7-MV-2uo" id="xIe-oE-oeP"/>
                         <outlet property="numCards" destination="Iez-b7-EWv" id="kyY-We-ZVq"/>
+                        <segue destination="4ae-AB-Vtd" kind="presentation" identifier="newSegue" id="Evs-ss-qkq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1VG-Fn-0Ae" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -849,6 +851,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Evs-ss-qkq"/>
         <segue reference="reU-cd-iOS"/>
     </inferredMetricsTieBreakers>
     <resources>

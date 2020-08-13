@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UISlider *cardSlider;
 @property NSUInteger maxCards;
 @property NSUInteger numberOfCards;
+@property (weak, nonatomic) IBOutlet UILabel *flashLabel;
 
 @end
 
@@ -33,6 +34,10 @@
     self.numCards.text = @"";
     if ([PFUser currentUser] != nil) {
         [self querySaved];
+    } else {
+        self.cardSlider.alpha = 0;
+        self.numCards.alpha = 0;
+        self.flashLabel.alpha = 0;
     }
     
     
@@ -66,14 +71,15 @@
                        NSLog(@"User signed up and logged in through Facebook!");
                      } else {
                        NSLog(@"User logged in through Facebook!");
+                        [self performSegueWithIdentifier:@"newSegue" sender:self];
                      }
                        NSLog(@"%@", user );
                    }];
                }
-    SceneDelegate *sceneDelegate = (SceneDelegate *) self.view.window.windowScene.delegate;
-     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *timelineTabController = [storyboard instantiateViewControllerWithIdentifier:@"initialView"];
-    sceneDelegate.window.rootViewController = timelineTabController;
+//    SceneDelegate *sceneDelegate = (SceneDelegate *) self.view.window.windowScene.delegate;
+//     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController *timelineTabController = [storyboard instantiateViewControllerWithIdentifier:@"initialView"];
+//    sceneDelegate.window.rootViewController = timelineTabController;
 }
 
 - (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {
