@@ -6,15 +6,16 @@
 //  Copyright © 2020 Brian Sanchez. All rights reserved.
 //
 
+@import MLKit;
 #import <AVFoundation/AVFoundation.h>
 #import <Parse/Parse.h>
 #import <QuartzCore/QuartzCore.h>
 #import "ConversationViewController.h"
 #import "LanguageChooserViewController.h"
 #import "PulsingHaloLayer.h"
-@import MLKit;
+#import "TNTutorialManager.h"
 
-@interface ConversationViewController () <LanguageChooserViewControllerDelegate>
+@interface ConversationViewController () <LanguageChooserViewControllerDelegate, TNTutorialManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *conversationOneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *conversationTwoLabel;
 @property (weak, nonatomic) IBOutlet UIButton *languageOneButton;
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) PulsingHaloLayer *haloTwo;
 @property CGPoint viewTwoStartPoint;
 @property (assign, nonatomic) BOOL startPoint;
+@property (strong, nonatomic) TNTutorialManager *tutorialManager;
 
 @end
 
@@ -64,6 +66,11 @@
         } else {
             self.conversationTwoLabel.alpha = 0;
         }
+    }
+    if ([TNTutorialManager shouldDisplayTutorial:self]) {
+        self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+    } else {
+        self.tutorialManager = nil;
     }
     // Do any additional setup after loading the view.
     self.speechRecognizer.delegate = self;
@@ -99,10 +106,14 @@
 //             //self.conversationOneLabel.text = @"Tap mic to speak";
 //            }
     }
+   
     
 }
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.tutorialManager) {
+        [self.tutorialManager updateTutorial];
+}
 }
 
 - (void)viewDidLayoutSubviews {
@@ -423,6 +434,101 @@
             [self.viewTwo layoutIfNeeded];
         }];
     }
+}
+
+#pragma mark - TNTutorial Delegate
+
+-(UIView *)tutorialMasterView
+{
+    return self.view;
+}
+
+- (NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
+    if (index == 1) {
+        return @[self.languageOneButton];
+    } else if (index == 2) {
+        return @[self.languageTwoButton];
+    } else if (index == 3) {
+        return @[self.micOneButton];
+    } else if (index == 4) {
+        return @[self.micTwoButton];
+    }
+    return nil;
+}
+
+-(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
+{
+    if (index == 0) {
+        return @[@"Welcome to the tutorial!"];
+    } else if (index == 1) {
+        return @[@"Tap here to change language one"];
+    } else if (index == 2) {
+        return @[@"Tap here to change language two"];
+    } else if (index == 3) {
+        return @[@"Tap here to speak into mic one"];
+    } else if (index == 4) {
+        return @[@"Tap here to speak into mic two"];
+    }
+    
+    return nil;
+}
+
+- (void)tutorialPerformAction:(NSInteger)index {
+    if (index == 1) {
+        [self changeLangOne:self.languageOneButton];
+    } else if (index == 2) {
+        [self changeLangTwo:self.languageTwoButton];
+    }
+}
+
+-(BOOL)tutorialAcceptTapsOnHighlightsOnly:(NSInteger)index
+{
+    if (index == 1) {
+        return YES;
+    } else if (index == 2) {
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)tutorialHasSkipButton:(NSInteger)index
+{
+    return NO;
+}
+
+-(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index
+{
+
+    return nil;
+}
+
+-(NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index
+{
+    return @[@(TNTutorialTextPositionBottom)];
+}
+
+-(CGFloat)tutorialDelay:(NSInteger)index
+{
+    return 0;
+}
+
+-(void)tutorialWrapUp
+{
+    self.tutorialManager = nil;
+}
+
+-(NSInteger)tutorialMaxIndex
+{
+    return 5;
+}
+
+-(NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index
+{
+    if (index == 0) {
+        return @[[UIFont systemFontOfSize:35.f weight:UIFontWeightBold]];
+    }
+    
+    return @[[UIFont systemFontOfSize:17.f]];
 }
 
 

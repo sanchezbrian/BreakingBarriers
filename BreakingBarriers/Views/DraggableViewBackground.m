@@ -36,12 +36,20 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
     self = [super initWithFrame:frame];
     if (self) {
         [super layoutSubviews];
+        if ([TNTutorialManager shouldDisplayTutorial:self]) {
+            self.tutorialManager = [[TNTutorialManager alloc] initWithDelegate:self blurFactor:0.1];
+        } else {
+            self.tutorialManager = nil;
+        }
         [self setupView];
         loadedCards = [[NSMutableArray alloc] init];
         allCards = [[NSMutableArray alloc] init];
         cardsLoadedIndex = 0;
         [self querySaved];
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(reShuffle) name:@"reShuffle" object:nil];
+        if (self.tutorialManager) {
+            [self.tutorialManager updateTutorial];
+        }
     }
     return self;
 }
@@ -71,6 +79,9 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
     wrongLabel.layer.masksToBounds = YES;
     correctLabel.text = @"0";
     wrongLabel.text = @"0";
+    self.cardView = [[UIView alloc]initWithFrame:CGRectMake(25, 15, self.frame.size.width - 50, correctLabel.frame.origin.y - 25)];
+    self.cardView.backgroundColor = UIColor.clearColor;
+    [self addSubview:self.cardView];
     [self addSubview:wrongLabel];
     [self addSubview:correctLabel];
     [self addSubview:menuButton];
@@ -266,5 +277,76 @@ static const int MAX_BUFFER_SIZE = 2; //%%% max number of cards loaded at any gi
     // Drawing code
 }
 */
+
+#pragma mark - TNTutorial Delegate
+
+-(UIView *)tutorialMasterView
+{
+    return self;
+}
+
+- (NSArray<UIView *> *)tutorialViewsToHighlight:(NSInteger)index {
+    if (index == 0) {
+        return @[self.cardView];
+    } else if (index == 1) {
+        return @[checkButton];
+    } else if (index == 2) {
+        return @[xButton];
+    }
+    
+    return nil;
+}
+
+-(NSArray<NSString *> *)tutorialTexts:(NSInteger)index
+{
+    if (index == 0) {
+        return @[@"Tap to turn the card over and see if you got it right"];
+    } else if (index == 1) {
+        return @[@"Swipe right of tap the here if you got it right!"];
+    } else if (index == 2) {
+        return @[@"Swipe left or tap the here if you got it wrong"];
+    }
+    
+    return nil;
+}
+
+-(BOOL)tutorialHasSkipButton:(NSInteger)index
+{
+    return NO;
+}
+
+-(NSArray<TNTutorialEdgeInsets *> *)tutorialViewsEdgeInsets:(NSInteger)index
+{
+
+    return nil;
+}
+
+-(NSArray<NSNumber *> *)tutorialTextPositions:(NSInteger)index
+{
+    if (index == 0) {
+        return @[@(TNTutorialTextPositionBottom)];
+    }
+    return @[@(TNTutorialTextPositionTop)];
+}
+
+-(CGFloat)tutorialDelay:(NSInteger)index
+{
+    return 0;
+}
+
+-(void)tutorialWrapUp
+{
+    self.tutorialManager = nil;
+}
+
+-(NSInteger)tutorialMaxIndex
+{
+    return 3;
+}
+
+-(NSArray<UIFont *> *)tutorialTextFonts:(NSInteger)index
+{
+    return @[[UIFont systemFontOfSize:17.f]];
+}
 
 @end

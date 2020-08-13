@@ -32,8 +32,9 @@
 
 #import <UIKit/UIKit.h>
 #import "DraggableView.h"
+#import "TNTutorialManager.h"
 
-@interface DraggableViewBackground : UIView <DraggableViewDelegate>
+@interface DraggableViewBackground : UIView <DraggableViewDelegate, TNTutorialManagerDelegate>
 
 //methods called in DraggableView
 -(void)cardSwipedLeft:(UIView *)card;
@@ -42,6 +43,7 @@
 @property (retain,nonatomic)NSMutableArray* learnCards; //%%% the labels the cards
 @property (retain,nonatomic)NSMutableArray* allCards; //%%% the labels the cards
 @property NSUInteger numberOfCards;
-
+@property (strong, nonatomic)UIView* cardView;
+@property (strong, nonatomic) TNTutorialManager *tutorialManager;
 
 @end
