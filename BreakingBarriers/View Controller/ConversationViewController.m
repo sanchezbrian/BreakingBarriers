@@ -329,7 +329,11 @@
     if (contoller.langOne) {
         self.langOne = language;
         [self.languageOneButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
-        [self translate:@"Tap mic to speak" language:language label:self.conversationOneLabel translator:self.translator];
+        if ([language isEqual: @"en"]) {
+            self.conversationOneLabel.text = @"Tap mic to speak";
+        } else {
+            [self translate:@"Tap mic to speak" language:language label:self.conversationOneLabel translator:self.translator];
+        }
         self.conversationOneLabel.alpha = 1;
         if ([PFUser currentUser] != nil) {
             PFUser *currUser = [PFUser currentUser];
@@ -347,7 +351,11 @@
     } else {
         self.langTwo = language;
         [self.languageTwoButton setTitle:[NSLocale.currentLocale localizedStringForLanguageCode:language] forState:UIControlStateNormal];
-        [self translate:@"Tap mic to speak" language:language label:self.conversationTwoLabel translator:self.translatorTwo];
+        if ([language isEqual: @"en"]) {
+            self.conversationTwoLabel.text = @"Tap mic to speak";
+        } else {
+            [self translate:@"Tap mic to speak" language:language label:self.conversationTwoLabel translator:self.translatorTwo];
+        }
         self.conversationTwoLabel.alpha = 1;
         if ([PFUser currentUser] != nil) {
             PFUser *currUser = [PFUser currentUser];
