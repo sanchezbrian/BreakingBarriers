@@ -176,15 +176,15 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LanguageCell" rowHeight="60" id="NKS-Xd-bS2" customClass="LanguageCell">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LanguageCell" rowHeight="77" id="NKS-Xd-bS2" customClass="LanguageCell">
+                                        <rect key="frame" x="0.0" y="72" width="375" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NKS-Xd-bS2" id="IpM-cu-Xi0">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="77"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FRy-PA-7EY">
-                                                    <rect key="frame" x="15" y="10" width="345" height="40"/>
+                                                    <rect key="frame" x="15" y="10" width="345" height="57"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8c-nS-GNP">
                                                             <rect key="frame" x="8.0000000000000036" y="10" width="58.333333333333343" height="21"/>
@@ -212,19 +212,27 @@
                                                                 <action selector="pressDownload:" destination="NKS-Xd-bS2" eventType="touchUpInside" id="tVL-OZ-cAd"/>
                                                             </connections>
                                                         </button>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GoP-Oz-25n">
+                                                            <rect key="frame" x="8" y="38" width="40" height="13.333333333333336"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
+                                                            <color key="textColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="mrS-rO-Ez4" secondAttribute="bottom" constant="8" id="5df-v5-csi"/>
-                                                        <constraint firstAttribute="bottom" secondItem="f8c-nS-GNP" secondAttribute="bottom" constant="9" id="EjD-Ki-FSM"/>
                                                         <constraint firstItem="mrS-rO-Ez4" firstAttribute="top" secondItem="9xO-Rc-Ce7" secondAttribute="bottom" id="Gtz-Zm-Wd5"/>
+                                                        <constraint firstItem="GoP-Oz-25n" firstAttribute="top" relation="greaterThanOrEqual" secondItem="f8c-nS-GNP" secondAttribute="bottom" constant="6" id="Jeg-6e-k06"/>
                                                         <constraint firstItem="f8c-nS-GNP" firstAttribute="leading" secondItem="FRy-PA-7EY" secondAttribute="leading" constant="8" id="SWr-U8-3Rs"/>
                                                         <constraint firstItem="9xO-Rc-Ce7" firstAttribute="top" secondItem="FRy-PA-7EY" secondAttribute="top" constant="10" id="VRz-O4-lSS"/>
                                                         <constraint firstAttribute="trailing" secondItem="9xO-Rc-Ce7" secondAttribute="trailing" constant="21" id="a4s-0P-AWD"/>
                                                         <constraint firstItem="f8c-nS-GNP" firstAttribute="top" secondItem="FRy-PA-7EY" secondAttribute="top" constant="10" id="deM-Am-jFC"/>
+                                                        <constraint firstAttribute="bottom" secondItem="GoP-Oz-25n" secondAttribute="bottom" constant="5.6699999999999999" id="dzr-LM-g0O"/>
                                                         <constraint firstItem="mrS-rO-Ez4" firstAttribute="top" secondItem="9xO-Rc-Ce7" secondAttribute="bottom" id="fJK-Hd-1rn"/>
                                                         <constraint firstAttribute="trailing" secondItem="mrS-rO-Ez4" secondAttribute="trailing" constant="8" id="lAa-s7-b4F"/>
                                                         <constraint firstItem="9xO-Rc-Ce7" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="f8c-nS-GNP" secondAttribute="trailing" constant="10" id="lcx-O2-b38"/>
+                                                        <constraint firstItem="GoP-Oz-25n" firstAttribute="leading" secondItem="FRy-PA-7EY" secondAttribute="leading" constant="8" id="tgn-HP-8HG"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -240,6 +248,7 @@
                                         <connections>
                                             <outlet property="cellView" destination="FRy-PA-7EY" id="hKg-FR-qqt"/>
                                             <outlet property="downloadButton" destination="9xO-Rc-Ce7" id="4Jq-3b-az2"/>
+                                            <outlet property="englishLabel" destination="GoP-Oz-25n" id="t6p-aU-ah3"/>
                                             <outlet property="languageLabel" destination="f8c-nS-GNP" id="Lo3-aG-jCP"/>
                                             <outlet property="progressView" destination="mrS-rO-Ez4" id="xhe-eY-og3"/>
                                         </connections>
@@ -275,7 +284,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rUZ-1c-uJJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1300" y="1909"/>
+            <point key="canvasLocation" x="-1300" y="1908.6206896551726"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="F14-B1-HxC">

@@ -59,6 +59,12 @@
         [cell setLangauge:self.filteredLanguages[indexPath.row]];
     } else {
         cell.languageLabel.text = [NSLocale.currentLocale localizedStringForLanguageCode:self.allLanguages[indexPath.row]];
+        NSLocale *englishLocale = [NSLocale localeWithLocaleIdentifier:@"en"];
+        if (![NSLocale.currentLocale.languageCode isEqual: @"en"]) {
+            cell.englishLabel.text = [englishLocale localizedStringForLanguageCode:self.allLanguages[indexPath.row]];
+        } else {
+            cell.englishLabel.alpha = 0;
+        }
         [cell setLangauge:self.allLanguages[indexPath.row]];
     }
     return cell;
